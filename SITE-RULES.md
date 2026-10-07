@@ -2,6 +2,7 @@
 
 Repo: smartsubhajit2005-coder/Tools-TechmanagerLab (public, Pages → branch `main`, root).
 Live: https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/
+Social (published: Instagram only): https://www.instagram.com/techmanagerlab/ — Facebook/LinkedIn pending owner URLs.
 Local: E:\Projects\techmanagerlab-site\
 
 ## House rules
