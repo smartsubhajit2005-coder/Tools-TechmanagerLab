@@ -40,7 +40,16 @@ h2{margin-top:64px;font-size:30px;font-weight:800}
 <div class="sub">Free templates for every project. Practical solutions, real growth.</div>
 <div class="rule"></div>
 <p class="lead">Every Tech Manager Lab video ships with the exact checklist, workbook or template used in the episode. Pick your project below — no signup, direct downloads.</p>
-<div class="btnrow"><a class="btn" href="https://www.youtube.com/@techmanagerlab?sub_confirmation=1">SUBSCRIBE</a><a class="btn ghost" href="https://youtu.be/Wuu4lYZpEUQ">LATEST VIDEO</a></div>
+<div class="btnrow"><a class="btn" href="https://www.youtube.com/@techmanagerlab?sub_confirmation=1">SUBSCRIBE</a><a class="btn ghost" id="latestBtn" href="https://youtu.be/Wuu4lYZpEUQ">LATEST VIDEO</a></div>
+
+<div class="proj" id="featured" style="margin-top:30px">
+<div class="k">LATEST UPLOAD</div>
+<a id="featLink" href="https://youtu.be/Wuu4lYZpEUQ" style="text-decoration:none;color:inherit">
+<img id="featThumb" src="https://i.ytimg.com/vi/Wuu4lYZpEUQ/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/Wuu4lYZpEUQ/hqdefault.jpg'" alt="Latest video thumbnail" style="margin-top:14px;width:100%;border-radius:14px;border:2px solid rgba(46,230,255,.4)">
+<h3 id="featTitle" style="margin-top:14px;font-size:24px;font-weight:800">Microsoft 365 License Audit: 30 Ghost Seats Cost ₹3.5 Lakh a Year (SMB)</h3>
+<p id="featDate" style="margin-top:6px;font-size:14px;color:#7dd3fc;letter-spacing:2px">07 OCT 2026 · CLICK TO WATCH</p>
+</a>
+</div>
 
 <h2>Microsites</h2>
 <div class="proj" id="microsites" style="margin-top:24px">
@@ -71,7 +80,7 @@ h2{margin-top:64px;font-size:30px;font-weight:800}
 <h2>Published videos — newest first</h2>
 <div class="proj" id="videos" style="margin-top:24px">
 <div class="k">DATE-WISE · YOUTUBE</div>
-<div class="dl" style="margin-top:18px;flex-direction:column;align-items:stretch">
+<div class="dl" id="videoList" style="margin-top:18px;flex-direction:column;align-items:stretch">
 <a href="https://youtu.be/Wuu4lYZpEUQ">07 Oct 2026 · Microsoft 365 License Audit: 30 Ghost Seats Cost ₹3.5 Lakh a Year (SMB)</a>
 <a href="https://youtu.be/qV6YUwp0dfw">05 Oct 2026 · Tool Sprawl and Interruptions Steal Your Week (Part 2)</a>
 <a href="https://youtu.be/skqzl6SYx1Y">02 Oct 2026 · What IT Managers Do in 2026 - And How It's Broken - Part 1</a>
@@ -83,6 +92,30 @@ h2{margin-top:64px;font-size:30px;font-weight:800}
 <a href="https://youtu.be/VB9VhGLzxmA">15 Sep 2026 · Vendor Negotiation for IT Managers: The 3 Numbers You Need (Part 1)</a>
 </div>
 </div>
+<script>
+fetch('videos.json').then(function(r){return r.json();}).then(function(v){
+  if(!v.length) return;
+  var f=v[0];
+  document.getElementById('featLink').href='https://youtu.be/'+f.id;
+  document.getElementById('latestBtn').href='https://youtu.be/'+f.id;
+  var th=document.getElementById('featThumb');
+  th.src='https://i.ytimg.com/vi/'+f.id+'/maxresdefault.jpg';
+  th.onerror=function(){th.onerror=null;th.src='https://i.ytimg.com/vi/'+f.id+'/hqdefault.jpg';};
+  document.getElementById('featTitle').textContent=f.title;
+  document.getElementById('featDate').textContent=f.at.slice(8,10)+' '+['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][+f.at.slice(5,7)-1]+' '+f.at.slice(0,4)+' · CLICK TO WATCH';
+  var list=document.getElementById('videoList'); list.innerHTML='';
+  var mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  v.forEach(function(x){
+    var d=x.at.slice(8,10)+' '+mon[+x.at.slice(5,7)-1]+' '+x.at.slice(0,4);
+    var a=document.createElement('a'); a.href='https://youtu.be/'+x.id;
+    a.style.cssText='display:flex;gap:16px;align-items:center';
+    var im=document.createElement('img'); im.src='https://i.ytimg.com/vi/'+x.id+'/hqdefault.jpg';
+    im.alt=''; im.loading='lazy'; im.style.cssText='width:168px;flex:none;border-radius:10px;border:1px solid rgba(46,230,255,.4)';
+    var sp=document.createElement('span'); sp.textContent=d+' · '+x.title;
+    a.appendChild(im); a.appendChild(sp); list.appendChild(a);
+  });
+}).catch(function(){});
+</script>
 
 <div class="foot">TECH MANAGER LAB · TOOLS · MORE PROJECTS LAND WITH EACH VIDEO</div>
 </div></body></html>
