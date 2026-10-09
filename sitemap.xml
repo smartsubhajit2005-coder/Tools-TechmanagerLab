@@ -8,9 +8,15 @@
   </url>
   <url>
     <loc>https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/blog.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/about.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/tools/tier1-license-cleanup/</loc>
