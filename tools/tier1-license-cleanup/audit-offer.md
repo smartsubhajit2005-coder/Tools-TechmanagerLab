@@ -18,4 +18,4 @@
 - Contractor-churn problem: needs onboarding automation, quoted separately
 - Enterprise SSO/provisioning suites (500+ seats): out of scope for this pack
 
-Contact: reply AUDIT on the video (https://youtu.be/Wuu4lYZpEUQ) or the channel page.
+Contact: reply AUDIT on the video (https://youtu.be/0VNpbtXEYjQ) or the channel page.

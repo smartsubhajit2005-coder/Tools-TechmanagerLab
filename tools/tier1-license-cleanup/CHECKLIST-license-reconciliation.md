@@ -1,4 +1,4 @@
-# License Reconciliation Checklist (Quarterly, 20 Minutes)
+﻿# License Reconciliation Checklist (Quarterly, 20 Minutes)
 
 For teams of 20–200 seats on Microsoft 365 or Google Workspace. Under 15 seats: do it by hand. Run first Monday of each quarter.
 
@@ -6,12 +6,12 @@ For teams of 20–200 seats on Microsoft 365 or Google Workspace. Under 15 seats
 - [ ] M365 Admin Center → Users → Active Users → Export → save as `users-export.csv`
 - [ ] OR Google Admin Console → Users → Download users → save as `users-export.csv`
 - [ ] Columns needed: DisplayName, Email, LicenseStatus, LastSignIn
-- [ ] Template: `users-export-template.csv` in this folder
+- [ ] Template: `users-export-template.xlsx` in this folder
 
 ## 2. Export bills (5 min)
 - [ ] Zoho Books → Purchases → Bills → filter vendor Microsoft / Google → Export
 - [ ] Record each invoice: Vendor, InvoiceNo, Period, Seats, RateINR, AmountINR
-- [ ] Template: `invoices-template.csv` in this folder
+- [ ] Template: `invoices-template.xlsx` in this folder
 
 ## 3. Match (5 min)
 - [ ] Open both CSVs in Excel → Data → Get Data → From Text/CSV
@@ -20,7 +20,7 @@ For teams of 20–200 seats on Microsoft 365 or Google Workspace. Under 15 seats
 - [ ] Sanity check: total billed seats vs active users — the gap is your leak
 
 ## 4. Approve + suspend (5 min + waiting)
-- [ ] Log every Ghost Candidate in `ghost-review-log.csv`
+- [ ] Log every Ghost Candidate in `ghost-review-log.xlsx`
 - [ ] Email each department head: "These accounts show no sign-in for 90 days. Approve suspension by Friday."
 - [ ] Suspend approved accounts in Admin Center — NEVER delete on day one
 - [ ] No automated revocation without a human sign-off, ever
