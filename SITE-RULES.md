@@ -15,6 +15,7 @@ Local: E:\Projects\techmanagerlab-site\
 - Downloads are direct files (.xlsx/.md). No signup gates, no backend.
 - Thumbnails: 16:9, navy/cyan system, ≤6 words, 72px+ bold, mobile-legible at 168px; same template for site + YouTube.
 - Editorial QA: run `EDITORIAL-QA.md` before every publish; blog claims need sources or illustrative labels.
+- Thumbnails: add video thumbnails and watch links only after the video is public (never for private/scheduled); 16:9, navy/cyan system, ≤6 words, 72px+ bold, mobile-legible at 168px; same template for site + YouTube.
 
 ## Pipeline (on every YouTube publish)
 1. Run `workflows/list_videos.js` → refreshes `videos.json` in site repo.

@@ -2,7 +2,23 @@
 
 ## Video Research & Reports
 
-### 1. After-Hours Work and Accountability Breaks (Part 3)
+### 1. The IT Operating Model That Fixes All 4 Breaks (Part 4 Finale)
+- **Video ID:** J7Dwk1ZjMuQ
+- **Upload Date:** 11 OCT 2026
+- **Description:** Series finale. Four breaks, four fixes, one operating model: ownership, decision rights, service measures, operating rhythms, continuous improvement. Each fix starts this week with no budget approval.
+- **Key Findings:**
+  - Fix sprawl with one crossing point for every system
+  - Fix interrupts with a triage rule plus a protected block
+  - Fix accountability with authority on paper
+  - Fix after-hours with a stated boundary the team can see
+  - A model decides once; a habit re-decides every week
+- **Research Data:**
+  - Runbook automation market $4.2B (2025) to $9.8B (2033), 11.2% CAGR (public market reports)
+  - Only ~32% of change initiatives succeed (2024–25 industry roundups); unauthorized change drives audit failures (KPMG 2024)
+  - US tech debt costs ~$2.41T/year; ~30% of IT budgets go to debt service (Accenture, Protiviti)
+  - 69% of IT leaders say tech debt blocks innovation (OutSystems)
+
+### 2. After-Hours Work and Accountability Breaks (Part 3)
 - **Video ID:** TBf709pUTOg
 - **Upload Date:** 08 OCT 2026
 - **Description:** Part 3 covers the two breaks that never leave your week: the accountability break and the after-hours break. Diagnosis only — the fixes are in Part 4.
@@ -14,7 +30,7 @@
   - Diagnosis only; repairs reserved for Part 4
   - Series positioning: Part 3 of 4 in “What IT Managers Do in 2026”
 
-### 2. Microsoft 365 License Audit: 30 Ghost Seats Cost ₹3.5 Lakh a Year (SMB)
+### 3. Microsoft 365 License Audit: 30 Ghost Seats Cost ₹3.5 Lakh a Year (SMB)
 - **Video ID:** 0VNpbtXEYjQ
 - **Upload Date:** 07 OCT 2026
 - **Description:** A 9-minute walkthrough covering how to find ghost seats in Microsoft 365 licenses, reconcile them against Zoho Books bills, and save approximately ₹3.5 lakh annually for companies with 100+ seats.
@@ -28,7 +44,7 @@
   - Time saved: ~2 hours/month on license auditing
   - Common pain points: manual spreadsheet tracking, delayed billing reconciliation
 
-### 3. Tool Sprawl and Interruptions Steal Your Week (Part 2)
+### 4. Tool Sprawl and Interruptions Steal Your Week (Part 2)
 - **Video ID:** qV6YUwp0dfw
 - **Upload Date:** 05 OCT 2026
 - **Description:** Part 2 continues the discussion on managing tool sprawl, interruptions, and maintaining productivity in IT environments.
@@ -41,7 +57,7 @@
   - Average time lost to tool switching: 15 minutes/day
   - ROI: 3:1 for productivity gains
 
-### 4. What IT Managers Do in 2026 - And How It's Broken - Part 1
+### 5. What IT Managers Do in 2026 - And How It's Broken - Part 1
 - **Video ID:** skqzl6SYx1Y
 - **Upload Date:** 02 OCT 2026
 - **Description:** Analysis of current IT management challenges and trends in 2026.
@@ -54,7 +70,7 @@
   - Cloud migration complexity increases by 30% YoY
   - Remote team support requires 40% more IT capacity
 
-### 5. 7 AI Tools Every IT Manager Needs for Workflow Automation
+### 6. 7 AI Tools Every IT Manager Needs for Workflow Automation
 - **Video ID:** yRur6Y-0j4U
 - **Upload Date:** 28 SEP 2026
 - **Description:** Overview of AI-powered tools for IT operations, including scheduling, ticket routing, and automated reporting.
@@ -67,7 +83,7 @@
   - Top 3 tools with highest ROI: ticket routing, automated reporting, chatbots
   - Implementation timeline: 4-6 weeks for pilot programs
 
-### 6. How to Build an IT Operating Model People Actually Use (Part 4)
+### 7. How to Build an IT Operating Model People Actually Use (Part 4)
 - **Video ID:** lyQtXudh7og
 - **Upload Date:** 22 SEP 2026
 - **Description:** Step-by-step guide to building sustainable IT operating models.
@@ -80,7 +96,7 @@
   - Common pitfalls: siloed teams, lack of documentation
   - Benchmark metrics: MTTR reduction, SLA compliance rates
 
-### 7. How to Turn an IT Technical Request Into a Business Case (Part 3)
+### 8. How to Turn an IT Technical Request Into a Business Case (Part 3)
 - **Video ID:** f3zJ9xlaXCU
 - **Upload Date:** 20 SEP 2026
 - **Description:** Framework for converting technical requests into compelling business cases with ROI justification.
@@ -93,7 +109,7 @@
   - Average business case approval time: 14 days
   - Top justification factors: cost avoidance, revenue enablement, risk mitigation
 
-### 8. IT Vendor Scorecard: 5 Categories to Rate Any Vendor (Part 2)
+### 9. IT Vendor Scorecard: 5 Categories to Rate Any Vendor (Part 2)
 - **Video ID:** xEj-ItzLeTM
 - **Upload Date:** 18 SEP 2026
 - **Description:** Framework for evaluating IT vendors across five key categories.
@@ -106,7 +122,7 @@
   - Top 3 scoring categories: support responsiveness, SLAs, pricing transparency
   - Common negotiation levers: contract terms, renewal clauses, exit strategy
 
-### 9. Vendor Negotiation for IT Managers: The 3 Numbers You Need (Part 1)
+### 10. Vendor Negotiation for IT Managers: The 3 Numbers You Need (Part 1)
 - **Video ID:** VB9VhGLzxmA
 - **Upload Date:** 15 SEP 2026
 - **Description:** Essential metrics for negotiating better deals with IT vendors.
