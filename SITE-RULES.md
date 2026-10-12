@@ -1,7 +1,7 @@
 # Tools Site — Standing Instructions (locked 2026-10-07, evolves by owner call only)
 
 Repo: smartsubhajit2005-coder/Tools-TechmanagerLab (public, Pages → branch `main`, root).
-Live: https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/
+Live: https://techmanagerlab.com/ (custom domain; GitHub Pages via CNAME). "Website" always means this URL.
 Social (published: Instagram only): https://www.instagram.com/techmanagerlab/ — Facebook/LinkedIn pending owner URLs.
 Local: E:\Projects\techmanagerlab-site\
 

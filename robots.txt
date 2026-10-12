@@ -1,4 +1,4 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 
-Sitemap: https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/sitemap.xml
+Sitemap: https://techmanagerlab.com/sitemap.xml

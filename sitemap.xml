@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/</loc>
+    <loc>https://techmanagerlab.com/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/blog.html</loc>
+    <loc>https://techmanagerlab.com/blog.html</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/about.html</loc>
+    <loc>https://techmanagerlab.com/about.html</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/tools/tier1-license-cleanup/</loc>
+    <loc>https://techmanagerlab.com/tools/tier1-license-cleanup/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smartsubhajit2005-coder.github.io/Tools-TechmanagerLab/tools/it-health-check/</loc>
+    <loc>https://techmanagerlab.com/tools/it-health-check/</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
