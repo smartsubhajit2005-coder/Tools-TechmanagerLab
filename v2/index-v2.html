@@ -61,13 +61,174 @@
     header.topbar nav a { color: var(--body); text-decoration: none; font-weight: 600; }
     header.topbar nav a:hover { color: var(--cyan); }
     main { max-width: 1080px; margin: 0 auto; padding: 24px; }
+    section { margin-bottom: 36px; }
+
+    /* Hero console */
+    .console {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: center;
+      background: linear-gradient(160deg, var(--navy) 0%, var(--panel) 140%);
+      border: 1px solid rgba(46, 230, 255, .3);
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(245, 166, 35, .15);
+      border: 1px solid var(--amber);
+      color: var(--amber);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .console h1 {
+      color: #fff;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+      margin: 14px 0 8px;
+    }
+    .console h1 .accent { color: var(--cyan); }
+    .console .sub { margin: 0 0 20px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      min-height: 44px;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 15px;
+    }
+    .btn-primary { background: var(--cyan); color: var(--navy); }
+    .btn-primary:hover { filter: brightness(1.1); }
+    .btn-outline { border: 2px solid var(--cyan); color: var(--cyan); }
+    .btn-outline:hover { background: rgba(46, 230, 255, .12); }
+
+    /* Video card */
+    .video-card {
+      display: block;
+      border: 2px solid rgba(46, 230, 255, .4);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #010b26;
+      text-decoration: none;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .video-card:hover { transform: translateY(-3px); border-color: var(--cyan); }
+    .video-card img { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; }
+    .video-card .label {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 12px;
+      color: var(--body);
+      font-size: 13px;
+    }
+    .video-card .label .play { color: var(--cyan); font-weight: 700; white-space: nowrap; }
+
+    /* Bento tiles */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .tile {
+      display: block;
+      background: rgba(1, 48, 145, .45);
+      border: 1px solid rgba(46, 230, 255, .25);
+      border-radius: 12px;
+      padding: 18px;
+      text-decoration: none;
+      color: var(--body);
+      min-height: 24px;
+      transition: border-color .15s ease;
+    }
+    a.tile:hover { border-color: var(--cyan); }
+    .tile h3 { margin: 0 0 6px; color: #fff; font-size: 17px; }
+    .tile p { margin: 0; font-size: 14px; }
+
+    /* Stats strip */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 32px;
+      justify-content: center;
+      background: rgba(1, 48, 145, .35);
+      border-top: 1px solid rgba(46, 230, 255, .25);
+      border-bottom: 1px solid rgba(46, 230, 255, .25);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .stat { text-align: center; }
+    .stat strong { display: block; color: var(--cyan); font-size: 24px; }
+    .stat span { font-size: 13px; }
+
+    /* Hubs */
+    .hubs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .hub-card {
+      background: rgba(1, 48, 145, .45);
+      border: 1px solid rgba(46, 230, 255, .25);
+      border-radius: 12px;
+      padding: 18px;
+      text-decoration: none;
+      color: var(--body);
+      display: block;
+    }
+    a.hub-card:hover { border-color: var(--cyan); }
+    .hub-card h3 { margin: 0 0 6px; color: #fff; font-size: 17px; }
+    .hub-card p { margin: 0; font-size: 14px; }
+    .soon {
+      opacity: .65;
+      border-style: dashed;
+    }
+    .soon .tag { color: var(--amber); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+
+    /* Footer */
     footer#footer {
       max-width: 1080px;
       margin: 0 auto;
       padding: 24px;
       border-top: 1px solid rgba(46, 230, 255, .25);
+      font-size: 14px;
+    }
+    footer#footer nav { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+    footer#footer nav a { color: var(--body); text-decoration: none; font-weight: 600; }
+    footer#footer nav a:hover { color: var(--cyan); }
+    footer#footer .tagline { color: var(--cyan); font-weight: 700; }
+    footer#footer .answer { max-width: 70ch; color: var(--body); }
+    footer#footer .legal { color: rgba(207, 235, 255, .7); font-size: 13px; }
+
+    @media (max-width: 760px) {
+      .console { grid-template-columns: 1fr; padding: 22px; }
+      .bento { grid-template-columns: 1fr; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tech Manager Lab",
+    "url": "https://techmanagerlab.com",
+    "slogan": "Practical Solutions. Real Growth.",
+    "sameAs": ["https://www.youtube.com/channel/UCUpvo162ED-Kxpt9sNYnlww"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Tech Manager Lab",
+    "url": "https://techmanagerlab.com"
+  }
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -79,12 +240,88 @@
       <a href="https://techmanagerlab.com/tools/tier1-license-cleanup/">Tools</a>
     </nav>
   </header>
+
   <main id="main">
-    <section id="latest" aria-label="Latest video"></section>
-    <section id="bento" aria-label="Highlights"></section>
-    <section id="stats" aria-label="Stats"></section>
-    <section id="hubs" aria-label="Topic hubs"></section>
+    <section id="latest" aria-label="Latest video">
+      <div class="console">
+        <div>
+          <span class="badge">NEW EPISODE</span>
+          <h1>Run IT like a <span class="accent">business.</span></h1>
+          <p class="sub">Audits, tools and playbooks for SMB IT managers. India-first. Practical solutions, real growth.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://www.youtube.com/@TechManagerLab?sub_confirmation=1">SUBSCRIBE</a>
+            <a class="btn btn-outline" href="https://www.youtube.com/watch?v=0wsTlPznAss">WATCH LATEST</a>
+          </div>
+        </div>
+        <a class="video-card" href="https://www.youtube.com/watch?v=0wsTlPznAss">
+          <img src="https://i.ytimg.com/vi/0wsTlPznAss/maxresdefault.jpg"
+               width="1280" height="720" loading="eager"
+               alt="Latest video: Cyber Insurance Questionnaire Explained — SMB Readiness Checklist 2026"
+               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/0wsTlPznAss/hqdefault.jpg';">
+          <span class="label"><span>Cyber Insurance Questionnaire Explained</span><span class="play">Latest upload ▶</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section id="bento" aria-label="Highlights">
+      <div class="bento">
+        <!-- HUB_URL: fill after Task 4 -->
+        <a class="tile" href="HUB_URL">
+          <h3>License &amp; SaaS Cost Control</h3>
+          <p>New topic hub: audits, playbooks and tools that cut software spend.</p>
+        </a>
+        <a class="tile" href="https://techmanagerlab.com/tools/tier1-license-cleanup/">
+          <h3>2 free tools</h3>
+          <p>License cleanup + IT health check. No signup.</p>
+        </a>
+        <a class="tile" href="https://www.youtube.com/@TechManagerLab">
+          <h3>Weekly playbooks</h3>
+          <p>One practical IT management video every week.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="stats" aria-label="Stats">
+      <div class="stats">
+        <div class="stat"><strong>13</strong><span>videos</span></div>
+        <div class="stat"><strong>2</strong><span>free tools</span></div>
+        <div class="stat"><strong>India-first</strong><span>built for SMB IT teams</span></div>
+      </div>
+    </section>
+
+    <section id="hubs" aria-label="Topic hubs">
+      <div class="hubs">
+        <!-- HUB_URL: fill after Task 4 -->
+        <a class="hub-card" href="HUB_URL">
+          <h3>License &amp; SaaS Cost Control</h3>
+          <p>Ghost seats, shadow IT, renewals — stop the bleed. Live pilot hub.</p>
+        </a>
+        <div class="hub-card soon"><span class="tag">COMING SOON</span>
+          <h3>IT Operations</h3>
+          <p>Operating models that fix the four everyday breaks.</p>
+        </div>
+        <div class="hub-card soon"><span class="tag">COMING SOON</span>
+          <h3>Cybersecurity</h3>
+          <p>Practical controls and readiness checklists for SMBs.</p>
+        </div>
+        <div class="hub-card soon"><span class="tag">COMING SOON</span>
+          <h3>AI &amp; Automation</h3>
+          <p>Workflow automation that gives hours back every week.</p>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer id="footer"></footer>
+
+  <footer id="footer">
+    <nav aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="#hubs">Hubs</a>
+      <a href="https://techmanagerlab.com/tools/tier1-license-cleanup/">Tools</a>
+      <a href="https://www.youtube.com/@TechManagerLab">YouTube</a>
+    </nav>
+    <p class="tagline">Practical Solutions. Real Growth.</p>
+    <p class="answer">What is Tech Manager Lab? Tech Manager Lab is a practical resource for SMB IT managers in India: weekly YouTube playbooks, free tools and topic hubs that turn everyday IT work — licenses, security, operations, AI — into repeatable, auditable processes. No vendor pitches, no jargon: each video ships with a checklist or template you can use the same day. Start with the latest video, or open the License &amp; SaaS Cost Control hub to cut software spend first.</p>
+    <p class="legal">© 2026 Tech Manager Lab. All rights reserved.</p>
+  </footer>
 </body>
 </html>
