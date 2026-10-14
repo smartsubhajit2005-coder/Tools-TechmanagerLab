@@ -6,211 +6,7 @@
   <title>Tech Manager Lab — Run IT like a business</title>
   <meta name="description" content="Tech Manager Lab — audits, tools and playbooks for SMB IT managers. India-first.">
   <link rel="stylesheet" href="transitions.css">
-  <style>
-    :root {
-      --navy: #02143F;
-      --panel: #013091;
-      --cyan: #2EE6FF;
-      --amber: #F5A623;
-      --body: #CFEBFF;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--navy);
-      color: var(--body);
-      font-family: var(--font);
-      line-height: 1.5;
-    }
-    a { color: var(--cyan); }
-    .skip {
-      position: absolute;
-      left: -9999px;
-      top: 0;
-      background: var(--cyan);
-      color: var(--navy);
-      padding: 8px 14px;
-      font-weight: 700;
-      z-index: 100;
-    }
-    .skip:focus { left: 0; }
-    :focus-visible {
-      outline: 3px solid var(--cyan);
-      outline-offset: 2px;
-    }
-    header.topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 14px 24px;
-      background: rgba(2, 20, 63, .95);
-      border-bottom: 1px solid rgba(46, 230, 255, .25);
-      backdrop-filter: blur(6px);
-    }
-    .wordmark {
-      color: var(--cyan);
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-decoration: none;
-    }
-    header.topbar nav { margin-left: auto; display: flex; gap: 18px; }
-    header.topbar nav a { color: var(--body); text-decoration: none; font-weight: 600; }
-    header.topbar nav a:hover { color: var(--cyan); }
-    main { max-width: 1080px; margin: 0 auto; padding: 24px; }
-    section { margin-bottom: 36px; }
-
-    /* Hero console */
-    .console {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 24px;
-      align-items: center;
-      background: linear-gradient(160deg, var(--navy) 0%, var(--panel) 140%);
-      border: 1px solid rgba(46, 230, 255, .3);
-      border-radius: 16px;
-      padding: 32px;
-    }
-    .badge {
-      display: inline-block;
-      background: rgba(245, 166, 35, .15);
-      border: 1px solid var(--amber);
-      color: var(--amber);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
-    .console h1 {
-      color: #fff;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height: 1.1;
-      margin: 14px 0 8px;
-    }
-    .console h1 .accent { color: var(--cyan); }
-    .console .sub { margin: 0 0 20px; }
-    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn {
-      display: inline-block;
-      min-height: 44px;
-      padding: 11px 22px;
-      border-radius: 999px;
-      font-weight: 800;
-      text-decoration: none;
-      font-size: 15px;
-    }
-    .btn-primary { background: var(--cyan); color: var(--navy); }
-    .btn-primary:hover { filter: brightness(1.1); }
-    .btn-outline { border: 2px solid var(--cyan); color: var(--cyan); }
-    .btn-outline:hover { background: rgba(46, 230, 255, .12); }
-
-    /* Video card */
-    .video-card {
-      display: block;
-      border: 2px solid rgba(46, 230, 255, .4);
-      border-radius: 12px;
-      overflow: hidden;
-      background: #010b26;
-      text-decoration: none;
-      transition: transform .15s ease, border-color .15s ease;
-    }
-    .video-card:hover { transform: translateY(-3px); border-color: var(--cyan); }
-    .video-card img { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; }
-    .video-card .label {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 10px 12px;
-      color: var(--body);
-      font-size: 13px;
-    }
-    .video-card .label .play { color: var(--cyan); font-weight: 700; white-space: nowrap; }
-
-    /* Bento tiles */
-    .bento {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .tile {
-      display: block;
-      background: rgba(1, 48, 145, .45);
-      border: 1px solid rgba(46, 230, 255, .25);
-      border-radius: 12px;
-      padding: 18px;
-      text-decoration: none;
-      color: var(--body);
-      min-height: 24px;
-      transition: border-color .15s ease;
-    }
-    a.tile:hover { border-color: var(--cyan); }
-    .tile h3 { margin: 0 0 6px; color: #fff; font-size: 17px; }
-    .tile p { margin: 0; font-size: 14px; }
-
-    /* Stats strip */
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 32px;
-      justify-content: center;
-      background: rgba(1, 48, 145, .35);
-      border-top: 1px solid rgba(46, 230, 255, .25);
-      border-bottom: 1px solid rgba(46, 230, 255, .25);
-      border-radius: 12px;
-      padding: 18px;
-    }
-    .stat { text-align: center; }
-    .stat strong { display: block; color: var(--cyan); font-size: 24px; }
-    .stat span { font-size: 13px; }
-
-    /* Hubs */
-    .hubs {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
-    }
-    .hub-card {
-      background: rgba(1, 48, 145, .45);
-      border: 1px solid rgba(46, 230, 255, .25);
-      border-radius: 12px;
-      padding: 18px;
-      text-decoration: none;
-      color: var(--body);
-      display: block;
-    }
-    a.hub-card:hover { border-color: var(--cyan); }
-    .hub-card h3 { margin: 0 0 6px; color: #fff; font-size: 17px; }
-    .hub-card p { margin: 0; font-size: 14px; }
-    .soon {
-      opacity: .65;
-      border-style: dashed;
-    }
-    .soon .tag { color: var(--amber); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
-
-    /* Footer */
-    footer#footer {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 24px;
-      border-top: 1px solid rgba(46, 230, 255, .25);
-      font-size: 14px;
-    }
-    footer#footer nav { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
-    footer#footer nav a { color: var(--body); text-decoration: none; font-weight: 600; }
-    footer#footer nav a:hover { color: var(--cyan); }
-    footer#footer .tagline { color: var(--cyan); font-weight: 700; }
-    footer#footer .answer { max-width: 70ch; color: var(--body); }
-    footer#footer .legal { color: rgba(207, 235, 255, .7); font-size: 13px; }
-
-    @media (max-width: 760px) {
-      .console { grid-template-columns: 1fr; padding: 22px; }
-      .bento { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -233,13 +29,27 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
-    <a class="wordmark" href="/">TECH MANAGER LAB</a>
+    <a class="wordmark" href="index-v2.html">TECH MANAGER LAB</a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navDrawer" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="scrim" id="navScrim"></div>
+  <aside class="drawer" id="navDrawer" aria-label="Main menu">
+    <p class="drawer-label">Menu</p>
     <nav aria-label="Main">
-      <a href="/">Home</a>
+      <a href="index-v2.html">Home</a>
+      <a href="#about">About</a>
       <a href="#hubs">Hubs</a>
       <a href="https://techmanagerlab.com/tools/tier1-license-cleanup/">Tools</a>
+      <a href="#members">Members login</a>
+      <a href="#contact">Contact us</a>
+      <a href="videos.html">13 videos, 13 ideas</a>
+      <a href="https://www.youtube.com/@TechManagerLab">YouTube channel</a>
     </nav>
-  </header>
+    <a class="btn btn-primary drawer-cta" href="https://www.youtube.com/@TechManagerLab?sub_confirmation=1">SUBSCRIBE</a>
+  </aside>
 
   <main id="main">
     <section id="latest" aria-label="Latest video">
@@ -257,13 +67,25 @@
           <img src="https://i.ytimg.com/vi/0wsTlPznAss/maxresdefault.jpg"
                width="1280" height="720" loading="eager"
                alt="Latest video: Cyber Insurance Questionnaire Explained — SMB Readiness Checklist 2026"
-               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/0wsTlPznAss/hqdefault.jpg';">
+               onerror="if(!this.dataset.f){this.dataset.f=1;this.onerror=null;this.src='https://i.ytimg.com/vi/0wsTlPznAss/hqdefault.jpg';}"
+               onload="if(this.naturalWidth<300&&!this.dataset.f){this.dataset.f=1;this.src='https://i.ytimg.com/vi/0wsTlPznAss/hqdefault.jpg';}">
           <span class="label"><span>Cyber Insurance Questionnaire Explained</span><span class="play">Latest upload ▶</span></span>
         </a>
       </div>
     </section>
 
+    <section id="about" aria-label="About Tech Manager Lab">
+      <div class="about">
+        <h2>About Tech Manager Lab</h2>
+        <p>Practical IT management for SMB teams in India — run IT like a business, not a helpdesk.
+        Every week: one video playbook, one checklist or template you can use the same day, and two
+        free tools. Presented by Christopher, our faceless guide — no vendor pitches, no jargon, no
+        fluff. Built by IT managers, for IT managers.</p>
+      </div>
+    </section>
+
     <section id="bento" aria-label="Highlights">
+      <h2 class="visually-hidden">Highlights</h2>
       <div class="bento">
         <!-- HUB_URL: fill after Task 4 -->
         <a class="tile" href="HUB_URL">
@@ -283,13 +105,14 @@
 
     <section id="stats" aria-label="Stats">
       <div class="stats">
-        <div class="stat"><strong>13</strong><span>videos</span></div>
+        <div class="stat"><strong><a href="videos.html">13</a></strong><span>videos → all ideas</span></div>
         <div class="stat"><strong>2</strong><span>free tools</span></div>
-        <div class="stat"><strong>India-first</strong><span>built for SMB IT teams</span></div>
+        <div class="stat"><strong>India-first</strong><span>built for Indian SMB IT teams</span></div>
       </div>
     </section>
 
     <section id="hubs" aria-label="Topic hubs">
+      <h2 class="visually-hidden">Topic hubs</h2>
       <div class="hubs">
         <!-- HUB_URL: fill after Task 4 -->
         <a class="hub-card" href="HUB_URL">
@@ -310,12 +133,74 @@
         </div>
       </div>
     </section>
+
+    <section id="members" aria-label="Members login">
+      <div class="members">
+        <div class="info">
+          <h2>Members area</h2>
+          <p>Log in to grab free tools, checklists and templates in one place. New here? Registration opens soon — watch the channel for the invite.</p>
+        </div>
+        <a class="btn btn-primary" href="https://techmanagerlab.com/wp-login.php">MEMBER LOGIN</a>
+      </div>
+    </section>
+
+    <section id="contact" aria-label="Contact us">
+      <div class="contact">
+        <h2>Contact us</h2>
+        <div class="links">
+          <a id="contactEmail" href="mailto:subhajit.mitra@techmanagerlab.com">✉ subhajit.mitra@techmanagerlab.com</a>
+          <a href="https://www.instagram.com/techmanagerlab/" target="_blank" rel="noopener">Instagram: @techmanagerlab</a>
+          <a href="https://www.youtube.com/@TechManagerLab" target="_blank" rel="noopener">YouTube: @TechManagerLab</a>
+        </div>
+        <form id="contactForm" class="contact-grid" action="#" method="post">
+          <div>
+            <label for="cf-name">Name:</label>
+            <input type="text" id="cf-name" name="name" autocomplete="name" required>
+          </div>
+          <div>
+            <label for="cf-email">Email Address:</label>
+            <input type="email" id="cf-email" name="email" autocomplete="email" required>
+          </div>
+          <div>
+            <label for="cf-phone">Phone number:</label>
+            <input type="tel" id="cf-phone" name="phone" autocomplete="tel">
+          </div>
+          <div>
+            <label for="cf-country">Country:</label>
+            <select id="cf-country" name="country" required>
+              <option value="" selected disabled>Select country</option>
+              <option>India</option>
+              <option>United States</option>
+              <option>United Kingdom</option>
+              <option>United Arab Emirates</option>
+              <option>Singapore</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="full">
+            <label for="cf-message">Message:</label>
+            <textarea id="cf-message" name="message" rows="4"></textarea>
+          </div>
+          <div class="full consent">
+            <input type="checkbox" id="cf-consent" name="consent" required>
+            <label for="cf-consent">I consent to Tech Manager Lab contacting me about my enquiry, as described in the DPDP Act, 2023.</label>
+          </div>
+          <div class="full">
+            <button class="btn btn-primary" type="submit">SEND MESSAGE</button>
+            <p class="form-note">Opens your mail app with the details filled in — no data stored on this site.</p>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
 
   <footer id="footer">
     <nav aria-label="Footer">
-      <a href="/">Home</a>
+      <a href="index-v2.html">Home</a>
+      <a href="#about">About</a>
       <a href="#hubs">Hubs</a>
+      <a href="#members">Members</a>
+      <a href="#contact">Contact</a>
       <a href="https://techmanagerlab.com/tools/tier1-license-cleanup/">Tools</a>
       <a href="https://www.youtube.com/@TechManagerLab">YouTube</a>
     </nav>
@@ -323,5 +208,8 @@
     <p class="answer">What is Tech Manager Lab? Tech Manager Lab is a practical resource for SMB IT managers in India: weekly YouTube playbooks, free tools and topic hubs that turn everyday IT work — licenses, security, operations, AI — into repeatable, auditable processes. No vendor pitches, no jargon: each video ships with a checklist or template you can use the same day. Start with the latest video, or open the License &amp; SaaS Cost Control hub to cut software spend first.</p>
     <p class="legal">© 2026 Tech Manager Lab. All rights reserved.</p>
   </footer>
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top" title="Back to top">▲</button>
+
+  <script src="nav.js" defer></script>
 </body>
 </html>
