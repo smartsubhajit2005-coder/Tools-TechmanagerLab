@@ -18,7 +18,8 @@
   "logo": "https://techmanagerlab.com/logo.png",
   "sameAs": [
     "https://www.youtube.com/@techmanagerlab",
-    "https://www.instagram.com/techmanagerlab/"
+    "https://www.instagram.com/techmanagerlab/",
+    "https://mail.techmanagerlab.com/"
   ]
 }
 </script>
@@ -32,24 +33,56 @@
 </script>
 <link rel="stylesheet" href="fonts.css">
 <style>
+:root{--navy:#02143F;--navy2:#013091;--navy3:#0247C4;--panel:rgba(2,17,50,.66);--cyan:#2EE6FF;--cyan-dim:#CFEBFF;--amber:#F5A623;--radius:18px}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Montserrat','Segoe UI',Arial,sans-serif;background:#02143F;color:#fff;-webkit-font-smoothing:antialiased}
 .bg{position:fixed;inset:0;background:linear-gradient(115deg,#02143F 0%,#013091 50%,#0247C4 100%);z-index:-2}
 .circuit{position:fixed;top:0;bottom:0;width:540px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='1440' viewBox='0 0 640 1440'%3E%3Cg fill='none' stroke='%232EE6FF' stroke-width='4' opacity='0.5'%3E%3Cpath d='M40 200 h140 v120 h110'/%3E%3Ccircle cx='40' cy='200' r='10' fill='%232EE6FF'/%3E%3Cpath d='M80 520 h100 v180 h150'/%3E%3Ccircle cx='330' cy='700' r='10' fill='%232EE6FF'/%3E%3C/g%3E%3C/svg%3E");background-size:540px 1220px;opacity:.14;z-index:-1}
 .circuit.l{left:0}.circuit.r{right:0;transform:scaleX(-1)}
-.wrap{max-width:1080px;margin:0 auto;padding:56px 28px 80px}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 28px 80px}
 .wm{display:flex;align-items:center;gap:14px;font-size:15px;font-weight:800;letter-spacing:5px}
 .wm img{width:54px;height:54px;border-radius:50%;box-shadow:0 0 0 3px rgba(46,230,255,.75),0 0 22px rgba(46,230,255,.35)}
 .wm .cy{color:#2EE6FF}
-h1{margin-top:34px;font-size:56px;font-weight:800;line-height:1.06}
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:rgba(2,20,63,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:12px 16px;margin:0 -16px 8px;border-bottom:1px solid rgba(46,230,255,.18)}
+.topbar a.logo-link{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+.topnav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.topnav a{color:#CFEBFF;font-size:16px;font-weight:700;letter-spacing:1px;text-decoration:none;padding:8px 14px;border-radius:999px;border:2px solid transparent;white-space:nowrap}
+.topnav a:hover{border-color:rgba(46,230,255,.55);background:rgba(46,230,255,.12)}
+.topnav a[aria-current="page"]{border-color:rgba(46,230,255,.55);background:rgba(46,230,255,.12)}
+@media (max-width:640px){.topbar{align-items:flex-start}.topnav{width:100%}}
+.eyebrow{display:inline-block;margin-top:34px;font-size:12px;font-weight:800;letter-spacing:3px;color:#02143F;background:var(--amber);padding:8px 14px;border-radius:999px}
+h1{margin-top:16px;font-size:clamp(34px,5.4vw,56px);font-weight:800;line-height:1.06;letter-spacing:-.5px}
 h1 .n{color:#2EE6FF}
-.sub{margin-top:14px;font-size:22px;font-weight:600;color:#2EE6FF}
+.sub{margin-top:14px;font-size:clamp(17px,2.4vw,22px);font-weight:600;color:#2EE6FF}
 .rule{margin-top:22px;width:140px;height:7px;background:#2EE6FF;box-shadow:0 0 20px rgba(46,230,255,.6)}
-.lead{margin-top:22px;font-size:19px;line-height:1.6;color:#DDE8FF;max-width:calc(100% - 60px)}
-.btnrow{margin-top:30px;display:flex;gap:16px;flex-wrap:wrap}
-.btn{background:#2EE6FF;color:#012044;font-size:17px;font-weight:800;letter-spacing:2px;padding:14px 32px;border-radius:999px;text-decoration:none;box-shadow:0 0 28px rgba(46,230,255,.45);animation:pulse 2.2s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 28px rgba(46,230,255,.45)}50%{transform:scale(1.05);box-shadow:0 0 46px rgba(46,230,255,.75)}}
+.lead{margin-top:22px;font-size:18px;line-height:1.65;color:#DDE8FF;max-width:62ch}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.hero-visual{margin-top:34px;background:var(--panel);border:2px solid rgba(46,230,255,.4);border-top:8px solid #2EE6FF;border-radius:var(--radius);padding:24px;box-shadow:0 20px 46px rgba(0,0,0,.35)}
+.hero-visual .badge-row{display:flex;align-items:center;gap:12px}
+.hero-visual .badge-row img{width:64px;height:64px;border-radius:50%;box-shadow:0 0 0 3px rgba(46,230,255,.75)}
+.hero-visual .prop{margin-top:16px;background:rgba(2,16,48,.6);border:1px solid rgba(46,230,255,.3);border-radius:12px;padding:14px 16px}
+.hero-visual .prop div{display:flex;gap:10px;align-items:center;padding:7px 0;color:#DDE8FF;font-size:14px;font-weight:600}
+.hero-visual .tick{width:22px;height:22px;flex:none;border-radius:50%;background:rgba(46,230,255,.15);border:2px solid #2EE6FF;color:#2EE6FF;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
+.btnrow{margin-top:30px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn{background:#2EE6FF;color:#012044;font-size:17px;font-weight:800;letter-spacing:2px;padding:14px 32px;border-radius:999px;text-decoration:none;box-shadow:0 0 28px rgba(46,230,255,.45)}
 .btn.ghost{background:transparent;color:#CFEBFF;border:2px solid rgba(46,230,255,.6);box-shadow:none}
+.newbadge{display:inline-block;font-size:12px;font-weight:800;letter-spacing:2px;color:#02143F;background:var(--amber);padding:6px 12px;border-radius:999px}
+.durbadge{position:absolute;right:14px;bottom:14px;background:rgba(2,20,63,.85);color:#fff;font-size:13px;font-weight:800;padding:6px 10px;border-radius:8px;letter-spacing:1px}
+.topic-grid{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.topic-grid a{border:2px solid rgba(46,230,255,.4);color:#E6EEFF;text-decoration:none;background:rgba(2,16,48,.5);border-radius:14px;padding:16px 18px;display:block}
+.topic-grid a:hover{background:rgba(46,230,255,.12)}
+.topic-grid b{display:block;font-size:15px}
+.topic-grid span{display:block;margin-top:6px;font-size:13px;color:#B9CBEE;font-weight:600}
+.topic-grid .count{display:inline-block;margin-top:8px;font-size:11px;font-weight:800;letter-spacing:2px;color:#2EE6FF}
+.res-grid{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.res-card{border:2px solid rgba(46,230,255,.4);border-radius:14px;padding:18px;background:rgba(2,16,48,.5)}
+.res-card b{font-size:15px}
+.res-card p{margin-top:6px;font-size:13px;color:#B9CBEE;line-height:1.55}
+.res-card a{display:inline-block;margin-top:10px;color:#2EE6FF;font-weight:800;font-size:13px;letter-spacing:1px;text-decoration:none}
+.trust{margin-top:30px;background:rgba(2,16,48,.5);border:1px solid rgba(46,230,255,.25);border-radius:14px;padding:18px 20px;color:#B9CBEE;font-size:13px;line-height:1.7}
+.trust b{color:#E6EEFF}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 h2{margin-top:64px;font-size:30px;font-weight:800}
 .proj{margin-top:24px;background:rgba(2,17,50,.66);border:2px solid rgba(46,230,255,.4);border-top:8px solid #2EE6FF;border-radius:18px;padding:28px;box-shadow:0 20px 46px rgba(0,0,0,.35)}
 .proj .k{font-size:13px;font-weight:800;letter-spacing:3px;color:#2EE6FF}
@@ -58,85 +91,137 @@ h2{margin-top:64px;font-size:30px;font-weight:800}
 .dl{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
 .dl a{border:2px solid rgba(46,230,255,.55);color:#E6EEFF;font-size:14px;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;background:rgba(2,16,48,.5)}
 .dl a:hover{background:rgba(46,230,255,.15)}
+#videoList{gap:14px}
+#videoList a{display:flex;gap:16px;align-items:center;border-radius:14px;padding:14px 18px;text-align:left}
+#videoList a span{line-height:1.45}
+@media (max-width:640px){#videoList a{flex-direction:column;align-items:stretch}#videoList a img{width:100%!important}}
 .vid{margin-top:22px;aspect-ratio:16/9;width:100%;border-radius:14px;border:2px solid rgba(46,230,255,.4)}
 .foot{margin-top:64px;padding-top:22px;border-top:2px solid rgba(46,230,255,.25);font-size:14px;color:rgba(214,228,255,.7);letter-spacing:2px}
+.blog a{color:#2EE6FF}
 a:focus-visible{outline:3px solid #2EE6FF;outline-offset:3px}
 html,body{overflow-x:hidden}
 img{max-width:100%;height:auto}
-</style></head>
-<body><div class="bg"></div><div class="circuit l"></div><div class="circuit r"></div>
+#toTop{position:fixed;right:20px;bottom:20px;width:52px;height:52px;border-radius:50%;border:2px solid rgba(46,230,255,.6);background:#2EE6FF;color:#012044;font-size:24px;font-weight:800;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s;box-shadow:0 8px 28px rgba(0,0,0,.4);z-index:60}
+#toTop.show{opacity:1;pointer-events:auto;transform:none}
+@media (prefers-reduced-motion:reduce){#toTop{transition:none}}
+
+/* --- animated hamburger menu --- */
+.navToggle{margin-left:auto;display:flex;flex-direction:column;justify-content:center;gap:5px;width:48px;height:48px;padding:10px;background:transparent;border:0;cursor:pointer}
+.navToggle span{display:block;height:3px;width:100%;background:#2EE6FF;border-radius:2px;transition:transform .25s ease,opacity .2s ease}
+.navToggle[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.navToggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.navToggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.navScrim{position:fixed;inset:0;background:rgba(1,11,38,.7);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s;z-index:90}
+.navScrim.open{opacity:1;visibility:visible}
+.navDrawer{position:fixed;top:0;right:0;bottom:0;width:min(330px,85vw);background:linear-gradient(200deg,#013091 0%,#02143F 70%);border-left:2px solid rgba(46,230,255,.55);transform:translateX(100%);transition:transform .32s cubic-bezier(.22,.9,.3,1);z-index:95;padding:84px 26px 28px;overflow-y:auto}
+.navDrawer.open{transform:translateX(0)}
+.navDrawer .drawerLabel{color:rgba(207,235,255,.7);font-size:12px;letter-spacing:.14em;margin:0 0 10px}
+.navDrawer a{display:block;color:#CFEBFF;font-size:18px;font-weight:700;letter-spacing:1px;text-decoration:none;padding:14px 4px;border-bottom:1px solid rgba(46,230,255,.25);opacity:0;transform:translateX(32px);transition:opacity .3s ease,transform .35s ease,background .15s ease,color .15s ease}
+.navDrawer.open a{opacity:1;transform:translateX(0)}
+.navDrawer.open a:nth-of-type(1){transition-delay:.10s}
+.navDrawer.open a:nth-of-type(2){transition-delay:.17s}
+.navDrawer.open a:nth-of-type(3){transition-delay:.24s}
+.navDrawer.open a:nth-of-type(4){transition-delay:.31s}
+.navDrawer.open a:nth-of-type(5){transition-delay:.38s}
+.navDrawer.open a:nth-of-type(6){transition-delay:.45s}
+.navDrawer.open a:nth-of-type(7){transition-delay:.52s}
+.navDrawer.open a:nth-of-type(8){transition-delay:.59s}
+.navDrawer.open a:nth-of-type(9){transition-delay:.66s}
+.navDrawer a:hover,.navDrawer a:focus-visible{background:rgba(46,230,255,.12);color:#2EE6FF}
+.navDrawer a[aria-current="page"]{color:#2EE6FF}
+@media (prefers-reduced-motion:reduce){.navToggle span,.navScrim,.navDrawer,.navDrawer a{transition:none!important}}
+
+/* --- cookie consent banner --- */
+.cookie-banner{position:fixed;inset-auto 16px 16px 16px;z-index:120;max-width:560px;background:rgba(2,20,63,.96);border:2px solid rgba(46,230,255,.6);border-top:6px solid #2EE6FF;border-radius:14px;padding:18px 20px;color:#CFEBFF;font-size:14px;line-height:1.55;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.cookie-banner p{margin:0 0 14px}
+.cookie-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-btn{display:inline-block;padding:8px 16px;border-radius:999px;font-weight:800;font-size:14px;letter-spacing:1px;cursor:pointer;border:none;font-family:inherit}
+.cookie-accept{background:#2EE6FF;color:#012044}
+.cookie-accept:hover{filter:brightness(1.1)}
+.cookie-deny,.cookie-reject{background:transparent;color:#CFEBFF;border:2px solid rgba(46,230,255,.6)}
+.cookie-deny:hover,.cookie-reject:hover{background:rgba(46,230,255,.12)}
+</style></head><body><div class="bg"></div><div class="circuit l"></div><div class="circuit r"></div>
 <div class="wrap">
-<div class="wm"><img src="logo.png" alt="Tech Manager Lab logo">TECH MANAGER <span class="cy">LAB</span></div>
+<header class="topbar"><div class="wm"><a class="logo-link" href="index.html" aria-label="Tech Manager Lab home"><img src="logo.png" alt="Tech Manager Lab logo">TECH MANAGER <span class="cy">LAB</span></a></div><button class="navToggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navDrawer" aria-label="Open menu"><span></span><span></span><span></span></button></header>
+<div class="navScrim" id="navScrim"></div>
+<aside class="navDrawer" id="navDrawer" aria-label="Main menu"><p class="drawerLabel">MENU</p><a href="index.html" aria-current="page">Home</a><a href="shorts.html">Shorts</a><a href="#topics">Topics</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="#siteChips">Tools</a><a href="contact.html">Contact us</a><a href="https://www.instagram.com/techmanagerlab/" target="_blank" rel="noopener">Instagram</a><a href="https://mail.techmanagerlab.com/" target="_blank" rel="noopener">Mail Login</a></aside>
+<div class="hero"><div>
+<span class="eyebrow">FOR 20–200 SEAT IT TEAMS · INR PRICING</span>
 <h1>Tech Manager Lab - IT Management Skills & Ideas for SMBs</h1>
 <div class="sub">Practical IT leadership for working managers. Practical solutions, real growth.</div>
 <div class="rule"></div>
-<p class="lead">At Tech Manager Lab, we believe the next generation of IT leaders deserves a clearer path than trial by fire. Our mission is to equip new and aspiring IT managers with practical, proven strategies to simplify complex environments, streamline daily operations, and keep teams, tools, and risks under control. We turn confusion into clarity, overload into order, and uncertainty into confidence. Through hands-on guidance, real-world frameworks, and step-by-step playbooks, we help future-ready IT managers move from firefighting to leading with purpose — building calmer teams, stronger systems, and sustainable success.</p>
-<div class="btnrow"><a class="btn" href="https://www.youtube.com/@techmanagerlab?sub_confirmation=1" target="_blank" rel="noopener">SUBSCRIBE</a><a class="btn ghost" id="latestBtn" href="https://youtu.be/J7Dwk1ZjMuQ" target="_blank" rel="noopener">LATEST VIDEO</a><a class="btn ghost" href="blog.html">RESEARCH BLOGS</a></div>
+<p class="lead">Short, faceless walkthroughs with chapters: license audits, workspace admin, checklists, and docs that pass audits. Every claim sourced or labeled illustrative.</p>
+<div class="btnrow"><a class="btn" id="latestBtn" href="https://youtu.be/lKTlqU1sLOE" target="_blank" rel="noopener">WATCH THE LATEST VIDEO</a><a style="color:#2EE6FF;align-self:center;font-weight:700;letter-spacing:1px" href="https://www.youtube.com/@techmanagerlab?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a><a style="color:#2EE6FF;align-self:center;font-weight:700;letter-spacing:1px" href="blog.html">Explore IT Guides</a></div>
+</div>
+<aside class="hero-visual" aria-label="What you get">
+<div class="badge-row"><img src="logo.png" alt="Tech Manager Lab logo"><div><div style="font-weight:800;letter-spacing:2px;font-size:13px">TECH MANAGER LAB</div><div style="color:#B9CBEE;font-size:12px;font-weight:700;letter-spacing:1px">10-MIN GUIDES · CHECKLISTS · TEMPLATES</div></div></div>
+<div class="prop">
+<div><span class="tick">✓</span> License audit in 30 minutes</div>
+<div><span class="tick">✓</span> Cyber readiness checklist 2026</div>
+<div><span class="tick">✓</span> Vendor scorecard that survives scrutiny</div>
+</div>
+</aside></div>
 
 <div class="proj" id="brand" style="margin-top:30px">
 <div class="k">THE BRAND</div>
-<h3 style="margin-top:10px;font-size:26px;font-weight:800">What Tech Manager Lab stands for</h3>
+<h2 style="margin-top:10px;font-size:26px;font-weight:800">What Tech Manager Lab stands for</h2>
 <p style="margin-top:10px;font-size:16px;line-height:1.65;color:#DDE8FF">IT management for 20–200 seat firms: license audits, workspace admin, cybersecurity checklists, IT documentation that passes audits. Faceless 10-minute walkthroughs with chapters, all pricing in INR. Tools mentioned only where an episode actually offers them. Build Better IT. Lead Better. Grow Better.</p>
 <div class="dl" style="margin-top:18px">
-<a href="https://www.youtube.com/@techmanagerlab?sub_confirmation=1" target="_blank" rel="noopener">YouTube channel</a>
 <a href="https://youtu.be/0VNpbtXEYjQ" target="_blank" rel="noopener">Start with License Cleanup</a>
-<a href="about.html">About Tech Manager Lab</a>
+<span style="color:rgba(214,228,255,.7);align-self:center">·</span>
+<a style="border:none;background:none;padding:8px 4px" href="https://www.youtube.com/@techmanagerlab" target="_blank" rel="noopener">YouTube channel</a>
+<span style="color:rgba(214,228,255,.7);align-self:center">·</span>
+<a style="border:none;background:none;padding:8px 4px" href="about.html">About Tech Manager Lab</a>
 </div>
 </div>
 
-<h2>Browse by topic</h2>
-<div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
-<a href="blog.html#license-audit-ghost-seats" style="border:2px solid rgba(46,230,255,.55);color:#E6EEFF;font-size:14px;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;background:rgba(2,16,48,.5)">License audits</a>
-<a href="blog.html#tool-sprawl" style="border:2px solid rgba(46,230,255,.55);color:#E6EEFF;font-size:14px;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;background:rgba(2,16,48,.5)">IT operations</a>
-<a href="blog.html#ai-tools-automation" style="border:2px solid rgba(46,230,255,.55);color:#E6EEFF;font-size:14px;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;background:rgba(2,16,48,.5)">AI tools</a>
-<a href="blog.html#vendor-scorecard" style="border:2px solid rgba(46,230,255,.55);color:#E6EEFF;font-size:14px;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;background:rgba(2,16,48,.5)">Vendors</a>
-<a href="blog.html#it-managers-2026" style="border:2px solid rgba(46,230,255,.55);color:#E6EEFF;font-size:14px;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;background:rgba(2,16,48,.5)">IT leadership</a>
+<h2 id="topics">Browse by topic</h2>
+<div class="topic-grid">
+<a href="blog.html#license-audit-ghost-seats"><b>License audits</b><span>Ghost seats, SaaS waste, renewals</span><span class="count">2 GUIDES</span></a>
+<a href="blog.html#tool-sprawl"><b>IT operations</b><span>Sprawl, after-hours, operating models</span><span class="count">4 GUIDES</span></a>
+<a href="blog.html#ai-tools-automation"><b>AI tools</b><span>Automation that saves hours</span><span class="count">1 GUIDE</span></a>
+<a href="blog.html#vendor-scorecard"><b>Vendors</b><span>Scorecards, negotiation, TCO</span><span class="count">2 GUIDES</span></a>
+<a href="blog.html#it-managers-2026"><b>IT leadership</b><span>Cases, migration, career</span><span class="count">3 GUIDES</span></a>
+<a href="https://youtu.be/lKTlqU1sLOE" target="_blank" rel="noopener"><b>Security</b><span>Helpdesk metrics readiness 2026</span><span class="count">1 VIDEO</span></a>
 </div>
 
-<h2>Microsites</h2>
-<div id="siteChips" style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
-<a href="tools/tier1-license-cleanup/" style="border:2px solid rgba(46,230,255,.55);color:#E6EEFF;font-size:14px;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;background:rgba(2,16,48,.5)">Tier 1 · License Cleanup</a>
-<a href="tools/it-health-check/" style="border:2px solid rgba(46,230,255,.55);color:#E6EEFF;font-size:14px;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;background:rgba(2,16,48,.5)">20-Point IT Health Check</a>
+<h2>Free tools</h2>
+<div class="res-grid" id="siteChips">
+<div class="res-card"><b>Tier 1 · License Cleanup</b><p>Spreadsheet + steps. Find ghost seats before renewal. 30 min.</p><a href="tools/tier1-license-cleanup/">Open tool →</a></div>
+<div class="res-card"><b>20-Point IT Health Check</b><p>Score infra, backup, access, docs. PDF checklist.</p><a href="tools/it-health-check/">Open checklist →</a></div>
 </div>
 
 <div class="proj" id="featured" style="margin-top:30px">
-<div class="k">LATEST UPLOAD</div>
-<a id="featLink" href="https://youtu.be/J7Dwk1ZjMuQ" style="text-decoration:none;color:inherit" target="_blank" rel="noopener">
-<img id="featThumb" src="https://i.ytimg.com/vi/J7Dwk1ZjMuQ/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/J7Dwk1ZjMuQ/hqdefault.jpg'" alt="Latest video thumbnail" style="margin-top:14px;width:100%;border-radius:14px;border:2px solid rgba(46,230,255,.4)">
-<h3 id="featTitle" style="margin-top:14px;font-size:24px;font-weight:800">The IT Operating Model That Fixes All 4 Breaks (Part 4)</h3>
-<p id="featDate" style="margin-top:6px;font-size:14px;color:#7dd3fc;letter-spacing:2px">11 OCT 2026 · CLICK TO WATCH</p>
+<div class="k">LATEST UPLOAD · <span class="newbadge">NEW</span></div>
+<a id="featLink" href="https://youtu.be/lKTlqU1sLOE" style="text-decoration:none;color:inherit;position:relative;display:block" target="_blank" rel="noopener">
+<img id="featThumb" src="https://i.ytimg.com/vi/lKTlqU1sLOE/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/lKTlqU1sLOE/hqdefault.jpg'" alt="Latest video thumbnail" style="margin-top:14px;width:100%;border-radius:14px;border:2px solid rgba(46,230,255,.4)">
+<span class="durbadge">5:26</span>
+<h3 id="featTitle" style="margin-top:14px;font-size:24px;font-weight:800">The 5 Helpdesk Metrics That Actually Tell You If Service Is Working</h3>
+<p id="featDate" style="margin-top:6px;font-size:14px;color:#7dd3fc;letter-spacing:2px">16 OCT 2026 · CLICK TO WATCH</p>
 </a>
 </div>
 
-<div class="proj" id="brand" style="margin-top:30px">
-<div class="k">THE BRAND</div>
-<h3 style="margin-top:10px;font-size:26px;font-weight:800">What Tech Manager Lab stands for</h3>
-<p style="margin-top:10px;font-size:16px;line-height:1.65;color:#DDE8FF">Faceless 10-minute walkthroughs with chapters, all pricing in INR. Tools mentioned only where an episode actually offers them. Build Better IT. Lead Better. Grow Better.</p>
+<div class="proj" id="start" style="margin-top:30px">
+<div class="k">START HERE</div>
+<h2 style="margin-top:10px;font-size:26px;font-weight:800">New? Start with these</h2>
+<p style="margin-top:10px;font-size:16px;line-height:1.65;color:#DDE8FF">Three fastest wins: clean up licenses, check IT health, then follow the video guides.</p>
 <div class="dl" style="margin-top:18px">
-<a href="https://www.youtube.com/@techmanagerlab?sub_confirmation=1" target="_blank" rel="noopener">Watch: YouTube channel</a>
-<a href="tools/it-health-check/">Download: 20-Point IT Health Check</a>
-<a href="blog.html#license-audit-ghost-seats">Read: start with License Cleanup</a>
-<a href="about.html">Read: About Tech Manager Lab</a>
+<a href="https://youtu.be/0VNpbtXEYjQ" target="_blank" rel="noopener">Start: License Cleanup video</a>
+<a href="tools/it-health-check/">Open: 20-Point IT Health Check</a>
+<a href="blog.html#license-audit-ghost-seats">Read: License Cleanup guide</a>
 </div>
 </div>
-
 
 <h2>Published videos — newest first</h2>
 <div class="proj" id="videos" style="margin-top:24px">
 <div class="k">DATE-WISE · YOUTUBE</div>
 <div class="dl" id="videoList" style="margin-top:18px;flex-direction:column;align-items:stretch">
-<a href="https://youtu.be/J7Dwk1ZjMuQ" target="_blank" rel="noopener">11 Oct 2026 · The IT Operating Model That Fixes All 4 Breaks (Part 4)</a>
-<a href="https://youtu.be/knZ0imDqe9I" target="_blank" rel="noopener">10 Oct 2026 · SaaS Spend Audit in Excel: Find Shadow IT + Cancel Waste in 30 Minutes</a>
-<a href="https://youtu.be/TBf709pUTOg" target="_blank" rel="noopener">08 Oct 2026 · After-Hours Work and Accountability Breaks (Part 3)</a>
-<a href="https://youtu.be/0VNpbtXEYjQ" target="_blank" rel="noopener">07 Oct 2026 · Microsoft 365 License Audit: 30 Ghost Seats Cost ₹3.5 Lakh a Year (SMB)</a>
-<a href="https://youtu.be/qV6YUwp0dfw" target="_blank" rel="noopener">05 Oct 2026 · Tool Sprawl and Interruptions Steal Your Week (Part 2)</a>
-<a href="https://youtu.be/skqzl6SYx1Y" target="_blank" rel="noopener">02 Oct 2026 · What IT Managers Do in 2026 - And How It's Broken - Part 1</a>
-<a href="https://youtu.be/yRur6Y-0j4U" target="_blank" rel="noopener">28 Sep 2026 · 7 AI Tools Every IT Manager Needs for Workflow Automation</a>
-<a href="https://youtu.be/oLJKL5EMjuU" target="_blank" rel="noopener">25 Sep 2026 · The 5-Step Cloud Migration Framework for IT Leaders</a>
-<a href="https://youtu.be/lyQtXudh7og" target="_blank" rel="noopener">22 Sep 2026 · How to Build an IT Operating Model People Actually Use (Part 4)</a>
-<a href="https://youtu.be/f3zJ9xlaXCU" target="_blank" rel="noopener">20 Sep 2026 · How to Turn an IT Technical Request Into a Business Case (Part 3)</a>
-<a href="https://youtu.be/xEj-ItzLeTM" target="_blank" rel="noopener">18 Sep 2026 · IT Vendor Scorecard: 5 Categories to Rate Any Vendor (Part 2)</a>
-<a href="https://youtu.be/VB9VhGLzxmA" target="_blank" rel="noopener">15 Sep 2026 · Vendor Negotiation for IT Managers: The 3 Numbers You Need (Part 1)</a>
+<a href="https://youtu.be/lKTlqU1sLOE" target="_blank" rel="noopener">16 Oct 2026 · The 5 Helpdesk Metrics That Actually Tell You If Service Is Working</a>
+<a href="https://youtu.be/cyQjPXO6wVE" target="_blank" rel="noopener">15 Oct 2026 · SaaS License Audit Template in Excel — Find Duplicate Subscriptions Fast (SMB)</a>
+<a href="https://youtu.be/kh3kUJxFsDg" target="_blank" rel="noopener">14 Oct 2026 · Tool Sprawl Audit: Reclaim 12 Hours a Week (SMB IT)</a>
+<a href="https://youtu.be/K4N79MgtspU" target="_blank" rel="noopener">13 Oct 2026 · 3 Numbers That Stop Vendor Overcharges (SMB IT Managers)</a>
+<a href="https://youtu.be/0wsTlPznAss" target="_blank" rel="noopener">12 Oct 2026 · Cyber Insurance Questionnaire Explained: SMB Readiness Checklist 2026</a>
+<a href="https://www.youtube.com/@techmanagerlab/videos" target="_blank" rel="noopener">View all videos →</a>
 </div>
 </div>
 <script>
@@ -152,25 +237,63 @@ fetch('videos.json').then(function(r){return r.json();}).then(function(v){
   document.getElementById('featDate').textContent=f.at.slice(8,10)+' '+['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][+f.at.slice(5,7)-1]+' '+f.at.slice(0,4)+' · CLICK TO WATCH';
   var list=document.getElementById('videoList'); list.innerHTML='';
   var mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  v.forEach(function(x){
+  v.slice(0,5).forEach(function(x){
     var d=x.at.slice(8,10)+' '+mon[+x.at.slice(5,7)-1]+' '+x.at.slice(0,4);
     var a=document.createElement('a'); a.href='https://youtu.be/'+x.id; a.target='_blank'; a.rel='noopener';
-    a.style.cssText='display:flex;gap:16px;align-items:center';
     var im=document.createElement('img'); im.src='https://i.ytimg.com/vi/'+x.id+'/hqdefault.jpg';
     im.alt=x.title; im.loading='lazy'; im.style.cssText='width:168px;flex:none;border-radius:10px;border:1px solid rgba(46,230,255,.4)';
     var sp=document.createElement('span'); sp.textContent=d+' · '+x.title;
     a.appendChild(im); a.appendChild(sp); list.appendChild(a);
   });
+  var all=document.createElement('a'); all.href='https://www.youtube.com/@techmanagerlab/videos'; all.target='_blank'; all.rel='noopener'; all.textContent='View all videos →'; list.appendChild(all);
 }).catch(function(){});
 </script>
 
-<div class="foot">TECH MANAGER LAB · TOOLS · <a style="color:#2EE6FF" href="about.html">ABOUT</a> · <a style="color:#2EE6FF" href="https://www.instagram.com/techmanagerlab/">INSTAGRAM</a></div>
+<div class="trust"><b>Why trust Tech Manager Lab?</b> Practical guides for 20–200 seat firms, INR pricing, sources cited or labeled illustrative. Updated 13 Oct 2026. Read our <a style="color:#2EE6FF" href="about.html">editorial policy</a> and <a style="color:#2EE6FF" href="blog.html">research blogs</a>.</div>
 
-<div class="blog">
-  <h2>Blog</h2>
-  <p>Detailed research and data for each video in our series:</p>
-  <ul>
-    <li><a href="blog.html">Full Blog (all video research & reports)</a></li>
-  </ul>
+<div class="foot">TECH MANAGER LAB · <a style="color:#2EE6FF" href="https://www.youtube.com/@techmanagerlab" target="_blank" rel="noopener">YOUTUBE</a> · <a style="color:#2EE6FF" href="https://www.instagram.com/techmanagerlab/" target="_blank" rel="noopener">INSTAGRAM</a></div>
+</div><button id="toTop" aria-label="Back to top" title="Back to top">↑</button>
+<script>(function(){var b=document.getElementById('toTop');if(!b)return;function t(){if(window.scrollY>600){b.classList.add('show')}else{b.classList.remove('show')}}window.addEventListener('scroll',t,{passive:true});t();b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();</script>
+<script>
+(function(){
+  var b=document.getElementById('navToggle'),d=document.getElementById('navDrawer'),s=document.getElementById('navScrim');
+  function setOpen(p){d.classList.toggle('open',p);s.classList.toggle('open',p);b.setAttribute('aria-expanded',String(p));b.setAttribute('aria-label',p?'Close menu':'Open menu');if(p){d.querySelector('a').focus({preventScroll:true})}}
+  b.addEventListener('click',function(){setOpen(b.getAttribute('aria-expanded')!=='true')});
+  s.addEventListener('click',function(){setOpen(false)});
+  d.addEventListener('click',function(e){if(e.target.closest('a')){setOpen(false)}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){setOpen(false)}});
+})();
+</script>
+<script>
+(function(){
+  var KEY='tml_consent', VISIT_KEY='tml_visits';
+  var banner=document.getElementById('cookieBanner');
+  if(!banner) return;
+  var consent=localStorage.getItem(KEY);
+  if(consent){ banner.style.display='none'; return; }
+  banner.style.display='block';
+  function set(c){
+    localStorage.setItem(KEY,c);
+    banner.style.display='none';
+    if(c==='accept'){
+      var v=parseInt(localStorage.getItem(VISIT_KEY)||'0',10)+1;
+      localStorage.setItem(VISIT_KEY,String(v));
+    }
+  }
+  var accept=document.getElementById('cookieAccept');
+  var deny=document.getElementById('cookieDeny');
+  var reject=document.getElementById('cookieReject');
+  if(accept) accept.onclick=function(){set('accept');};
+  if(deny) deny.onclick=function(){set('deny');};
+  if(reject) reject.onclick=function(){set('reject');};
+})();
+</script>
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie consent">
+  <p class="cookie-text">This site counts visits to help us improve. No personal data is stored.</p>
+  <div class="cookie-buttons">
+    <button id="cookieAccept" class="cookie-btn cookie-accept">Accept</button>
+    <button id="cookieDeny" class="cookie-btn cookie-deny">Deny</button>
+    <button id="cookieReject" class="cookie-btn cookie-reject">Reject</button>
+  </div>
 </div>
-</div></body></html>
+</body></html>

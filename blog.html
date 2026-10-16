@@ -43,6 +43,14 @@ html,body{overflow-x:hidden}
 img{max-width:100%;height:auto}
 .btnrow{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap}
 .btn{background:#2EE6FF;color:#012044;font-size:16px;font-weight:800;letter-spacing:2px;padding:14px 32px;border-radius:999px;text-decoration:none;box-shadow:0 0 28px rgba(46,230,255,.45)}
+.cookie-banner{position:fixed;inset-auto 16px 16px 16px;z-index:120;max-width:560px;background:rgba(2,20,63,.96);border:2px solid rgba(46,230,255,.6);border-top:6px solid #2EE6FF;border-radius:14px;padding:18px 20px;color:#CFEBFF;font-size:14px;line-height:1.55;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.cookie-banner p{margin:0 0 14px}
+.cookie-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-btn{display:inline-block;padding:8px 16px;border-radius:999px;font-weight:800;font-size:14px;letter-spacing:1px;cursor:pointer;border:none;font-family:inherit}
+.cookie-accept{background:#2EE6FF;color:#012044}
+.cookie-accept:hover{filter:brightness(1.1)}
+.cookie-deny,.cookie-reject{background:transparent;color:#CFEBFF;border:2px solid rgba(46,230,255,.6)}
+.cookie-deny:hover,.cookie-reject:hover{background:rgba(46,230,255,.12)}
 </style></head>
 <body><div class="bg"></div><div class="wrap">
 <a class="back" href="index.html">← BACK TO SITE</a>
@@ -50,8 +58,44 @@ img{max-width:100%;height:auto}
 <p class="lead">Research, findings, and data behind every video. Compiled to help IT managers at 20–200 seat firms make informed decisions, optimize operations, and drive business value.</p>
 <div class="btnrow"><a class="btn" href="https://www.youtube.com/@techmanagerlab?sub_confirmation=1" target="_blank" rel="noopener">SUBSCRIBE</a></div>
 
+<article id="helpdesk-metrics">
+<div style="display:inline-block;background:#2EE6FF;color:#012044;font-size:12px;font-weight:800;letter-spacing:3px;padding:6px 16px;border-radius:999px;margin-bottom:12px">NEW · 16 OCT 2026</div>
+<h2>The 5 Helpdesk Metrics That Actually Tell You If Service Is Working</h2>
+<div class="meta">By Tech Manager Lab · 16 OCT 2026 · <a href="https://youtu.be/lKTlqU1sLOE" target="_blank" rel="noopener">WATCH VIDEO</a> · <a href="https://techmanagerlab.com/the-5-helpdesk-metrics-that-actually-tell-you-if-service-is-working">READ RESEARCH</a></div>
+<a href="https://youtu.be/lKTlqU1sLOE" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/lKTlqU1sLOE/hqdefault.jpg" alt="Watch video on YouTube" loading="lazy" style="margin-top:12px;width:100%;max-width:480px;border-radius:12px;border:2px solid rgba(46,230,255,.4)"></a>
+<p>Your vendor reports first contact resolution in the 70s. That number flatters by design — it misses reopens, rewards ticket splits, and says nothing about fixes. Five metrics expose the truth: reopen rate (avg 5.4%), time to ownership, ticket age distribution, repeat incidents (~20%), honest deflection (~23%).</p>
+<p><b>KEY FINDINGS</b></p>
+<p>Reopen rate: under 5% healthy, over 10% sustained means closing, not fixing · Ownership gap exposes autoresponder masking · Age buckets beat averages · Repeat rate guides fix-vs-staff spend · Honest deflection pairs with reopen</p>
+<p class="meta" style="margin-top:14px">SOURCES: MetricNet / ScreenMeet (FCR 70-75%); EndSight / Suptask / Kayako (reopen 5.4%); Zendesk Ticket Metrics API; ServiceXRG / ScreenMeet (deflection ~23%). Full research in the <a href="https://techmanagerlab.com/the-5-helpdesk-metrics-that-actually-tell-you-if-service-is-working">companion post</a>.</p>
+</article>
+
+<article id="cyber-insurance-questionnaire">
+<div style="display:inline-block;background:#2EE6FF;color:#012044;font-size:12px;font-weight:800;letter-spacing:3px;padding:6px 16px;border-radius:999px;margin-bottom:12px">12 OCT 2026</div>
+<h2>Cyber Insurance Questionnaire Explained: SMB Readiness Checklist 2026</h2>
+<div class="meta">By Tech Manager Lab · 12 OCT 2026 · <a href="https://youtu.be/0wsTlPznAss" target="_blank" rel="noopener">WATCH VIDEO</a></div>
+<a href="https://youtu.be/0wsTlPznAss" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/0wsTlPznAss/hqdefault.jpg" alt="Watch video on YouTube" loading="lazy" style="margin-top:12px;width:100%;max-width:480px;border-radius:12px;border:2px solid rgba(46,230,255,.4)"></a>
+<p>Ten questionnaire sections, seven traps, one proof pack: MFA/EDR/backup/DMARC/IR/training evidence plus the 90-60-30 renewal timeline — with India specifics (DPDP, CERT-In, INR pricing). Not legal or insurance advice.</p>
+<h3>KEY FINDINGS</h3>
+<ul>
+<li>Answer from exports, never from memory — the application becomes evidence</li>
+<li>Seven traps: vendor RDP forgotten, IMAP bypass, sync-called-backup, 70% EDR marked yes, unknown EOL, scan-called-pentest, policy target as median</li>
+<li>Partial answers disclosed in writing with dates beat aspirational yeses</li>
+<li>Buy the funds-transfer rider; transfer fraud dominates verified claims</li>
+</ul>
+<h3>RESEARCH DATA</h3>
+<ul>
+<li>BEC + funds-transfer fraud ~58–60% of claims; average transfer fraud above $112K (<a href="https://www.coalitioninc.com/claims-report/2026" target="_blank" rel="noopener">Coalition 2026</a>)</li>
+<li>India: DPDP penalties to Rs 250 cr; CERT-In 6-hour report; Rs 1 cr cover from ~Rs 95K/yr; mature controls −20–30%</li>
+<li>Secondary figures (directional only): ~40% mismatch-denial chatter, 82%-no-MFA trope — vendor-cited, not carrier primaries</li>
+</ul>
+<p class="meta" style="margin-top:10px">METHOD: carrier requirement consensus (Coalition, Huntress, Todyl, Bellator) plus questionnaire forms (Corvus, Beazley). Verify with your broker and counsel before relying on this.</p>
+<h3>RELATED</h3>
+<p><a href="#operating-model-finale">Operating Model Finale</a> · <a href="tools/it-health-check/">20-Point IT Health Check</a></p>
+<p class="meta" style="margin-top:14px">SOURCES: figures as stated in the episode — <a href="https://youtu.be/0wsTlPznAss" target="_blank" rel="noopener">watch on YouTube</a>. Verify with your broker and counsel. Illustrative calculations are examples, not audited benchmarks.</p>
+</article>
+
 <article id="saas-spend-audit">
-<div style="display:inline-block;background:#2EE6FF;color:#012044;font-size:12px;font-weight:800;letter-spacing:3px;padding:6px 16px;border-radius:999px;margin-bottom:12px">NEW · 10 OCT 2026</div>
+<div style="display:inline-block;background:#2EE6FF;color:#012044;font-size:12px;font-weight:800;letter-spacing:3px;padding:6px 16px;border-radius:999px;margin-bottom:12px">10 OCT 2026</div>
 <h2>SaaS Spend Audit in Excel: Find Shadow IT + Cancel Waste in 30 Minutes</h2>
 <div class="meta">By Tech Manager Lab · 10 OCT 2026 · <a href="https://youtu.be/knZ0imDqe9I" target="_blank" rel="noopener">WATCH VIDEO</a></div>
 <a href="https://youtu.be/knZ0imDqe9I" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/knZ0imDqe9I/hqdefault.jpg" alt="Watch video on YouTube" loading="lazy" style="margin-top:12px;width:100%;max-width:480px;border-radius:12px;border:2px solid rgba(46,230,255,.4)"></a>
@@ -300,4 +344,36 @@ img{max-width:100%;height:auto}
 <p class="meta" style="margin-top:14px">SOURCES: figures as stated in the episode — <a href="https://youtu.be/VB9VhGLzxmA" target="_blank" rel="noopener">watch on YouTube</a>. Illustrative calculations are examples, not audited benchmarks.</p>
 </article>
 
+<script>
+(function(){
+  var KEY='tml_consent', VISIT_KEY='tml_visits';
+  var banner=document.getElementById('cookieBanner');
+  if(!banner) return;
+  var consent=localStorage.getItem(KEY);
+  if(consent){ banner.style.display='none'; return; }
+  banner.style.display='block';
+  function set(c){
+    localStorage.setItem(KEY,c);
+    banner.style.display='none';
+    if(c==='accept'){
+      var v=parseInt(localStorage.getItem(VISIT_KEY)||'0',10)+1;
+      localStorage.setItem(VISIT_KEY,String(v));
+    }
+  }
+  var accept=document.getElementById('cookieAccept');
+  var deny=document.getElementById('cookieDeny');
+  var reject=document.getElementById('cookieReject');
+  if(accept) accept.onclick=function(){set('accept');};
+  if(deny) deny.onclick=function(){set('deny');};
+  if(reject) reject.onclick=function(){set('reject');};
+})();
+</script>
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie consent">
+  <p class="cookie-text">This site counts visits to help us improve. No personal data is stored.</p>
+  <div class="cookie-buttons">
+    <button id="cookieAccept" class="cookie-btn cookie-accept">Accept</button>
+    <button id="cookieDeny" class="cookie-btn cookie-deny">Deny</button>
+    <button id="cookieReject" class="cookie-btn cookie-reject">Reject</button>
+  </div>
+</div>
 </div></body></html>

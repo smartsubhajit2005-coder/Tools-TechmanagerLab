@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact us — Tech Manager Lab</title>
+<meta name="description" content="Contact Tech Manager Lab — email, Instagram or send a message. We reply to every genuine enquiry.">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#02143F;color:#CFEBFF;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+a{color:#2EE6FF}
+:focus-visible{outline:3px solid #2EE6FF;outline-offset:2px}
+.skip{position:absolute;left:-9999px;top:0;background:#2EE6FF;color:#02143F;padding:8px 14px;font-weight:700;z-index:100}
+.skip:focus{left:0}
+.topbar{display:flex;align-items:center;gap:18px;padding:14px 24px;background:rgba(2,20,63,.96);border-bottom:2px solid rgba(46,230,255,.4);position:sticky;top:0;z-index:60}
+.logo-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:#CFEBFF;font-weight:800;letter-spacing:1px;font-size:17px}
+.logo-link img{height:44px;width:44px;object-fit:contain}
+.logo-link .cy{color:#2EE6FF}
+.navToggle{margin-left:auto;display:flex;flex-direction:column;justify-content:center;gap:5px;width:48px;height:48px;padding:10px;background:transparent;border:0;cursor:pointer}
+.navToggle span{display:block;height:3px;width:100%;background:#2EE6FF;border-radius:2px;transition:transform .25s ease,opacity .2s ease}
+.navToggle[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.navToggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.navToggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.navScrim{position:fixed;inset:0;background:rgba(1,11,38,.7);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s;z-index:90}
+.navScrim.open{opacity:1;visibility:visible}
+.navDrawer{position:fixed;top:0;right:0;bottom:0;width:min(330px,85vw);background:linear-gradient(200deg,#013091 0%,#02143F 70%);border-left:2px solid rgba(46,230,255,.55);transform:translateX(100%);transition:transform .32s cubic-bezier(.22,.9,.3,1);z-index:95;padding:84px 26px 28px;overflow-y:auto}
+.navDrawer.open{transform:translateX(0)}
+.navDrawer .drawerLabel{color:rgba(207,235,255,.7);font-size:12px;letter-spacing:.14em;margin:0 0 10px}
+.navDrawer a{display:block;color:#CFEBFF;font-size:18px;font-weight:700;letter-spacing:1px;text-decoration:none;padding:14px 4px;border-bottom:1px solid rgba(46,230,255,.25);opacity:0;transform:translateX(32px);transition:opacity .3s ease,transform .35s ease,background .15s ease,color .15s ease}
+.navDrawer.open a{opacity:1;transform:translateX(0)}
+.navDrawer.open a:nth-of-type(1){transition-delay:.10s}
+.navDrawer.open a:nth-of-type(2){transition-delay:.17s}
+.navDrawer.open a:nth-of-type(3){transition-delay:.24s}
+.navDrawer.open a:nth-of-type(4){transition-delay:.31s}
+.navDrawer.open a:nth-of-type(5){transition-delay:.38s}
+.navDrawer.open a:nth-of-type(6){transition-delay:.45s}
+.navDrawer.open a:nth-of-type(7){transition-delay:.52s}
+.navDrawer.open a:nth-of-type(8){transition-delay:.59s}
+.navDrawer.open a:nth-of-type(9){transition-delay:.66s}
+.navDrawer a:hover,.navDrawer a:focus-visible{background:rgba(46,230,255,.12);color:#2EE6FF}
+.navDrawer a[aria-current="page"]{color:#2EE6FF}
+main{max-width:960px;margin:0 auto;padding:34px 24px 50px}
+.page-head{background:linear-gradient(160deg,#02143F 0%,#013091 140%);border:1px solid rgba(46,230,255,.3);border-radius:16px;padding:34px 32px;margin-bottom:30px}
+.page-head .badge{display:inline-block;background:rgba(245,166,35,.15);border:1px solid #F5A623;color:#F5A623;font-size:12px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:999px}
+.page-head h1{color:#fff;font-size:clamp(28px,4vw,40px);margin:14px 0 8px;line-height:1.12}
+.page-head h1 .accent{color:#2EE6FF}
+.page-head p{margin:0;max-width:70ch}
+.contact-links{display:flex;flex-wrap:wrap;gap:12px 24px;margin:18px 0 0;font-weight:700}
+.contact{background:rgba(1,48,145,.35);border:1px solid rgba(46,230,255,.3);border-radius:16px;padding:28px 26px}
+.contact h2{color:#fff;font-size:22px;margin:0 0 16px}
+.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.contact-grid .full{grid-column:1 / -1}
+.contact label{display:block;font-size:13px;font-weight:700;color:#CFEBFF;margin-bottom:5px}
+.contact input[type=text],.contact input[type=email],.contact input[type=tel],.contact select,.contact textarea{width:100%;padding:11px 12px;min-height:44px;background:#010B26;border:1px solid rgba(46,230,255,.4);border-radius:8px;color:#fff;font:inherit}
+.contact input:focus,.contact select:focus,.contact textarea:focus{outline:3px solid #2EE6FF;outline-offset:1px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px}
+.consent input{margin-top:3px;width:18px;height:18px}
+.btn{display:inline-block;min-height:44px;padding:11px 22px;border-radius:999px;font-weight:800;text-decoration:none;font-size:15px;background:#2EE6FF;color:#02143F;border:none;cursor:pointer;font-family:inherit}
+.btn:hover{filter:brightness(1.1)}
+.form-note{font-size:12px;color:rgba(207,235,255,.8);margin:12px 0 0}
+footer{max-width:960px;margin:0 auto;padding:26px 24px 40px;border-top:2px solid rgba(46,230,255,.35);font-size:14px}
+footer nav{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+footer nav a{color:#CFEBFF;text-decoration:none;font-weight:700}
+footer nav a:hover{color:#2EE6FF}
+footer .tagline{color:#2EE6FF;font-weight:800;font-size:18px;margin:10px 0}
+footer .legal{color:rgba(207,235,255,.75);font-size:13px}
+@media (max-width:640px){.contact-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.navToggle span,.navScrim,.navDrawer,.navDrawer a{transition:none!important}}
+.cookie-banner{position:fixed;inset-auto 16px 16px 16px;z-index:120;max-width:560px;background:rgba(2,20,63,.96);border:2px solid rgba(46,230,255,.6);border-top:6px solid #2EE6FF;border-radius:14px;padding:18px 20px;color:#CFEBFF;font-size:14px;line-height:1.55;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.cookie-banner p{margin:0 0 14px}
+.cookie-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-btn{display:inline-block;padding:8px 16px;border-radius:999px;font-weight:800;font-size:14px;letter-spacing:1px;cursor:pointer;border:none;font-family:inherit}
+.cookie-accept{background:#2EE6FF;color:#012044}
+.cookie-accept:hover{filter:brightness(1.1)}
+.cookie-deny,.cookie-reject{background:transparent;color:#CFEBFF;border:2px solid rgba(46,230,255,.6)}
+.cookie-deny:hover,.cookie-reject:hover{background:rgba(46,230,255,.12)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><a class="logo-link" href="index.html" aria-label="Tech Manager Lab home"><img src="logo.png" alt="Tech Manager Lab logo">TECH MANAGER <span class="cy">LAB</span></a>
+<button class="navToggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navDrawer" aria-label="Open menu"><span></span><span></span><span></span></button></header>
+<div class="navScrim" id="navScrim"></div>
+<aside class="navDrawer" id="navDrawer" aria-label="Main menu"><p class="drawerLabel">MENU</p><a href="index.html">Home</a><a href="shorts.html">Shorts</a><a href="index.html#topics">Topics</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="index.html#siteChips">Tools</a><a href="contact.html" aria-current="page">Contact us</a><a href="https://www.instagram.com/techmanagerlab/" target="_blank" rel="noopener">Instagram</a><a href="https://mail.techmanagerlab.com/" target="_blank" rel="noopener">Mail Login</a></aside>
+
+<main id="main">
+  <section class="page-head" aria-label="Contact intro">
+    <span class="badge">WE REPLY TO EVERY GENUINE ENQUIRY</span>
+    <h1>Contact <span class="accent">us.</span></h1>
+    <p>Question about a guide, a tool, or a collaboration? Reach us three ways — or send the form below.</p>
+    <div class="contact-links">
+      <a href="mailto:subhajit.mitra@techmanagerlab.com">&#9993; subhajit.mitra@techmanagerlab.com</a>
+      <a href="https://www.instagram.com/techmanagerlab/" target="_blank" rel="noopener">Instagram: @techmanagerlab</a>
+      <a href="https://www.youtube.com/@TechManagerLab" target="_blank" rel="noopener">YouTube: @TechManagerLab</a>
+    </div>
+  </section>
+
+  <section class="contact" aria-label="Contact form">
+    <h2>Send a message</h2>
+    <form id="contactForm" class="contact-grid" action="#" method="post">
+      <div><label for="cf-name">Name:</label><input type="text" id="cf-name" name="name" autocomplete="name" required></div>
+      <div><label for="cf-email">Email Address:</label><input type="email" id="cf-email" name="email" autocomplete="email" required></div>
+      <div><label for="cf-phone">Phone number:</label><input type="tel" id="cf-phone" name="phone" autocomplete="tel"></div>
+      <div><label for="cf-country">Country:</label>
+        <select id="cf-country" name="country" required>
+          <option value="" selected disabled>Select country</option>
+          <option>India</option><option>United States</option><option>United Kingdom</option>
+          <option>United Arab Emirates</option><option>Singapore</option><option>Other</option>
+        </select>
+      </div>
+      <div class="full"><label for="cf-message">Message:</label><textarea id="cf-message" name="message" rows="4"></textarea></div>
+      <div class="full consent"><input type="checkbox" id="cf-consent" name="consent" required><label for="cf-consent">I consent to Tech Manager Lab contacting me about my enquiry, as described in the DPDP Act, 2023.</label></div>
+      <div class="full"><button class="btn" type="submit">SEND MESSAGE</button>
+        <p class="form-note">Opens your mail app with the details filled in — no data stored on this site.</p></div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <nav aria-label="Footer">
+    <a href="index.html">Home</a><a href="shorts.html">Shorts</a><a href="index.html#topics">Topics</a>
+    <a href="blog.html">Blog</a><a href="about.html">About</a><a href="index.html#siteChips">Tools</a>
+    <a href="contact.html" aria-current="page">Contact</a><a href="https://www.instagram.com/techmanagerlab/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+  <p class="tagline">Practical Solutions. Real Growth.</p>
+  <p class="legal">&copy; 2026 Tech Manager Lab. All rights reserved.</p>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('navToggle'),d=document.getElementById('navDrawer'),s=document.getElementById('navScrim');
+  function setOpen(p){d.classList.toggle('open',p);s.classList.toggle('open',p);b.setAttribute('aria-expanded',String(p));b.setAttribute('aria-label',p?'Close menu':'Open menu');if(p){d.querySelector('a').focus({preventScroll:true})}}
+  b.addEventListener('click',function(){setOpen(b.getAttribute('aria-expanded')!=='true')});
+  s.addEventListener('click',function(){setOpen(false)});
+  d.addEventListener('click',function(e){if(e.target.closest('a')){setOpen(false)}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){setOpen(false)}});
+})();
+</script>
+<script>
+(function(){
+  var KEY='tml_consent', VISIT_KEY='tml_visits';
+  var banner=document.getElementById('cookieBanner');
+  if(!banner) return;
+  var consent=localStorage.getItem(KEY);
+  if(consent){ banner.style.display='none'; return; }
+  banner.style.display='block';
+  function set(c){
+    localStorage.setItem(KEY,c);
+    banner.style.display='none';
+    if(c==='accept'){
+      var v=parseInt(localStorage.getItem(VISIT_KEY)||'0',10)+1;
+      localStorage.setItem(VISIT_KEY,String(v));
+    }
+  }
+  var accept=document.getElementById('cookieAccept');
+  var deny=document.getElementById('cookieDeny');
+  var reject=document.getElementById('cookieReject');
+  if(accept) accept.onclick=function(){set('accept');};
+  if(deny) deny.onclick=function(){set('deny');};
+  if(reject) reject.onclick=function(){set('reject');};
+})();
+</script>
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie consent">
+  <p class="cookie-text">This site counts visits to help us improve. No personal data is stored.</p>
+  <div class="cookie-buttons">
+    <button id="cookieAccept" class="cookie-btn cookie-accept">Accept</button>
+    <button id="cookieDeny" class="cookie-btn cookie-deny">Deny</button>
+    <button id="cookieReject" class="cookie-btn cookie-reject">Reject</button>
+  </div>
+</div>
+</body>
+</html>

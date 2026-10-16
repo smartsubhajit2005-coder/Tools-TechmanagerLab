@@ -24,7 +24,9 @@ h1 .n{color:#2EE6FF}
 .sub{margin-top:12px;font-size:22px;font-weight:700;color:#2EE6FF}
 .rule{margin-top:22px;width:140px;height:7px;background:#2EE6FF;box-shadow:0 0 20px rgba(46,230,255,.6)}
 .lead{margin-top:20px;font-size:18px;line-height:1.6;color:#DDE8FF;max-width:780px}
-.vid{margin-top:26px;aspect-ratio:16/9;width:100%;border-radius:14px;border:2px solid rgba(46,230,255,.4)}
+.watch{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:26px;width:100%;background:#2EE6FF;color:#012044;font-size:20px;font-weight:800;letter-spacing:2px;padding:24px;text-align:center;border-radius:14px;text-decoration:none;box-shadow:0 0 28px rgba(46,230,255,.45)}
+.watch:hover{background:#5FF0FF}
+.watch .tri{font-size:22px;line-height:1}
 h2{margin-top:48px;font-size:26px;font-weight:800}
 .dl{margin-top:18px;display:grid;gap:14px}
 .dl a{display:flex;align-items:center;gap:18px;background:rgba(2,17,50,.66);border:2px solid rgba(46,230,255,.4);border-top:6px solid #2EE6FF;border-radius:14px;padding:18px 22px;text-decoration:none;color:#E6EEFF}
@@ -34,6 +36,14 @@ h2{margin-top:48px;font-size:26px;font-weight:800}
 .offer{margin-top:22px;background:linear-gradient(90deg,rgba(46,230,255,.2),rgba(46,230,255,.05));border:2px solid rgba(46,230,255,.7);border-radius:14px;padding:22px 26px;font-size:17px;line-height:1.6}
 .offer b{color:#2EE6FF}
 .foot{margin-top:56px;padding-top:22px;border-top:2px solid rgba(46,230,255,.25);font-size:14px;color:rgba(214,228,255,.7);letter-spacing:2px}
+.cookie-banner{position:fixed;inset-auto 16px 16px 16px;z-index:120;max-width:560px;background:rgba(2,20,63,.96);border:2px solid rgba(46,230,255,.6);border-top:6px solid #2EE6FF;border-radius:14px;padding:18px 20px;color:#CFEBFF;font-size:14px;line-height:1.55;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.cookie-banner p{margin:0 0 14px}
+.cookie-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-btn{display:inline-block;padding:8px 16px;border-radius:999px;font-weight:800;font-size:14px;letter-spacing:1px;cursor:pointer;border:none;font-family:inherit}
+.cookie-accept{background:#2EE6FF;color:#012044}
+.cookie-accept:hover{filter:brightness(1.1)}
+.cookie-deny,.cookie-reject{background:transparent;color:#CFEBFF;border:2px solid rgba(46,230,255,.6)}
+.cookie-deny:hover,.cookie-reject:hover{background:rgba(46,230,255,.12)}
 </style></head>
 <body><div class="bg"></div>
 <div class="wrap">
@@ -45,7 +55,7 @@ h2{margin-top:48px;font-size:26px;font-weight:800}
 <p class="lead" style="font-size:15px;color:#7dd3fc">Episode: Microsoft 365 License Audit: 30 Ghost Seats Cost ₹3.5 Lakh a Year (SMB)</p>
 <div class="rule"></div>
 <p class="lead">Watch the 9-minute walkthrough, then grab the exact templates: quarterly checklist, Excel inputs for the Power Query match, and the approval log that doubles as audit evidence.</p>
-<iframe class="vid" src="https://www.youtube.com/embed/0VNpbtXEYjQ" title="License Cleanup video" frameborder="0" allowfullscreen></iframe>
+<a class="watch" href="https://www.youtube.com/watch?v=0VNpbtXEYjQ" target="_blank" rel="noopener"><span class="tri">&#9654;</span> WATCH ON YOUTUBE</a>
 <h2>Downloads</h2>
 <p style="margin-top:10px;font-size:14px;color:#B9CBEE">Templates are input shells (no macros, no formulas) — paste your Admin Center CSV and bills, then match in Excel with Power Query per the checklist.</p>
 <p style="margin-top:10px;font-size:14px;color:#B9CBEE">The ₹3.5 lakh figure: 30 ghost seats × ~₹975/seat/month × 12 months ≈ ₹3,51,000/year at ~100 seats. Worked example, not a guarantee — your rate card and seat count decide your number.</p>
@@ -58,4 +68,37 @@ h2{margin-top:48px;font-size:26px;font-weight:800}
 </div>
 <div class="offer">Comment <b>CHECKLIST</b> on the <b><a style="color:#2EE6FF" href="https://youtu.be/0VNpbtXEYjQ">video</a></b> and we send the pack directly. Like · Share · Subscribe — practical solutions, real growth.</div>
 <div class="foot">TECH MANAGER LAB · TOOLS · LICENSE CLEANUP</div>
-</div></body></html>
+</div>
+<script>
+(function(){
+  var KEY='tml_consent', VISIT_KEY='tml_visits';
+  var banner=document.getElementById('cookieBanner');
+  if(!banner) return;
+  var consent=localStorage.getItem(KEY);
+  if(consent){ banner.style.display='none'; return; }
+  banner.style.display='block';
+  function set(c){
+    localStorage.setItem(KEY,c);
+    banner.style.display='none';
+    if(c==='accept'){
+      var v=parseInt(localStorage.getItem(VISIT_KEY)||'0',10)+1;
+      localStorage.setItem(VISIT_KEY,String(v));
+    }
+  }
+  var accept=document.getElementById('cookieAccept');
+  var deny=document.getElementById('cookieDeny');
+  var reject=document.getElementById('cookieReject');
+  if(accept) accept.onclick=function(){set('accept');};
+  if(deny) deny.onclick=function(){set('deny');};
+  if(reject) reject.onclick=function(){set('reject');};
+})();
+</script>
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie consent">
+  <p class="cookie-text">This site counts visits to help us improve. No personal data is stored.</p>
+  <div class="cookie-buttons">
+    <button id="cookieAccept" class="cookie-btn cookie-accept">Accept</button>
+    <button id="cookieDeny" class="cookie-btn cookie-deny">Deny</button>
+    <button id="cookieReject" class="cookie-btn cookie-reject">Reject</button>
+  </div>
+</div>
+</body></html>

@@ -20,6 +20,14 @@ ol li{margin-top:8px}
 .note{margin-top:28px;font-size:13px;line-height:1.6;color:rgba(214,228,255,.7)}
 .btnrow{margin-top:30px;display:flex;gap:16px;flex-wrap:wrap}
 .btn{background:#2EE6FF;color:#012044;font-size:16px;font-weight:800;letter-spacing:2px;padding:14px 32px;border-radius:999px;text-decoration:none}
+.cookie-banner{position:fixed;inset-auto 16px 16px 16px;z-index:120;max-width:560px;background:rgba(2,20,63,.96);border:2px solid rgba(46,230,255,.6);border-top:6px solid #2EE6FF;border-radius:14px;padding:18px 20px;color:#CFEBFF;font-size:14px;line-height:1.55;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.cookie-banner p{margin:0 0 14px}
+.cookie-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-btn{display:inline-block;padding:8px 16px;border-radius:999px;font-weight:800;font-size:14px;letter-spacing:1px;cursor:pointer;border:none;font-family:inherit}
+.cookie-accept{background:#2EE6FF;color:#012044}
+.cookie-accept:hover{filter:brightness(1.1)}
+.cookie-deny,.cookie-reject{background:transparent;color:#CFEBFF;border:2px solid rgba(46,230,255,.6)}
+.cookie-deny:hover,.cookie-reject:hover{background:rgba(46,230,255,.12)}
 </style></head>
 <body><div class="bg"></div><div class="wrap">
 <a class="back" href="../../index.html">← BACK TO SITE</a>
@@ -69,4 +77,37 @@ ol li{margin-top:8px}
 <li>Keep a 1-page incident contact card: who calls whom first.</li>
 </ol>
 <p class="note">Sources & limits: control areas adapted from NIST CSF 2.0 Small Business Quick-Start and CIS IG1 baseline; thresholds (30-day logon, quarterly restore) are practical defaults, not standards. Verify against your auditor, insurer, or counsel before relying on this list.</p>
-</div></body></html>
+</div>
+<script>
+(function(){
+  var KEY='tml_consent', VISIT_KEY='tml_visits';
+  var banner=document.getElementById('cookieBanner');
+  if(!banner) return;
+  var consent=localStorage.getItem(KEY);
+  if(consent){ banner.style.display='none'; return; }
+  banner.style.display='block';
+  function set(c){
+    localStorage.setItem(KEY,c);
+    banner.style.display='none';
+    if(c==='accept'){
+      var v=parseInt(localStorage.getItem(VISIT_KEY)||'0',10)+1;
+      localStorage.setItem(VISIT_KEY,String(v));
+    }
+  }
+  var accept=document.getElementById('cookieAccept');
+  var deny=document.getElementById('cookieDeny');
+  var reject=document.getElementById('cookieReject');
+  if(accept) accept.onclick=function(){set('accept');};
+  if(deny) deny.onclick=function(){set('deny');};
+  if(reject) reject.onclick=function(){set('reject');};
+})();
+</script>
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie consent">
+  <p class="cookie-text">This site counts visits to help us improve. No personal data is stored.</p>
+  <div class="cookie-buttons">
+    <button id="cookieAccept" class="cookie-btn cookie-accept">Accept</button>
+    <button id="cookieDeny" class="cookie-btn cookie-deny">Deny</button>
+    <button id="cookieReject" class="cookie-btn cookie-reject">Reject</button>
+  </div>
+</div>
+</body></html>
