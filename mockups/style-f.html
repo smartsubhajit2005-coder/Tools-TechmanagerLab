@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style F — Motion Lab</title>
+<style>
+  :root{--ink:#F2F6FF;--dim:#8FA1C4;--line:rgba(255,255,255,.1);--cy:#3DE8FF;--vio:#8B5CF6}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:#05070E;color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .label{position:relative;z-index:20;background:var(--cy);color:#04121A;font-size:11px;font-weight:800;letter-spacing:3px;padding:7px 14px;text-align:center}
+
+  /* animated backdrop */
+  .aurora{position:fixed;inset:-20%;z-index:0;filter:blur(80px);opacity:.55;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:drift 22s ease-in-out infinite alternate}
+  .b1{width:46vw;height:46vw;left:8%;top:2%;background:radial-gradient(circle,#1E6BFF,transparent 66%)}
+  .b2{width:40vw;height:40vw;right:4%;top:18%;background:radial-gradient(circle,#00E5C0,transparent 66%);animation-duration:28s;animation-delay:-6s}
+  .b3{width:38vw;height:38vw;left:38%;bottom:-8%;background:radial-gradient(circle,#8B5CF6,transparent 66%);animation-duration:34s;animation-delay:-12s}
+  @keyframes drift{from{transform:translate3d(-3%,-2%,0) scale(1)}to{transform:translate3d(6%,5%,0) scale(1.18)}}
+  .scanlines{position:fixed;inset:0;z-index:1;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px);background-size:100% 3px;pointer-events:none}
+
+  .wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 26px 90px}
+
+  header{display:flex;align-items:center;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);opacity:0;animation:fade .7s .05s forwards}
+  .mark{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:2.6px;font-size:12.5px}
+  .pulse{position:relative;width:9px;height:9px;border-radius:50%;background:var(--cy)}
+  .pulse::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--cy);animation:ripple 2s ease-out infinite}
+  @keyframes ripple{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+  nav{margin-left:auto;display:flex;gap:24px;font-size:12.5px;letter-spacing:.6px;color:var(--dim)}
+  nav a{color:inherit;text-decoration:none;position:relative;padding-bottom:3px}
+  nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--cy);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  nav a:hover::after,nav a.on::after{transform:scaleX(1)}
+  nav a.on{color:var(--ink)}
+
+  .hero{padding:64px 0 10px}
+  .eyebrow{font-size:10.5px;font-weight:800;letter-spacing:3px;color:var(--cy);opacity:0;animation:fade .7s .15s forwards}
+  h1{margin-top:16px;font-size:clamp(38px,6.4vw,72px);line-height:.98;letter-spacing:-2.6px;font-weight:800}
+  h1 span{display:block;opacity:0;transform:translateY(22px);animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards}
+  h1 span:nth-child(1){animation-delay:.18s}
+  h1 span:nth-child(2){animation-delay:.32s}
+  h1 span:nth-child(3){animation-delay:.46s;color:transparent;background:linear-gradient(92deg,#3DE8FF,#8B5CF6 55%,#00E5C0);-webkit-background-clip:text;background-clip:text}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes fade{to{opacity:1}}
+  .sub{margin-top:20px;font-size:16px;color:var(--dim);line-height:1.65;max-width:540px;opacity:0;animation:fade .8s .6s forwards}
+
+  .search{margin-top:28px;display:flex;align-items:center;gap:12px;max-width:520px;padding:14px 18px;border-radius:14px;border:1px solid rgba(61,232,255,.28);background:rgba(8,14,28,.72);backdrop-filter:blur(8px);opacity:0;animation:fade .8s .72s forwards}
+  .search span{color:#5C6E92;font-size:14px}
+  .search .k{margin-left:auto;font-size:11px;font-weight:700;color:#5C6E92;border:1px solid rgba(92,110,146,.4);border-radius:5px;padding:3px 6px}
+
+  .counters{display:flex;gap:34px;margin-top:34px;opacity:0;animation:fade .8s .85s forwards}
+  .c b{display:block;font-size:26px;font-weight:800;letter-spacing:-.8px;font-variant-numeric:tabular-nums}
+  .c p{font-size:10px;letter-spacing:1.6px;color:#5C6E92;margin-top:3px}
+
+  h2{margin:56px 0 18px;font-size:11px;font-weight:800;letter-spacing:3px;color:#5C6E92}
+  .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .cat{position:relative;border:1px solid var(--line);border-radius:16px;padding:20px;background:linear-gradient(160deg,rgba(14,22,40,.9),rgba(6,10,22,.7));text-decoration:none;color:inherit;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s;opacity:0;transform:translateY(26px)}
+  .cat.in{opacity:1;transform:none}
+  .cat::before{content:"";position:absolute;inset:0;background:radial-gradient(320px 160px at var(--mx,50%) var(--my,0%),rgba(61,232,255,.14),transparent 70%);opacity:0;transition:opacity .3s}
+  .cat:hover{border-color:rgba(61,232,255,.45);transform:translateY(-4px)}
+  .cat:hover::before{opacity:1}
+  .cat .ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:14px;color:#04121A;background:linear-gradient(135deg,#3DE8FF,#00E5C0)}
+  .cat b{display:block;margin-top:14px;font-size:16px;font-weight:700}
+  .cat p{margin-top:6px;font-size:12.5px;color:var(--dim);line-height:1.5}
+  .cat .n{margin-top:12px;font-size:10.5px;font-weight:800;letter-spacing:1.4px;color:#3DE8FF}
+
+  .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .tool{border:1px solid var(--line);border-radius:14px;padding:18px;background:rgba(10,16,30,.6);display:flex;gap:13px;opacity:0;transform:translateY(26px);transition:transform .3s,border-color .3s}
+  .tool.in{opacity:1;transform:none}
+  .tool:hover{border-color:rgba(139,92,246,.5)}
+  .tool b{font-size:14px;font-weight:700}
+  .tool p{margin-top:5px;font-size:12.5px;color:var(--dim);line-height:1.5}
+  .tool .tag{margin-top:8px;display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:1.2px;color:#00E5C0;border:1px solid rgba(0,229,192,.35);padding:3px 7px;border-radius:999px}
+
+  .note{margin-top:44px;padding:18px 20px;border-left:2px solid var(--cy);background:rgba(61,232,255,.05);font-size:13px;color:var(--dim);line-height:1.7}
+  .note b{color:var(--ink)}
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10.5px;letter-spacing:1.8px;color:#4E5C78}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="label">STYLE F — MOTION LAB · animated gradient, reveal on scroll</div>
+<div class="aurora"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="scanlines"></div>
+<div class="wrap">
+  <header>
+    <div class="mark"><span class="pulse"></span>TECH MANAGER LAB</div>
+    <nav><a class="on" href="#">Tools</a><a href="#">Guides</a><a href="#">Blog</a><a href="#">About</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">18 TOOLS · RUNS IN YOUR BROWSER</div>
+    <h1><span>Free tools.</span><span>Real IT work.</span><span>Nothing uploaded.</span></h1>
+    <p class="sub">Documents, networks, security and code — handled inside this tab. No server copy, no signup, no waiting.</p>
+    <div class="search"><span>⌕</span><span>Search 18 tools…</span><span class="k">/</span></div>
+    <div class="counters">
+      <div class="c"><b data-to="18">0</b><p>TOOLS</p></div>
+      <div class="c"><b data-to="0">0</b><p>FILES STORED</p></div>
+      <div class="c"><b data-to="100" data-suffix="%">0</b><p>CLIENT-SIDE</p></div>
+    </div>
+  </section>
+
+  <h2>BROWSE BY CATEGORY</h2>
+  <div class="cats">
+    <a class="cat reveal" href="#"><div class="ico">▤</div><b>PDF Tools</b><p>Word count, split, merge, metadata.</p><div class="n">4 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">◧</div><b>Image Tools</b><p>Compress, resize, convert.</p><div class="n">3 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">¶</div><b>Document Tools</b><p>Word count, case, diff, DOCX.</p><div class="n">5 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">⌗</div><b>Network Tools</b><p>Subnet, CIDR, DNS, headers.</p><div class="n">4 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">⛨</div><b>Security Tools</b><p>Password, hash, headers.</p><div class="n">3 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">{ }</div><b>Developer Tools</b><p>JSON, Base64, URL, time.</p><div class="n">4 TOOLS</div></a>
+  </div>
+
+  <h2>POPULAR</h2>
+  <div class="feat">
+    <div class="tool reveal"><div><b>Word Counter</b><p>Live counts and reading time.</p><span class="tag">LOCAL</span></div></div>
+    <div class="tool reveal"><div><b>JSON Formatter</b><p>Format, minify, validate.</p><span class="tag">LOCAL</span></div></div>
+    <div class="tool reveal"><div><b>IP Subnet Calculator</b><p>Mask, range, broadcast, hosts.</p><span class="tag">LOCAL</span></div></div>
+  </div>
+
+  <div class="note"><b>Privacy by default.</b> Data is processed in this tab and discarded with it. No upload, no log, no retention.</div>
+  <footer><span>TECH MANAGER LAB · TOOLS</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // scroll reveal
+  var items = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window) || reduce){ items.forEach(function(el){el.classList.add('in')}); }
+  else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e,i){
+        if(e.isIntersecting){
+          var el = e.target;
+          setTimeout(function(){ el.classList.add('in') }, (i%3)*90);
+          io.unobserve(el);
+        }
+      });
+    }, {threshold:.15});
+    items.forEach(function(el){ io.observe(el) });
+  }
+  // pointer glow on cards
+  document.querySelectorAll('.cat').forEach(function(c){
+    c.addEventListener('pointermove', function(ev){
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (ev.clientX-r.left)+'px');
+      c.style.setProperty('--my', (ev.clientY-r.top)+'px');
+    });
+  });
+  // count up
+  var nums = document.querySelectorAll('[data-to]');
+  function run(el){
+    var to = parseInt(el.dataset.to,10), suf = el.dataset.suffix||'', t0 = null;
+    if(reduce){ el.textContent = to+suf; return; }
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts-t0)/1100, 1);
+      el.textContent = Math.round(to*(1-Math.pow(1-p,3)))+suf;
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var io2 = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ run(e.target); io2.unobserve(e.target) } }) },{threshold:.6});
+    nums.forEach(function(n){ io2.observe(n) });
+  } else nums.forEach(run);
+})();
+</script>
+</body>
+</html>

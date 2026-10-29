@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style E — Blueprint</title>
+<style>
+  :root{--paper:#F3F0E7;--ink:#1B2430;--muted:#5F6B7A;--line:#C9C3B2;--orange:#D94F16;--blue:#1C3F6E}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(27,36,48,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(27,36,48,.055) 1px,transparent 1px);background-size:26px 26px;z-index:-1}
+  .label{background:var(--ink);color:var(--paper);font-size:11px;font-weight:700;letter-spacing:3px;padding:7px 14px;text-align:center}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 26px 80px}
+
+  header{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:20px 0;border-bottom:2px solid var(--ink)}
+  .mark{display:flex;align-items:baseline;gap:10px;font-weight:800;letter-spacing:2.4px;font-size:12.5px}
+  .mark small{font-weight:600;font-size:10px;letter-spacing:1.6px;color:var(--muted)}
+  nav{display:flex;gap:20px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+  nav a{color:var(--muted);text-decoration:none;padding-bottom:3px;border-bottom:2px solid transparent}
+  nav a.on{color:var(--ink);border-color:var(--orange)}
+
+  .meta{display:flex;gap:26px;flex-wrap:wrap;font-size:10px;letter-spacing:1.3px;color:var(--muted);padding:12px 0 0;text-transform:uppercase}
+  .meta b{color:var(--ink)}
+
+  .hero{padding:54px 0 0}
+  h1{font-size:clamp(34px,5.2vw,58px);line-height:1;letter-spacing:-1.8px;font-weight:800;max-width:760px}
+  h1 i{font-style:normal;color:var(--orange)}
+  .sub{margin-top:18px;font-size:15.5px;line-height:1.7;color:var(--muted);max-width:560px}
+  .sub b{color:var(--ink)}
+
+  .search{margin-top:26px;display:flex;align-items:center;gap:12px;max-width:520px;padding:13px 16px;background:#fff;border:1.5px solid var(--ink);box-shadow:4px 4px 0 rgba(27,36,48,.12)}
+  .search span{color:var(--muted);font-size:13.5px}
+  .search .k{margin-left:auto;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--muted);border:1px solid var(--line);padding:3px 6px}
+
+  h2{margin:48px 0 0;padding-bottom:8px;font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+  .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:0 34px}
+  .cat{display:block;text-decoration:none;color:inherit;padding:18px 0 16px;border-bottom:1px solid var(--line);position:relative}
+  .cat:hover b{color:var(--orange)}
+  .cat .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .cat b{font-size:16px;font-weight:800;letter-spacing:-.2px;transition:.12s}
+  .cat .n{font-size:10px;font-weight:800;letter-spacing:1.3px;color:var(--orange);white-space:nowrap}
+  .cat p{margin-top:6px;font-size:13px;color:var(--muted);line-height:1.55}
+  .cat .spec{margin-top:9px;font-size:10px;letter-spacing:1.1px;color:#8B8574;text-transform:uppercase}
+
+  .feat{border:1.5px solid var(--ink);background:#fff;margin-top:0}
+  .tool{display:grid;grid-template-columns:24px 150px 1fr auto;gap:14px;padding:14px 16px;border-bottom:1px solid var(--line);align-items:baseline}
+  .tool:last-child{border-bottom:none}
+  .tool .no{font-size:10.5px;color:#8B8574;font-weight:700}
+  .tool b{font-size:13.5px;font-weight:800}
+  .tool p{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .tool .tag{font-size:9.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue);border:1px solid #B9C6D8;padding:3px 7px;background:#F1F5FA}
+
+  .note{margin-top:38px;padding:18px 20px;border:1px solid var(--line);border-left:4px solid var(--orange);background:rgba(255,255,255,.6);font-size:13px;color:var(--muted);line-height:1.7}
+  .note b{color:var(--ink)}
+  footer{margin-top:38px;padding-top:14px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#8B8574}
+  @media(max-width:700px){.tool{grid-template-columns:20px 1fr}.tool p{grid-column:2}.tool .tag{grid-column:2;justify-self:start}}
+</style>
+</head>
+<body>
+<div class="label">STYLE E — BLUEPRINT · engineering documentation feel</div>
+<div class="wrap">
+  <header>
+    <div class="mark">TECH MANAGER LAB <small>TOOLS DIVISION</small></div>
+    <nav><a class="on" href="#">Tools</a><a href="#">Guides</a><a href="#">Blog</a><a href="#">About</a></nav>
+  </header>
+  <div class="meta"><span>DWG <b>TML-TOOLS-01</b></span><span>REV <b>2026.10</b></span><span>SCOPE <b>18 UTILITIES</b></span><span>STORAGE <b>NONE</b></span></div>
+
+  <section class="hero">
+    <h1>Eighteen tools,<br>measured and <i>documented.</i></h1>
+    <p class="sub">Utilities for documents, networks, security and code. Every one runs <b>inside your browser</b> — no server write, no file retention, no account.</p>
+    <div class="search"><span>⌕</span><span>Search the tool register…</span><span class="k">/</span></div>
+  </section>
+
+  <h2>01 — Category Register</h2>
+  <div class="cats">
+    <a class="cat" href="#"><div class="row"><b>PDF Tools</b><span class="n">4 ITEMS</span></div><p>Word count, split, merge, metadata inspection.</p><div class="spec">CLIENT-SIDE · PDF.JS</div></a>
+    <a class="cat" href="#"><div class="row"><b>Image Tools</b><span class="n">3 ITEMS</span></div><p>Compress, resize and convert without upload.</p><div class="spec">CLIENT-SIDE · CANVAS</div></a>
+    <a class="cat" href="#"><div class="row"><b>Document Tools</b><span class="n">5 ITEMS</span></div><p>Word count, case conversion, text diff, DOCX.</p><div class="spec">CLIENT-SIDE · MAMMOTH</div></a>
+    <a class="cat" href="#"><div class="row"><b>Network Tools</b><span class="n">4 ITEMS</span></div><p>Subnet math, CIDR, DNS lookup, header audit.</p><div class="spec">MIXED · 2 NEED NETWORK</div></a>
+    <a class="cat" href="#"><div class="row"><b>Security Tools</b><span class="n">3 ITEMS</span></div><p>Password strength, hashing, security headers.</p><div class="spec">CLIENT-SIDE · WEB CRYPTO</div></a>
+    <a class="cat" href="#"><div class="row"><b>Developer Tools</b><span class="n">4 ITEMS</span></div><p>JSON, Base64, URL encoding, timestamps.</p><div class="spec">CLIENT-SIDE · NO DEPS</div></a>
+  </div>
+
+  <h2>02 — Most Used</h2>
+  <div class="feat">
+    <div class="tool"><span class="no">01</span><b>Word Counter</b><p>Words, characters, sentences, reading time.</p><span class="tag">Local</span></div>
+    <div class="tool"><span class="no">02</span><b>JSON Formatter</b><p>Pretty-print, minify, validate with line reference.</p><span class="tag">Local</span></div>
+    <div class="tool"><span class="no">03</span><b>IP Subnet Calculator</b><p>Network, broadcast, usable range, mask table.</p><span class="tag">Local</span></div>
+    <div class="tool"><span class="no">04</span><b>HTTP Header Audit</b><p>Reads public response headers. One outbound request.</p><span class="tag">Server</span></div>
+  </div>
+
+  <div class="note"><b>Note 01 — data handling.</b> Local tools process input in this tab; nothing is transmitted. Tools tagged <b>Server</b> make a single request to inspect a public URL and state that before running.</div>
+  <footer><span>TECH MANAGER LAB · TOOLS</span><span>SHEET 1 OF 1 · BUILD BETTER IT</span></footer>
+</div>
+</body>
+</html>

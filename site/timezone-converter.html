@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Timezone Converter — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:720px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}label{display:block;font-size:12px;color:#A9BBD4;margin:10px 0 4px}input,select{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin-top:14px;margin-right:8px}.box{margin-top:18px;padding:16px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06)}b{color:#37E0FF}table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}th{color:#7E90AA;font-size:10.5px;letter-spacing:1.5px}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Timezone Converter</h1>
+<p>Convert a date & time between cities. Uses your browser's IANA timezone database.</p>
+<label>Date & Time</label><input id="dt" type="datetime-local">
+<label>From city</label><select id="from"></select>
+<label>To city</label><select id="to"></select>
+<button onclick="convert()">Convert</button><button onclick="now()">Use now</button>
+<div class="box" id="out"></div>
+<h2 style="font-size:14px;color:#37E0FF;margin:18px 0 8px;letter-spacing:1px">Quick reference</h2>
+<table><thead><tr><th>City</th><th>Current time</th></tr></thead><tbody id="ref"></tbody></table>
+<footer><span>TECH MANAGER LAB · TIMEZONE</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+const CITIES=[
+['Asia/Kolkata','India (IST)'],['America/New_York','New York (EST/EDT)'],['America/Los_Angeles','Los Angeles (PST/PDT)'],['Europe/London','London (GMT/BST)'],['Europe/Berlin','Berlin (CET/CEST)'],['Asia/Dubai','Dubai (GST)'],['Asia/Singapore','Singapore (SGT)'],['Asia/Tokyo','Tokyo (JST)'],['Australia/Sydney','Sydney (AEST/AEDT)'],['America/Chicago','Chicago (CST/CDT)'],['America/Toronto','Toronto (EST/EDT)'],['Asia/Hong_Kong','Hong Kong (HKT)'],['Asia/Shanghai','Shanghai (CST)'],['Europe/Paris','Paris (CET/CEST)'],['Africa/Johannesburg','Johannesburg (SAST)']
+];
+const from=document.getElementById('from');const to=document.getElementById('to');
+CITIES.forEach(([tz,label],i)=>{const o=new Option(label,tz);from.add(o);const o2=new Option(label,tz);to.add(o2);});
+from.value='Asia/Kolkata';to.value='America/New_York';
+function fmt(d,tz){return new Intl.DateTimeFormat('en-GB',{timeZone:tz,year:'numeric',month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(d);}
+function convert(){
+  const v=document.getElementById('dt').value;if(!v){alert('Pick a date/time');return;}
+  const d=new Date(v);
+  const f=from.value;const t=to.value;
+  const fromStr=fmt(d,f);const toStr=fmt(d,t);
+  const offFrom=new Intl.DateTimeFormat('en-US',{timeZone:f,timeZoneName:'short'}).formatToParts(d).find(p=>p.type==='timeZoneName').value;
+  const offTo=new Intl.DateTimeFormat('en-US',{timeZone:t,timeZoneName:'short'}).formatToParts(d).find(p=>p.type==='timeZoneName').value;
+  const offF=new Date(d.toLocaleString('en-US',{timeZone:f}));const offT=new Date(d.toLocaleString('en-US',{timeZone:t}));const diff=Math.abs(offT-offF)/3600000;
+  document.getElementById('out').innerHTML='<b>'+CITIES.find(c=>c[0]===f)[1]+':</b> '+fromStr+' ('+offFrom+')<br><b>'+CITIES.find(c=>c[0]===t)[1]+':</b> '+toStr+' ('+offTo+')<br><br><b>Difference:</b> '+diff.toFixed(1)+' hours';
+}
+function now(){const d=new Date();const pad=n=>String(n).padStart(2,'0');document.getElementById('dt').value=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());convert();}
+function ref(){
+  const tb=document.getElementById('ref');tb.innerHTML='';
+  const d=new Date();
+  CITIES.forEach(([tz,label])=>{const tr=document.createElement('tr');tr.innerHTML='<td>'+label+'</td><td>'+fmt(d,tz)+'</td>';tb.appendChild(tr);});
+}
+ref();setInterval(ref,30000);
+</script>
+</body></html>

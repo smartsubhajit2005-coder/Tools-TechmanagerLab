@@ -1,0 +1,6 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QR Code Generator — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:600px;margin:0 auto}input,textarea{width:100%;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:10px 12px;font-size:14px}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 0}img{margin-top:14px;border-radius:10px;background:#fff;padding:8px}a{color:#37E0FF}</style></head>
+<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>QR Code Generator</h1><textarea id="t" placeholder="Text or URL..."></textarea><button onclick="go()">Generate</button><div id="out"></div></div>
+<script>
+function go(){const v=encodeURIComponent(document.getElementById('t').value);if(!v)return;document.getElementById('out').innerHTML='<img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data='+v+'" alt="QR">';}
+</script></body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PDF Compress — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:720px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}input[type=file]{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 8px 10px 0}label{color:#A9BBD4;font-size:12px}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap"><p><a href="index.html">← Tools</a></p>
+<h1>PDF Compress</h1>
+<p>Reduce PDF file size by re-encoding pages as compressed images. Adjust quality to balance size and readability. All processing happens locally.</p>
+<input type="file" id="f" accept="application/pdf">
+<div style="margin:10px 0">
+  <label>Quality <input type="range" id="q" min="0.1" max="0.9" step="0.05" value="0.5"></label> <span id="qv">0.5</span>
+  <label style="margin-left:16px">Scale <select id="scale"><option value="0.75">0.75x</option><option value="1" selected>1x</option><option value="1.5">1.5x</option></select></label>
+</div>
+<button onclick="run()" id="btn">Compress</button>
+<button onclick="dl()" id="dlb" style="display:none">Download</button>
+<p id="info"></p>
+<footer><span>TECH MANAGER LAB · PDF</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+let resultBlob=null,origSize=0;
+document.getElementById('q').addEventListener('input',function(){document.getElementById('qv').textContent=this.value;});
+async function run(){
+  const file=document.getElementById('f').files[0];if(!file)return;
+  origSize=file.size;
+  document.getElementById('btn').disabled=true;
+  document.getElementById('dlb').style.display='none';
+  const q=+document.getElementById('q').value;
+  const scale=+document.getElementById('scale').value;
+  try{
+    const buf=await file.arrayBuffer();
+    const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+    const out=await PDFLib.PDFDocument.create();
+    let i=1;
+    while(i<=pdf.numPages){
+      document.getElementById('info').textContent='Processing page '+i+' / '+pdf.numPages+'…';
+      const page=await pdf.getPage(i);
+      const vp=page.getViewport({scale});
+      const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;
+      const ctx=c.getContext('2d');
+      ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);
+      await page.render({canvasContext:ctx,viewport:vp}).promise;
+      const img=c.toDataURL('image/jpeg',q);
+      const jpg=await out.embedJpg(img);
+      const pw=page.getViewport({scale:1}).width,ph=page.getViewport({scale:1}).height;
+      const p=out.addPage([pw,ph]);
+      p.drawImage(jpg,{x:0,y:0,width:pw,height:ph});
+      i++;
+    }
+    const bytes=await out.save();
+    resultBlob=new Blob([bytes],{type:'application/pdf'});
+    document.getElementById('btn').disabled=false;
+    document.getElementById('dlb').style.display='';
+    document.getElementById('info').innerHTML='<b>Done.</b> Original: '+(origSize/1024).toFixed(1)+' KB → New: '+(resultBlob.size/1024).toFixed(1)+' KB ('+Math.max(0,100-resultBlob.size/origSize*100).toFixed(0)+'% smaller)';
+  }catch(e){
+    document.getElementById('btn').disabled=false;
+    document.getElementById('info').textContent='Error: '+e.message;
+  }
+}
+function dl(){if(!resultBlob)return;const url=URL.createObjectURL(resultBlob);const a=document.createElement('a');a.href=url;a.download='compressed.pdf';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),100);}
+</script></body></html>

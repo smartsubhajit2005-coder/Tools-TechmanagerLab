@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Subnet Planning — TML Guides</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:760px;margin:0 auto}a{color:#37E0FF}h1{font-size:26px;margin:16px 0 6px}h2{font-size:17px;margin:26px 0 10px;color:#37E0FF}p,li{color:#C7D5E8;font-size:14px;line-height:1.7}ul{margin:0 0 16px;padding-left:22px}code{background:#0b121c;border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:2px 7px;font-size:13px}.box{margin:18px 0;padding:16px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06);font-size:13.5px;line-height:1.65;color:#C7D5E8}.box b{color:#37E0FF}.warn{border-color:rgba(255,107,107,.4);background:rgba(255,107,107,.05)}.warn b{color:#ff6b6b}</style></head>
+<body><div class="wrap">
+<p><a href="guides.html">← Guides</a></p>
+<h1>Subnet Planning</h1>
+<p>Every office network needs a subnet plan before it grows. Get it wrong and you will be fighting for IPs, or worse — you will run out.</p>
+
+<h2>The four numbers that matter</h2>
+<ul>
+<li><b>Mask / prefix</b> — how many bits are "network". <code>/24</code> means 24 network bits, 8 host bits.</li>
+<li><b>Network address</b> — the first address in the range. Not usable by a device.</li>
+<li><b>Usable hosts</b> — devices you can actually put on the wire. For a <code>/24</code> that is 254.</li>
+<li><b>Broadcast</b> — the last address. Not usable by a device.</li>
+</ul>
+
+<h2>How many IPs do you actually need?</h2>
+<p>Count the real devices per segment: laptops, phones, printers, cameras, IoT, plus headroom. Rule of thumb:</p>
+<ul>
+<li>Under 50 devices → <code>/26</code> (62 usable)</li>
+<li>50–100 → <code>/25</code> (126 usable)</li>
+<li>100–250 → <code>/24</code> (254 usable)</li>
+<li>More than that → split into <code>/23</code>s or smaller and route between them</li>
+</ul>
+
+<div class="box"><b>Common mistake:</b> giving one floor a <code>/24</code> because "it is standard", then discovering the printer VLAN needs 200 IPs and the office only has 40 devices. Match the prefix to the count, not the habit.</div>
+
+<h2>Reading the calculator output</h2>
+<p>Run your CIDR through the <a href="subnet-calculator.html">Subnet Calculator</a>. What to check:</p>
+<ul>
+<li><b>Network and broadcast</b> — if either one is inside your planned device range, your plan overlaps. Redo it.</li>
+<li><b>Usable hosts</b> — if this is less than your device count, bump up one prefix size.</li>
+<li><b>Range</b> — confirm it does not collide with an existing VLAN. Collisions do not error out; they just silently break traffic.</li>
+</ul>
+
+<div class="warn"><b>Overlap is the dangerous one.</b> Two subnets on one flat network that share addresses = every device in that overlap range picks the wrong one. The calculator shows you the exact range — check it against your IP register before you push it.</div>
+
+<p><a href="index.html">← Back to Tools</a></p>
+</div></body></html>

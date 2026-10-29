@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>URL Shortener (Local) — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:760px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}label{display:block;font-size:12px;color:#A9BBD4;margin:10px 0 4px}input{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin-top:14px;margin-right:8px}table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;word-break:break-all}th{color:#7E90AA;font-size:10.5px;letter-spacing:1.5px}td a{color:#37E0FF}button.danger{background:#ff6b6b;color:#fff}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>URL Shortener (Local)</h1>
+<p>Stores mappings in your browser (localStorage). Short links look like <code>yoursite.com/url-shortener.html#abc123</code> and redirect via JS. Only works on this domain — not a real shortener service.</p>
+<label>Long URL</label><input id="url" type="url" placeholder="https://example.com/very/long/path">
+<button onclick="resetForm()" style="margin-top:6px;padding:6px 12px;font-size:12px">Clear</button>
+<label>Custom slug (optional)</label><input id="slug" type="text" placeholder="abc123">
+<button onclick="shorten()">Shorten</button><button onclick="clearAll()" class="danger">Clear all</button>
+<div id="result" style="margin-top:14px"></div>
+<table><thead><tr><th>Slug</th><th>Target</th><th>Short link</th><th></th></tr></thead><tbody id="list"></tbody></table>
+<footer><span>TECH MANAGER LAB · URL SHORTENER</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+const KEY='tml_shortlinks';
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}}
+function save(o){localStorage.setItem(KEY,JSON.stringify(o))}
+function genSlug(){return Math.random().toString(36).slice(2,8)}
+function shorten(){
+  const url=document.getElementById('url').value.trim();if(!url){alert('Enter a URL');return;}
+  const slug=(document.getElementById('slug').value.trim()||genSlug());
+  const o=load();o[slug]=url;save(o);
+  const short=location.origin+location.pathname+'#'+slug;
+  document.getElementById('result').innerHTML='<b>Short link:</b> <a href="'+short+'" target="_blank">'+short+'</a>';
+  render();
+}
+function resetForm(){document.getElementById('url').value='';document.getElementById('slug').value='';document.getElementById('result').innerHTML='';}
+function del(s){const o=load();delete o[s];save(o);render();}
+function clearAll(){if(confirm('Delete all short links?')){localStorage.removeItem(KEY);render();}}
+function render(){
+  const o=load();const tb=document.getElementById('list');tb.innerHTML='';
+  for(const s in o){
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td>'+s+'</td><td><a href="'+o[s]+'" target="_blank">'+o[s]+'</a></td><td><a href="#'+s+'">'+location.origin+location.pathname+'#'+s+'</a></td><td><button onclick="del(\''+s+'\')" style="padding:4px 8px;font-size:11px">del</button></td>';
+    tb.appendChild(tr);
+  }
+}
+// redirect on hash
+(function(){const h=location.hash.slice(1);if(!h)return;const o=load();if(o[h]){window.location.replace(o[h]);}});
+render();
+</script>
+</body></html>

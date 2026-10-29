@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online IP Subnet Calculator tool. Runs entirely in your browser — no uploads, no sign-up."><title>IP Subnet Calculator — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:700px;margin:0 auto}input{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;font-size:14px;width:220px}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin-left:8px}.out{margin-top:14px;background:rgba(9,14,22,.6);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-family:monospace;font-size:13px;line-height:1.7}a{color:#37E0FF}</style></head>
+<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>IP Subnet Calculator</h1><input id="ip" value="192.168.1.0/24" placeholder="192.168.1.0/24"><button onclick="calc()">Calculate</button><div class="out" id="out"></div></div>
+<script>
+function ip2int(s){const p=s.split('.');return ((+p[0])<<24>>>0)+((+p[1])<<16)+((+p[2])<<8)+(+p[3]);}
+function int2ip(n){return [(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255].join('.');}
+function calc(){const v=document.getElementById('ip').value.trim();const [ip,cidr]=v.split('/');const c=+cidr;const mask=c===0?0:((0xFFFFFFFF<<(32-c))>>>0);const net=ip2int(ip)&mask;const bcast=net|(~mask>>>0);const hosts=Math.max(0,(1<<(32-c))-2);const first=c>=31?net:net+1;const last=c>=31?bcast:bcast-1;document.getElementById('out').innerHTML=
+'Network: '+int2ip(net)+'/'+c+'<br>Mask: '+int2ip(mask)+'<br>Broadcast: '+int2ip(bcast)+'<br>First host: '+int2ip(first)+'<br>Last host: '+int2ip(last)+'<br>Usable hosts: '+hosts;}
+calc();
+</script></body></html>

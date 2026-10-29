@@ -1,0 +1,52 @@
+﻿README.md:11:### APIs Covered Under APILayer Suite!
+README.md:163:### Animals
+README.md:195:### Anime
+README.md:223:### Anti-Malware
+README.md:247:### Art & Design
+README.md:285:### Authentication & Authorization
+README.md:299:### Blockchain
+README.md:324:### Books
+README.md:357:### Business
+README.md:411:### Calendar
+README.md:440:### Cloud Storage & File Sharing
+README.md:466:### Continuous Integration
+README.md:479:### Cryptocurrency
+README.md:582:### Currency Exchange
+README.md:616:### Data Validation
+README.md:639:### Development
+README.md:868:### Dictionaries
+README.md:890:### Documents & Productivity
+README.md:950:### Email
+README.md:995:### Entertainment
+README.md:1021:### Environment
+README.md:1058:### Events
+README.md:1070:### Finance
+README.md:1174:### Food & Drink
+README.md:1217:### Games & Comics
+README.md:1335:### Geocoding
+README.md:1455:### Government
+README.md:1588:### Health
+README.md:1642:### Jobs
+README.md:1686:### Machine Learning
+README.md:1748:### Music
+README.md:1791:### News
+README.md:1824:### Open Data
+README.md:1910:### Open Source Projects
+README.md:1928:### Patent
+README.md:1939:### Personality
+README.md:1973:### Phone
+README.md:1988:### Photography
+README.md:2033:### Programming
+README.md:2045:### Science & Math
+README.md:2111:### Security
+README.md:2179:### Shopping
+README.md:2216:### Social
+README.md:2281:### Sports & Fitness
+README.md:2354:### Test Data
+README.md:2398:### Text Analysis
+README.md:2425:### Tracking
+README.md:2443:### Transportation
+README.md:2547:### URL Shorteners
+README.md:2575:### Vehicle
+README.md:2598:### Video
+README.md:2663:### Weather

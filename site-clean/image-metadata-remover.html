@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Image Metadata Remover tool. Runs entirely in your browser — no uploads, no sign-up."><title>Image Metadata Remover — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:760px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}input[type=file]{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 8px 10px 0}select{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px}img{max-width:100%;margin-top:12px;border-radius:8px}.box{margin-top:14px;padding:14px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06);font-size:13.5px;line-height:1.6}b{color:#37E0FF}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Image Metadata Remover</h1>
+<p>Strip all EXIF, IPTC, XMP, GPS and ICC metadata from images. Protects your privacy by removing location, camera and date information. All processing happens locally — nothing leaves your browser.</p>
+<input type="file" id="f" accept="image/png,image/jpeg,image/webp" onchange="load()">
+<div style="margin:10px 0">
+  <label style="color:#A9BBD4;font-size:12px">Output format:</label>
+  <select id="fmt"><option value="image/jpeg">JPEG</option><option value="image/png" selected>PNG</option><option value="image/webp">WebP</option></select>
+  <label style="color:#A9BBD4;font-size:12px;margin-left:16px">JPEG quality</label>
+  <input type="range" id="q" min="0.1" max="1" step="0.05" value="0.9" style="width:120px;vertical-align:middle"><span id="qv" style="color:#A9BBD4;font-size:12px">0.9</span>
+</div>
+<button onclick="run()" id="btn" style="display:none">Remove Metadata</button>
+<button onclick="dl()" id="dlb" style="display:none">Download</button>
+<img id="preview" style="display:none">
+<div class="box" id="info">Pick an image to see its current metadata.</div>
+<footer><span>TECH MANAGER LAB · IMAGE PRIVACY</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+let img=null,resultBlob=null;
+async function load(){
+  const f=document.getElementById('f').files[0];if(!f)return;
+  const buf=await f.arrayBuffer();
+  const b64=btoa(new Uint8Array(buf).reduce((s,b)=>s+String.fromCharCode(b),''));
+  img=new Image();
+  img.onload=()=>{
+    document.getElementById('preview').src=img.src;
+    document.getElementById('preview').style.display='';
+    document.getElementById('btn').style.display='';
+    document.getElementById('dlb').style.display='none';
+    resultBlob=null;
+    document.getElementById('info').innerHTML='<b>Original:</b> '+(f.size/1024).toFixed(2)+' KB &nbsp;·&nbsp; '+img.width+' × '+img.height+' px<br>Pick output format, then click <b>Remove Metadata</b>.<br><small style="color:#7E90AA">Note: EXIF is stored in the binary file. Any image displayed in a browser (even in this preview) is already metadata-free — the original file still carries it. The re-encode produces a clean file.</small>';
+  };
+  img.src='data:image/'+f.type.split('/')[1]+';base64,'+b64;
+}
+function run(){
+  if(!img)return;
+  const fmt=document.getElementById('fmt').value;
+  const q=+document.getElementById('q').value;
+  const c=document.createElement('canvas');
+  c.width=img.width;c.height=img.height;
+  const ctx=c.getContext('2d');
+  if(fmt==='image/png'&&img.width>0){ctx.clearRect(0,0,c.width,c.height);}
+  ctx.drawImage(img,0,0);
+  c.toBlob(b=>{
+    if(!b)return;
+    resultBlob=b;
+    document.getElementById('dlb').style.display='';
+    document.getElementById('info').innerHTML='<b>Done.</b> All EXIF, IPTC, XMP, GPS and ICC metadata stripped.<br><b>Clean file:</b> '+(b.size/1024).toFixed(2)+' KB &nbsp;·&nbsp; '+img.width+' × '+img.height+' px<br><small style="color:#7E90AA">Click <b>Download</b> to save the metadata-free image.</small>';
+  },fmt,q);
+}
+function dl(){if(!resultBlob)return;const url=URL.createObjectURL(resultBlob);const a=document.createElement('a');a.href=url;a.download='clean-image.'+document.getElementById('fmt').value.split('/')[1];document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),100);}
+document.getElementById('q').addEventListener('input',function(){document.getElementById('qv').textContent=this.value;});
+</script>
+</body></html>

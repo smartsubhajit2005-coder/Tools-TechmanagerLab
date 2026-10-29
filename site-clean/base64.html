@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Base64 Encode/Decode tool. Runs entirely in your browser — no uploads, no sign-up."><title>Base64 Encode/Decode — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:800px;margin:0 auto}textarea{width:100%;min-height:140px;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-family:monospace;font-size:13px}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin-right:6px}a{color:#37E0FF}</style></head>
+<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>Base64 Encode / Decode</h1><textarea id="in" placeholder="Input text..."></textarea><div style="margin:10px 0"><button onclick="enc()">Encode</button><button onclick="dec()">Decode</button></div><textarea id="out" placeholder="Output..." readonly></textarea></div>
+<script>
+const i=document.getElementById('in'),o=document.getElementById('out');
+function enc(){try{o.value=btoa(unescape(encodeURIComponent(i.value)));}catch(e){o.value='Error: '+e.message;}}
+function dec(){try{o.value=decodeURIComponent(escape(atob(i.value)));}catch(e){o.value='Error: '+e.message;}}
+</script></body></html>

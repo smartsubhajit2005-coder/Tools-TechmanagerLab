@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style A — Lab Dark</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+    background:#02143F;color:#E7F0FF;-webkit-font-smoothing:antialiased;
+  }
+  .bg{position:fixed;inset:0;background:radial-gradient(900px 500px at 85% -10%,rgba(46,230,255,.16),transparent 60%),linear-gradient(160deg,#02143F 0%,#02225C 55%,#013091 100%);z-index:-2}
+  .grid{position:fixed;inset:0;background-image:linear-gradient(rgba(46,230,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(46,230,255,.06) 1px,transparent 1px);background-size:64px 64px;z-index:-1;mask-image:radial-gradient(70% 60% at 50% 0%,#000 40%,transparent 100%)}
+  .label{background:#2EE6FF;color:#012044;font-size:11px;font-weight:800;letter-spacing:3px;padding:7px 14px;text-align:center}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 26px 90px}
+
+  header{display:flex;align-items:center;gap:18px;padding:22px 0;border-bottom:1px solid rgba(46,230,255,.16)}
+  .mark{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:3px;font-size:13px}
+  .dot{width:11px;height:11px;border-radius:50%;background:#2EE6FF;box-shadow:0 0 14px #2EE6FF}
+  nav{margin-left:auto;display:flex;gap:26px;font-size:13px;font-weight:600;color:#9FB6DE;letter-spacing:.6px}
+  nav a{color:inherit;text-decoration:none}
+  nav a.on{color:#2EE6FF}
+
+  .hero{padding:56px 0 40px}
+  h1{font-size:clamp(34px,5vw,54px);line-height:1.05;letter-spacing:-1.2px;font-weight:800}
+  h1 em{font-style:normal;color:#2EE6FF}
+  .sub{margin-top:14px;font-size:17px;color:#9FB6DE;max-width:560px;line-height:1.6}
+  .search{margin-top:26px;display:flex;align-items:center;gap:12px;max-width:520px;padding:15px 18px;border:1px solid rgba(46,230,255,.35);border-radius:12px;background:rgba(1,20,55,.7)}
+  .search span{color:#5F7BA8;font-size:14px}
+  .kbd{margin-left:auto;font-size:11px;font-weight:700;color:#5F7BA8;border:1px solid rgba(95,123,168,.4);border-radius:5px;padding:3px 6px}
+
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .chip{font-size:12px;font-weight:700;letter-spacing:.8px;padding:8px 14px;border-radius:999px;border:1px solid rgba(46,230,255,.28);color:#B9CFF2}
+  .chip.on{background:#2EE6FF;color:#012044;border-color:#2EE6FF}
+
+  h2{margin:52px 0 18px;font-size:12px;font-weight:800;letter-spacing:3px;color:#5F7BA8}
+  .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:16px}
+  .cat{border:1px solid rgba(46,230,255,.22);border-radius:14px;padding:20px;background:linear-gradient(180deg,rgba(2,26,70,.85),rgba(1,16,45,.6));transition:.18s}
+  .cat:hover{border-color:rgba(46,230,255,.6);transform:translateY(-2px)}
+  .cat .ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:15px;font-weight:800;color:#2EE6FF;background:rgba(46,230,255,.12);border:1px solid rgba(46,230,255,.3)}
+  .cat b{display:block;margin-top:14px;font-size:16px;font-weight:700}
+  .cat p{margin-top:6px;font-size:13px;color:#8AA4CE;line-height:1.5}
+  .cat .n{margin-top:12px;font-size:11px;font-weight:700;letter-spacing:1.4px;color:#2EE6FF}
+
+  .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .tool{border:1px solid rgba(46,230,255,.18);border-radius:12px;padding:18px;background:rgba(1,20,55,.55);display:flex;gap:14px;align-items:flex-start}
+  .tool .ico{flex:0 0 30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:800;color:#012044;background:#2EE6FF}
+  .tool b{font-size:14.5px;font-weight:700}
+  .tool p{margin-top:4px;font-size:12.5px;color:#8AA4CE;line-height:1.45}
+  .local{margin-top:8px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:#5CE1A0}
+
+  .note{margin-top:46px;padding:18px 20px;border-left:3px solid #2EE6FF;background:rgba(46,230,255,.06);font-size:13px;color:#9FB6DE;line-height:1.6}
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid rgba(46,230,255,.15);font-size:11.5px;letter-spacing:2px;color:#5F7BA8;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grid"></div>
+<div class="label">STYLE A — LAB DARK · current brand, tightened</div>
+<div class="wrap">
+  <header>
+    <div class="mark"><span class="dot"></span>TECH MANAGER LAB</div>
+    <nav><a class="on" href="#">Tools</a><a href="#">Guides</a><a href="#">Blog</a><a href="#">About</a></nav>
+  </header>
+
+  <section class="hero">
+    <h1>Free IT tools.<br><em>Nothing leaves your browser.</em></h1>
+    <p class="sub">18 utilities for documents, networks, security and code. No uploads, no signup, no file retention.</p>
+    <div class="search"><span>⌕</span><span>Search 18 tools…</span><span class="kbd">/</span></div>
+    <div class="chips">
+      <span class="chip on">All</span><span class="chip">PDF</span><span class="chip">Images</span>
+      <span class="chip">Documents</span><span class="chip">Network</span><span class="chip">Security</span>
+      <span class="chip">Developer</span><span class="chip">Microsoft 365</span>
+    </div>
+  </section>
+
+  <h2>BROWSE BY CATEGORY</h2>
+  <div class="cats">
+    <a class="cat" href="#"><div class="ico">▤</div><b>PDF Tools</b><p>Count words, split, merge, inspect metadata.</p><div class="n">4 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">◧</div><b>Image Tools</b><p>Compress, resize, convert without uploading.</p><div class="n">3 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">¶</div><b>Document Tools</b><p>Word count, case convert, text compare.</p><div class="n">5 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">⌗</div><b>Network Tools</b><p>Subnet math, CIDR, DNS, headers.</p><div class="n">4 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">⛨</div><b>Security Tools</b><p>Password strength, hashing, header audit.</p><div class="n">3 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">{ }</div><b>Developer Tools</b><p>JSON format, Base64, URL encode.</p><div class="n">4 TOOLS</div></a>
+  </div>
+
+  <h2>MOST USED THIS WEEK</h2>
+  <div class="feat">
+    <div class="tool"><div class="ico">¶</div><div><b>Word Counter</b><p>Words, characters, reading time as you type.</p><div class="local">RUNS LOCALLY</div></div></div>
+    <div class="tool"><div class="ico">{ }</div><div><b>JSON Formatter</b><p>Pretty-print, minify, validate with line errors.</p><div class="local">RUNS LOCALLY</div></div></div>
+    <div class="tool"><div class="ico">⌗</div><div><b>IP Subnet Calculator</b><p>Network, broadcast, usable range, mask table.</p><div class="local">RUNS LOCALLY</div></div></div>
+  </div>
+
+  <div class="note"><b>Privacy by design.</b> Every tool here processes data inside this tab. Close the page and the data is gone — because it never left.</div>
+  <footer><span>TECH MANAGER LAB · TOOLS</span><span>BUILD BETTER IT</span></footer>
+</div>
+</body>
+</html>

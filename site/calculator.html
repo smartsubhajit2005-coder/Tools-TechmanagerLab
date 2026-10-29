@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calculator — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:420px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}#disp{width:100%;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px;font-size:26px;text-align:right;font-family:monospace;box-sizing:border-box;margin-bottom:12px;min-height:52px}button{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:12px;font-size:16px;font-weight:600;cursor:pointer;transition:.15s}button:hover{border-color:rgba(55,224,255,.5);color:#37E0FF}button.op{color:#37E0FF}button.eq{background:#37E0FF;color:#04121A;border:none}button.fn{font-size:13px;color:#8DFFC6}.grid{display:grid;gap:8px}.g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}.toggle{margin-bottom:12px;display:flex;gap:8px}.toggle button{flex:1;padding:8px;font-size:13px}.toggle button.on{background:#37E0FF;color:#04121A;border:none}.hist{margin-top:14px;font-size:12px;color:#7E90AA;max-height:120px;overflow:auto}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Calculator</h1>
+<p>Basic or scientific. All in your browser.</p>
+<div class="toggle"><button id="tB" class="on" onclick="setMode('basic')">Basic</button><button id="tS" onclick="setMode('sci')">Scientific</button></div>
+<input id="disp" readonly value="0">
+<div id="keys"></div>
+<div class="hist" id="hist"></div>
+<footer><span>TECH MANAGER LAB · CALCULATOR</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+let expr='',mode='basic',justEq=false;
+const disp=document.getElementById('disp');
+function show(v){disp.value=v;}
+function append(t){if(justEq&&/[0-9.]/.test(t)){expr='';justEq=false;}expr+=t;show(expr||'0');justEq=false;}
+function clear(){expr='';show('0');justEq=false;}
+function back(){expr=expr.slice(0,-1);show(expr||'0');}
+function evalExpr(){try{let e=expr.replace(/π/g,'Math.PI').replace(/e\b/g,'Math.E');e=e.replace(/sin\(/g,'Math.sin(').replace(/cos\(/g,'Math.cos(').replace(/tan\(/g,'Math.tan(').replace(/log\(/g,'Math.log10(').replace(/ln\(/g,'Math.log(').replace(/sqrt\(/g,'Math.sqrt(').replace(/abs\(/g,'Math.abs(').replace(/\^/g,'**');const r=Function('"use strict";return ('+e+')')();show(r);document.getElementById('hist').innerHTML='<div>'+expr+' = '+r+'</div>'+document.getElementById('hist').innerHTML;expr=String(r);justEq=true;}catch(err){show('Error');expr='';}}
+function setMode(m){mode=m;document.getElementById('tB').classList.toggle('on',m==='basic');document.getElementById('tS').classList.toggle('on',m==='sci');render();}
+const basic=[['C','⌫','(',')'],['7','8','9','/'],['4','5','6','*'],['1','2','3','-'],['0','.','=','+']];
+const sci=[['sin(','cos(','tan(','log(','ln('],['sqrt(','abs(','π','e','^'],['(',' )'.trim(),'C','⌫','=']];
+function btn(label,cls,action){const b=document.createElement('button');b.textContent=label;if(cls)b.className=cls;b.onclick=action;return b;}
+function render(){const k=document.getElementById('keys');k.innerHTML='';const g=document.createElement('div');g.className='grid '+(mode==='sci'?'g5':'g4');let rows=mode==='sci'?sci.concat(basic.slice(1)):basic;rows.forEach(row=>row.forEach(l=>{if(!l)return;let cls='',act; if(l==='C')act=clear; else if(l==='⌫')act=back; else if(l==='=')act=evalExpr; else act=()=>append(l); if('+-*/'.includes(l))cls='op'; if('sin( cos( tan( log( ln( sqrt( abs( π e ^'.split(' ').includes(l))cls='fn'; if(l==='=')cls='eq'; g.appendChild(btn(l,cls,act));}));k.appendChild(g);}
+render();
+</script>
+</body></html>

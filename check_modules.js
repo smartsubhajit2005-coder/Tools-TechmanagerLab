@@ -1,0 +1,2 @@
+try { require('form-data'); console.log('form-data available'); } catch(e) { console.log('form-data not available:', e.message); }
+try { require('node-fetch'); console.log('node-fetch available'); } catch(e) { console.log('node-fetch not available:', e.message); }

@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Carbon Footprint Calculator tool. Runs entirely in your browser — no uploads, no sign-up."><title>Carbon Footprint Calculator — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:680px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}h2{font-size:14px;color:#37E0FF;margin:18px 0 8px;letter-spacing:1px}label{display:block;font-size:12px;color:#A9BBD4;margin:8px 0 4px}input,select{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin-top:14px}.box{margin-top:18px;padding:16px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06)}b{color:#37E0FF}table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}th,td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.08)}th{color:#7E90AA;font-size:10.5px;letter-spacing:1.5px;text-align:left}td{text-align:right}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Carbon Footprint Calculator</h1>
+<p>Annual CO2 estimate (India grid factors). Indicative, not a certified audit.</p>
+
+<h2>🏠 Home</h2>
+<label>Electricity (kWh/month)</label><input id="kwh" type="number" value="200">
+<label>LPG cylinders (per year)</label><input id="lpg" type="number" value="12">
+<label>Cooking fuel (kg LPG/month, if any)</label><input id="lpgm" type="number" value="0">
+
+<h2>🚗 Cars</h2>
+<label>Petrol car (km/month)</label><input id="carpetrol" type="number" value="300">
+<label>Diesel car (km/month)</label><input id="cardiesel" type="number" value="0">
+<label>EV car (km/month)</label><input id="carev" type="number" value="0">
+
+<h2>🚌 Public Transport</h2>
+<label>Bus (km/month)</label><input id="bus" type="number" value="0">
+<label>Train/metro (km/month)</label><input id="train" type="number" value="0">
+<label>Auto-rickshaw (km/month)</label><input id="auto" type="number" value="0">
+
+<h2>✈ Flights</h2>
+<label>Domestic flights (per year)</label><input id="dom" type="number" value="2">
+<label>International flights (per year)</label><input id="intl" type="number" value="0">
+
+<h2>Diet & Lifestyle</h2>
+<label>Diet type</label><select id="diet"><option value="1.0">Vegan / light vegetarian</option><option value="1.5" selected>Mixed (avg Indian)</option><option value="2.2">Heavy meat</option></select>
+<label>Shopping & goods (₹/month, approximate)</label><input id="shop" type="number" value="5000">
+
+<button onclick="calc()">Calculate</button>
+<div class="box" id="out"></div>
+<footer><span>TECH MANAGER LAB · CARBON</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+function calc(){
+  const kwh=+document.getElementById('kwh').value;const lpg=+document.getElementById('lpg').value;const lpgm=+document.getElementById('lpgm').value;
+  const carpetrol=+document.getElementById('carpetrol').value;const cardiesel=+document.getElementById('cardiesel').value;const carev=+document.getElementById('carev').value;
+  const bus=+document.getElementById('bus').value;const train=+document.getElementById('train').value;const auto=+document.getElementById('auto').value;
+  const dom=+document.getElementById('dom').value;const intl=+document.getElementById('intl').value;
+  const diet=+document.getElementById('diet').value;const shop=+document.getElementById('shop').value;
+
+  const grid=0.82;
+  const homeElec=kwh*12*grid;
+  const homeLPG=lpg*3 + lpgm*12*1.5;
+  const home=homeElec+homeLPG;
+
+  const car=carpetrol*12*0.12 + cardiesel*12*0.14 + carev*12*0.05;
+  const pub=bus*12*0.09 + train*12*0.04 + auto*12*0.10;
+  const flights=dom*1500*0.25 + intl*8000*0.18;
+  const dietE=2000*diet;
+  const shopE=shop*12*0.0005;
+
+  const total=home+car+pub+flights+dietE+shopE;
+  const trees=Math.ceil(total/21);
+  document.getElementById('out').innerHTML=
+    '<table><tr><th>Category</th><th>kg CO2/yr</th></tr>'+
+    '<tr><td>🏠 Home (elec + LPG)</td><td>'+Math.round(home)+'</td></tr>'+
+    '<tr><td>🚗 Cars</td><td>'+Math.round(car)+'</td></tr>'+
+    '<tr><td>🚌 Public transport</td><td>'+Math.round(pub)+'</td></tr>'+
+    '<tr><td>✈ Flights</td><td>'+Math.round(flights)+'</td></tr>'+
+    '<tr><td>🍽 Diet</td><td>'+Math.round(dietE)+'</td></tr>'+
+    '<tr><td>🛍 Shopping</td><td>'+Math.round(shopE)+'</td></tr>'+
+    '<tr><td><b>Total</b></td><td><b>'+Math.round(total)+'</b></td></tr></table>'+
+    '<p style="margin-top:10px"><b>≈ '+trees+' trees</b> needed to offset (21 kg/tree/yr)</p>';
+}
+calc();
+</script>
+</body></html>

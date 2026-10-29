@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Website Status Checker — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:860px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}label{display:block;font-size:12px;color:#A9BBD4;margin:8px 0 4px}input{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin:8px 4px 0 0}.status-indicator{width:12px;height:12px;border-radius:50%;margin-right:8px}.box{margin-top:14px;padding:14px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06);font-size:13.5px;line-height:1.6}b{color:#37E0FF}table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}th,td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;word-break:break-all}th{color:#7E90AA;font-size:10.5px;letter-spacing:1.5px;text-align:left}td{text-align:right}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Website Status Checker</h1>
+<p>Checks if a website is up or down using browser-based HTTP requests. Uses CORS proxies when possible, falls back to browser native fetch.</p>
+<label>URL</label><input id="url" type="url" placeholder="https://example.com" value="https://techmanagerlab.com">
+<div style="margin-top:8px"><button onclick="checkSite()" style="width:100%;background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer">Check</button></div>
+<div id="out"></div>
+<footer><span>TECH MANAGER LAB · STATUS</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+function $(id){return document.getElementById(id)}
+function fetchWithTimeout(url, opts, ms){const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);return fetch(url,{...opts,signal:c.signal}).finally(()=>clearTimeout(t))}
+async function checkSite(){
+  const raw=$('url').value.trim();if(!raw){$('out').innerHTML='<span style="color:#ff6b6b">⚠ Enter a URL</span>';return}
+  const u=/^https?:\/\//i.test(raw)?raw:'https://'+raw
+  $('out').innerHTML='<span style="color:#A9BBD4">Checking…</span>'
+  const t0=performance.now()
+  let status='—',final=u,ms=0,len=0,ok=null,method='unknown',note=''
+  // Run allorigins + corsproxy in parallel with 5s timeout each
+  const proxyResults=await Promise.allSettled([
+    fetchWithTimeout('https://api.allorigins.win/get?url='+encodeURIComponent(u),{},5000)
+      .then(async r=>{const txt=await r.text();const d=JSON.parse(txt);return{status:d.status?.http_code??'—',final:d.status?.url||u,len:(d.contents||'').length,method:'allorigins',note:'Proxy: allorigins.win'}}),
+    fetchWithTimeout('https://corsproxy.io/?'+encodeURIComponent(u),{},5000)
+      .then(async r2=>{const txt2=await r2.text();let d=null;try{d=JSON.parse(txt2)}catch(e){d={status:{http_code:r2.status},contents:txt2}};return{status:d.status?.http_code??r2.status.toString(),final:u,len:(d.contents||txt2).length||0,method:'corsproxy',note:'Proxy: corsproxy.io'}})
+  ])
+  for(const r of proxyResults){
+    if(r.status==='fulfilled'&&r.value.status>=200&&r.value.status<400){
+      const v=r.value;status=v.status;final=v.final;len=v.len;method=v.method;note=v.note;ok=true;break
+    }
+  }
+  // If no proxy succeeded, try native fetch with 8s timeout
+  if(!ok){
+    try{
+      const R=await fetchWithTimeout(u,{mode:'cors'},8000);ms=Math.round(performance.now()-t0)
+      status=R.ok?'200':String(R.status);final=R.url||u;len=0;ok=R.ok;method='native-cors';note='Native fetch (cors)'
+    }catch(e){
+      // final fallback: no-cors confirms reachability only
+      try{
+        await fetchWithTimeout(u,{mode:'no-cors'},3000);ms=Math.round(performance.now()-t0)
+        status='REACHABLE (no-cors)';final=u;len=0;ok=true;method='no-cors';note='Native fetch (no-cors) — status not available'
+      }catch(e2){
+        status='✗ ERROR';final=u;ms=0;ok=false;method='error';note='All methods failed: '+e2.message
+      }
+    }
+  }
+  ms=Math.round(performance.now()-t0)
+  const c=ok?'#8DFFC6':(ok===null?'#F5A623':'#ff6b6b')
+  let html=''
+  html+='<div style="font-size:18px;font-weight:800"><span style="color:'+c+'">● '+(ok?'UP':(ok===null?'UNKNOWN':'DOWN'))+'</span> &nbsp; '+u+'</div>'
+  html+='<div style="margin-top:6px;color:#A9BBD4"><b style="color:#F4F8FF">Status:</b> '+status+' &nbsp; <b style="color:#F4F8FF">Response:</b> '+ms+' ms &nbsp; <b style="color:#F4F8FF">Method:</b> '+method+'</div>'
+  html+='<div style="color:#A9BBD4;margin-top:6px">'+note+'</div>'
+  if(!ok&&method==='error')html+='<div style="margin-top:6px;color:#ff6b6b"><b>Details:</b> '+note+'</div>'
+  $('out').innerHTML=html
+}
+</script>
+</body></html>"

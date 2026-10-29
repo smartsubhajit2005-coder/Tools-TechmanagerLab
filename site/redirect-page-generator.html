@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redirect Page Generator — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:700px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}label{display:block;font-size:12px;color:#A9BBD4;margin:10px 0 4px}input{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin-top:14px;margin-right:8px}textarea{width:100%;min-height:180px;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:12px;font-family:monospace;font-size:12px;box-sizing:border-box}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Redirect Page Generator</h1>
+<p>Client-side redirect file. Host the downloaded HTML anywhere — GitHub Pages, Cloudflare Pages, your own domain — and it forwards visitors to the target URL.</p>
+<label>Target URL</label><input id="url" type="url" placeholder="https://example.com/long/path" value="https://example.com">
+<label>File name (slug)</label><input id="slug" type="text" value="go" placeholder="go">
+<button onclick="gen()">Generate</button><button onclick="dl()">Download HTML</button><button onclick="cp()">Copy HTML</button>
+<textarea id="out" readonly></textarea>
+<footer><span>TECH MANAGER LAB · REDIRECT</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+function gen(){
+  const url=document.getElementById('url').value.trim();
+  const slug=document.getElementById('slug').value.trim()||'go';
+  if(!url){alert('Enter a target URL');return;}
+  const html='<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta http-equiv="refresh" content="0;url='+url+'">\n<title>Redirecting…</title>\n<link rel="canonical" href="'+url+'">\n</head>\n<body>\n<p>Redirecting to <a href="'+url+'">'+url+'</a>…</p>\n<script>window.location.replace("'+url+'");<\/script>\n<noscript><meta http-equiv="refresh" content="0;url='+url+'"></noscript>\n</body>\n</html>';
+  document.getElementById('out').value=html;
+}
+function dl(){gen();const b=new Blob([document.getElementById('out').value],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(document.getElementById('slug').value.trim()||'go')+'.html';a.click();}
+function cp(){gen();navigator.clipboard.writeText(document.getElementById('out').value).then(()=>alert('Copied'));}</script>
+</body></html>

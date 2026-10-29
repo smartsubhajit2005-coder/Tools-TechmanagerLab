@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Image Cropper tool. Runs entirely in your browser — no uploads, no sign-up."><title>Image Cropper — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:900px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}input[type=file]{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 8px 10px 0}select{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px}#wrap{position:relative;margin-top:16px;background:#0b121c;border:1px solid rgba(255,255,255,.14);border-radius:12px;overflow:hidden;min-height:300px;display:flex;align-items:center;justify-content:center}#cv{max-width:100%}#box{position:absolute;border:2px dashed #37E0FF;background:rgba(55,224,255,.08);cursor:move;touch-action:none}#box::after{content:'';position:absolute;right:0;bottom:0;width:20px;height:20px;cursor:se-resize;background:linear-gradient(135deg,transparent 50%,#37E0FF 50%)}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Image Cropper</h1>
+<p>Crop images interactively. Drag and resize the crop box, choose an aspect ratio preset, and download the cropped result. All processing happens locally.</p>
+<input type="file" id="f" accept="image/*" onchange="load()">
+<div style="margin:10px 0">
+  <label style="color:#A9BBD4;font-size:12px">Aspect ratio:</label>
+  <select id="ratio" onchange="setRatio()">
+    <option value="0">Free</option>
+    <option value="1">1:1 (Square)</option>
+    <option value="1.333">4:3</option>
+    <option value="1.778">16:9</option>
+    <option value="0.8">5:4</option>
+    <option value="0.75">3:4</option>
+  </select>
+  <button onclick="resetBox()">Reset Box</button>
+  <button onclick="crop()">Crop</button>
+  <button onclick="dl()" id="dlb" style="display:none">Download</button>
+</div>
+<div id="wrap"><canvas id="cv"></canvas><div id="box" style="display:none"></div></div>
+<p id="info"></p>
+<footer><span>TECH MANAGER LAB · IMAGE CROPPER</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+let img=null,box={x:50,y:50,w:200,h:150},drag=null,ratio=0,resultBlob=null;
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),boxEl=document.getElementById('box'),wrap=document.getElementById('wrap');
+function load(){const f=document.getElementById('f').files[0];if(!f)return;const r=new FileReader();r.onload=e=>{img=new Image();img.onload=()=>{cv.width=img.width;cv.height=img.height;cv.style.maxWidth='100%';ctx.drawImage(img,0,0);resetBox();boxEl.style.display='block';document.getElementById('info').textContent='Image: '+img.width+' × '+img.height+' px';};img.src=e.target.result;};r.readAsDataURL(f);}
+function setRatio(){ratio=+document.getElementById('ratio').value;resetBox();}
+function resetBox(){if(!img)return;const rw=wrap.clientWidth||cv.width;const rh=wrap.clientHeight||cv.height;box.w=Math.min(rw*0.6,img.width*0.6);if(ratio>0){box.h=box.w/ratio;}else{box.h=box.w*0.75;}box.x=(rw-box.w)/2;box.y=(rh-box.h)/2;updateBox();}
+function updateBox(){boxEl.style.left=box.x+'px';boxEl.style.top=box.y+'px';boxEl.style.width=box.w+'px';boxEl.style.height=box.h+'px';}
+boxEl.addEventListener('mousedown',start);boxEl.addEventListener('touchstart',start,{passive:false});
+function start(e){e.preventDefault();const t=e.touches?e.touches[0]:e;const rect=boxEl.getBoundingClientRect();if(t.clientX>rect.right-20&&t.clientY>rect.bottom-20){drag='resize';}else{drag='move';}document.addEventListener('mousemove',move);document.addEventListener('mouseup',end);document.addEventListener('touchmove',move,{passive:false});document.addEventListener('touchend',end);}
+function move(e){const t=e.touches?e.touches[0]:e;const wrect=wrap.getBoundingClientRect();if(drag==='move'){box.x+=t.movementX;box.y+=t.movementY;}else if(drag==='resize'){const nw=box.w+t.movementX;const nh=ratio>0?nw/ratio:box.h+t.movementY;if(nw>50&&nh>50){box.w=nw;if(ratio===0)box.h=nh;}}box.x=Math.max(0,Math.min(wrap.clientWidth-box.w,box.x));box.y=Math.max(0,Math.min(wrap.clientHeight-box.h,box.y));updateBox();}
+function end(){drag=null;document.removeEventListener('mousemove',move);document.removeEventListener('mouseup',end);document.removeEventListener('touchmove',move);document.removeEventListener('touchend',end);}
+function crop(){if(!img||box.w<=0||box.h<=0)return;const sx=box.x*(img.width/cv.clientWidth);const sy=box.y*(img.height/cv.clientHeight);const sw=box.w*(img.width/cv.clientWidth);const sh=box.h*(img.height/cv.clientHeight);const c2=document.createElement('canvas');c2.width=sw;c2.height=sh;c2.getContext('2d').drawImage(img,sx,sy,sw,sh,0,0,sw,sh);c2.toBlob(b=>{resultBlob=b;const url=URL.createObjectURL(b);document.getElementById('dlb').style.display='';document.getElementById('info').textContent='Cropped: '+Math.round(sw)+' × '+Math.round(sh)+' px';},'image/png');}
+function dl(){if(!resultBlob)return;const url=URL.createObjectURL(resultBlob);const a=document.createElement('a');a.href=url;a.download='cropped.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),100);}
+</script>
+</body></html>

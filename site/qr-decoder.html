@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QR Code Decoder — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:720px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}input[type=file]{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 8px 10px 0}img{max-width:100%;margin-top:12px;border-radius:8px}.box{margin-top:14px;padding:14px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06);font-size:13.5px;line-height:1.6;word-break:break-all}b{color:#37E0FF}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>QR Code Decoder</h1>
+<p>Decode QR codes from images (PNG, JPEG, WebP). Upload an image and extract the encoded text or URL. All processing happens in your browser — nothing is uploaded.</p>
+<input type="file" id="f" accept="image/*" onchange="load()">
+<button onclick="copyResult()" id="cpb" style="display:none">Copy text</button>
+<img id="preview" style="display:none">
+<div class="box" id="out">Pick an image containing a QR code.</div>
+<footer><span>TECH MANAGER LAB · QR DECODE</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+let resultText='';
+function load(){
+  const f=document.getElementById('f').files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const im=new Image();
+    im.onload=()=>{
+      document.getElementById('preview').src=im.src;
+      document.getElementById('preview').style.display='';
+      // try multiple scales for robustness
+      let decoded=null;
+      for(const scale of [1,0.5,2]){
+        const c=document.createElement('canvas');
+        c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);
+        const ctx=c.getContext('2d');
+        ctx.drawImage(im,0,0,c.width,c.height);
+        const d=ctx.getImageData(0,0,c.width,c.height);
+        const code=jsQR(d.data,d.width,d.height);
+        if(code){decoded=code;break;}
+      }
+      if(decoded){
+        resultText=decoded.data;
+        document.getElementById('cpb').style.display='';
+        const isUrl=/^https?:\/\//i.test(resultText);
+        document.getElementById('out').innerHTML='<b>Decoded:</b><br>'+resultText+(isUrl?'<br><a href="'+resultText+'" target="_blank">Open link ↗</a>':'');
+      } else {
+        resultText='';
+        document.getElementById('cpb').style.display='none';
+        document.getElementById('out').innerHTML='<b>No QR code found.</b> Try a sharper image or one where the code fills more of the frame.';
+      }
+    };
+    im.src=e.target.result;
+  };
+  r.readAsDataURL(f);
+}
+function copyResult(){if(!resultText)return;navigator.clipboard.writeText(resultText).then(()=>alert('Copied'));}
+</script>
+</body></html>

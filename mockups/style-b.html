@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style B — Editorial Light</title>
+<style>
+  :root{--ink:#0E1726;--muted:#5C6B82;--line:#E2E7EF;--accent:#0B67F0;--paper:#FBFAF7}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .label{background:var(--ink);color:#fff;font-size:11px;font-weight:700;letter-spacing:3px;padding:7px 14px;text-align:center}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 26px 80px}
+
+  header{display:flex;align-items:center;gap:20px;padding:24px 0;border-bottom:1px solid var(--line)}
+  .mark{font-weight:800;letter-spacing:2.6px;font-size:12.5px}
+  .mark i{font-style:normal;color:var(--accent)}
+  nav{margin-left:auto;display:flex;gap:24px;font-size:13px;color:var(--muted)}
+  nav a{color:inherit;text-decoration:none}
+  nav a.on{color:var(--ink);font-weight:700}
+
+  .hero{padding:64px 0 8px;display:grid;grid-template-columns:1.35fr .85fr;gap:48px;align-items:end}
+  h1{font-size:clamp(36px,5.2vw,60px);line-height:1.02;letter-spacing:-2px;font-weight:800}
+  h1 span{color:var(--accent)}
+  .sub{margin-top:16px;font-size:16.5px;color:var(--muted);line-height:1.65;max-width:520px}
+  .search{margin-top:28px;display:flex;align-items:center;gap:10px;padding:14px 16px;border:1px solid #CFD8E6;border-radius:6px;background:#fff;max-width:460px}
+  .search span{color:#98A5B8;font-size:14px}
+  .stat{border-left:1px solid var(--line);padding-left:26px}
+  .stat b{display:block;font-size:38px;font-weight:800;letter-spacing:-1.5px}
+  .stat p{font-size:12.5px;color:var(--muted);letter-spacing:.4px;line-height:1.7;margin-top:6px}
+
+  .divide{height:1px;background:var(--line);margin:54px 0 0}
+  h2{margin:46px 0 20px;font-size:11.5px;font-weight:800;letter-spacing:2.6px;color:#8A97AB}
+  .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:0;border-top:1px solid var(--line)}
+  .cat{display:block;text-decoration:none;color:inherit;padding:22px 22px 24px 0;border-bottom:1px solid var(--line);position:relative;transition:.15s}
+  .cat:hover{background:#fff}
+  .cat .n{font-size:11px;font-weight:700;letter-spacing:1.6px;color:#A8B4C6}
+  .cat b{display:block;margin-top:10px;font-size:19px;font-weight:700;letter-spacing:-.3px}
+  .cat p{margin-top:7px;font-size:13.5px;color:var(--muted);line-height:1.6;max-width:270px}
+  .cat .go{margin-top:12px;font-size:12.5px;font-weight:700;color:var(--accent)}
+
+  .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+  .tool{border:1px solid var(--line);border-radius:8px;background:#fff;padding:20px}
+  .tool .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .tool b{font-size:15.5px;font-weight:700}
+  .badge{font-size:9.5px;font-weight:800;letter-spacing:1.2px;color:#0B7A4B;background:#E6F6EE;border-radius:3px;padding:4px 7px;white-space:nowrap}
+  .tool p{margin-top:9px;font-size:13px;color:var(--muted);line-height:1.6}
+
+  .note{margin-top:44px;padding:22px 24px;background:#F1F5FC;border-radius:8px;font-size:13.5px;color:#31445E;line-height:1.7}
+  .note b{color:var(--ink)}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:11px;letter-spacing:1.8px;color:#9AA7BA}
+  @media(max-width:760px){.hero{grid-template-columns:1fr;gap:28px}.stat{border-left:none;border-top:1px solid var(--line);padding:22px 0 0}}
+</style>
+</head>
+<body>
+<div class="label">STYLE B — EDITORIAL LIGHT · trust, readability, print feel</div>
+<div class="wrap">
+  <header>
+    <div class="mark">TECH MANAGER <i>LAB</i></div>
+    <nav><a class="on" href="#">Tools</a><a href="#">Guides</a><a href="#">Blog</a><a href="#">About</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Free tools for<br>people who run <span>IT.</span></h1>
+      <p class="sub">Eighteen browser utilities for documents, networks, security and code. Built for 20–200 seat teams. Nothing gets uploaded.</p>
+      <div class="search"><span>⌕</span><span>Search tools, categories, guides…</span></div>
+    </div>
+    <div class="stat">
+      <b>18</b><p>TOOLS LIVE<br>0 FILES STORED<br>0 ACCOUNTS NEEDED</p>
+    </div>
+  </section>
+
+  <div class="divide"></div>
+  <h2>CATEGORIES</h2>
+  <div class="cats">
+    <a class="cat" href="#"><div class="n">04 TOOLS</div><b>PDF Tools</b><p>Word count, split, merge, metadata inspection.</p><div class="go">Open →</div></a>
+    <a class="cat" href="#"><div class="n">03 TOOLS</div><b>Image Tools</b><p>Compress, resize and convert in the tab.</p><div class="go">Open →</div></a>
+    <a class="cat" href="#"><div class="n">05 TOOLS</div><b>Document Tools</b><p>Word count, case conversion, text diff.</p><div class="go">Open →</div></a>
+    <a class="cat" href="#"><div class="n">04 TOOLS</div><b>Network Tools</b><p>Subnet math, CIDR, DNS lookup, headers.</p><div class="go">Open →</div></a>
+    <a class="cat" href="#"><div class="n">03 TOOLS</div><b>Security Tools</b><p>Password strength, hashes, header audit.</p><div class="go">Open →</div></a>
+    <a class="cat" href="#"><div class="n">04 TOOLS</div><b>Developer Tools</b><p>JSON, Base64, URL encoding, timestamps.</p><div class="go">Open →</div></a>
+  </div>
+
+  <h2>START HERE</h2>
+  <div class="feat">
+    <div class="tool"><div class="top"><b>Word Counter</b><span class="badge">LOCAL</span></div><p>Words, characters, sentences and reading time, updated as you type.</p></div>
+    <div class="tool"><div class="top"><b>JSON Formatter</b><span class="badge">LOCAL</span></div><p>Pretty-print, minify and validate with the exact line of any error.</p></div>
+    <div class="tool"><div class="top"><b>IP Subnet Calculator</b><span class="badge">LOCAL</span></div><p>Network, broadcast, usable range and mask table for any CIDR.</p></div>
+  </div>
+
+  <div class="note"><b>Files never leave your device.</b> Each tool runs in this browser tab. Nothing is uploaded, logged or retained — close the tab and it is gone.</div>
+  <footer><span>TECH MANAGER LAB · TOOLS</span><span>BUILD BETTER IT. LEAD BETTER.</span></footer>
+</div>
+</body>
+</html>

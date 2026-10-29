@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Image to SVG Converter tool. Runs entirely in your browser — no uploads, no sign-up."><title>Image to SVG Converter — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:960px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}.box{margin-top:14px;padding:16px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06);font-size:13.5px;line-height:1.6}b{color:#37E0FF}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin:8px 4px 0 0}button.secondary{background:rgba(255,255,255,.1);color:#F4F8FF}.drop{border:2px dashed rgba(55,224,255,.4);border-radius:12px;padding:40px;text-align:center;cursor:pointer;margin:16px 0;transition:border-color .2s}.drop:hover{border-color:#37E0FF}input[type=file]{display:none}label{display:block;font-size:12px;color:#A9BBD4;margin:8px 0 4px}select,input[type=range]{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:6px 10px}.preview{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.preview>div{text-align:center}.preview img,.preview svg{max-width:100%;max-height:300px;border-radius:8px;border:1px solid rgba(255,255,255,.14)}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Image to SVG Converter</h1>
+<p>Convert JPG/PNG images to SVG vector graphics. Runs entirely in your browser — nothing uploaded.</p>
+<div class="drop" id="drop" onclick="document.getElementById('file').click()">Drop an image here or click to select<br><small style="color:#7E90AA">JPG, PNG, WebP supported</small></div>
+<input type="file" id="file" accept="image/*">
+<div id="controls" style="display:none">
+  <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:end">
+    <div><label>Color mode</label><select id="colormode"><option value="color">Color</option><option value="grayscale">Grayscale</option></select></div>
+    <div><label>Detail level</label><input type="range" id="detail" min="1" max="5" value="3" style="width:120px"><span id="detailval" style="color:#37E0FF;margin-left:8px">3</span></div>
+    <div><label>Threshold</label><input type="range" id="threshold" min="0" max="255" value="128" style="width:120px"><span id="threshval" style="color:#37E0FF;margin-left:8px">128</span></div>
+  </div>
+  <div style="margin-top:12px"><button onclick="convert()">Convert to SVG</button><button class="secondary" onclick="download()">Download SVG</button></div>
+</div>
+<div class="preview" id="preview" style="display:none">
+  <div><b>Original</b><br><img id="orig" alt="original"></div>
+  <div><b>SVG Result</b><br><div id="svgout"></div></div>
+</div>
+<div id="info" class="box" style="display:none"></div>
+<footer><span>TECH MANAGER LAB · TOOLS</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/imagetracerjs@1.2.6/imagetracer_v1.2.6.min.js"></script>
+<script>
+let currentFile=null,svgResult=null;
+const drop=document.getElementById('drop'),file=document.getElementById('file');
+file.addEventListener('change',e=>{if(e.target.files[0])loadFile(e.target.files[0])});
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.borderColor='#37E0FF'});
+drop.addEventListener('dragleave',()=>{drop.style.borderColor='rgba(55,224,255,.4)'});
+drop.addEventListener('drop',e=>{e.preventDefault();drop.style.borderColor='rgba(55,224,255,.4)';if(e.dataTransfer.files[0])loadFile(e.dataTransfer.files[0])});
+document.getElementById('detail').addEventListener('input',e=>{document.getElementById('detailval').textContent=e.target.value});
+document.getElementById('threshold').addEventListener('input',e=>{document.getElementById('threshval').textContent=e.target.value});
+function loadFile(f){
+  if(!f.type.startsWith('image/')){alert('Please select an image file');return}
+  currentFile=f;
+  const r=new FileReader();
+  r.onload=e=>{
+    document.getElementById('orig').src=e.target.result;
+    document.getElementById('preview').style.display='grid';
+    document.getElementById('controls').style.display='block';
+    drop.innerHTML='Selected: '+f.name+'<br><small style="color:#7E90AA">Click to change</small>';
+  };
+  r.readAsDataURL(f);
+}
+function convert(){
+  if(!currentFile){alert('Select an image first');return}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      canvas.width=img.width;canvas.height=img.height;
+      const ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0);
+      const opts={
+        ltres:parseFloat(document.getElementById('detail').value),
+        qtres:parseFloat(document.getElementById('detail').value),
+        pathomit:8-parseFloat(document.getElementById('detail').value),
+        colorsampling:document.getElementById('colormode').value==='grayscale'?0:2,
+        numberofcolors:16,
+        mincolorratio:0.02,
+        colorquantcycles:3,
+        strokewidth:1,
+        linefilter:true,
+        scale:1,
+        roundcoords:1,
+        viewbox:true,
+        desc:false,
+        lcpr:0,
+        qcpr:0,
+        blurradius:0,
+        blurdelta:20
+      };
+      try{
+        const imgData=ctx.getImageData(0,0,canvas.width,canvas.height);
+        svgResult=ImageTracer.imagedataToSVG(imgData,opts);
+        document.getElementById('svgout').innerHTML=svgResult;
+        const svgEl=document.getElementById('svgout').querySelector('svg');
+        if(svgEl){svgEl.style.maxWidth='100%';svgEl.style.maxHeight='300px'}
+        const size=(new Blob([svgResult],{type:'image/svg+xml'}).size/1024).toFixed(1);
+        document.getElementById('info').style.display='block';
+        document.getElementById('info').innerHTML='<b>Converted!</b> SVG size: '+size+' KB · Dimensions: '+img.width+'×'+img.height+'px';
+      }catch(err){
+        document.getElementById('info').style.display='block';
+        document.getElementById('info').innerHTML='<span style="color:#ff6b6b">Error: '+err.message+'</span>';
+      }
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(currentFile);
+}
+function download(){
+  if(!svgResult){alert('Convert first');return}
+  const blob=new Blob([svgResult],{type:'image/svg+xml'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=(currentFile?.name?.replace(/\.[^.]+$/,'')||'image')+'.svg';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body></html>

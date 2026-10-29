@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style G — Signal Grid</title>
+<style>
+  :root{--bg:#0B0F14;--panel:#111821;--line:#1E2A36;--text:#E8EEF5;--dim:#8598AC;--cy:#35D6F5;--amber:#FFB454}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+  #net{position:fixed;inset:0;z-index:0;display:block}
+  .veil{position:fixed;inset:0;z-index:1;background:radial-gradient(900px 520px at 50% -10%,rgba(53,214,245,.10),transparent 62%),linear-gradient(180deg,rgba(11,15,20,.28),rgba(11,15,20,.92) 62%);pointer-events:none}
+  .label{position:relative;z-index:3;background:var(--cy);color:#06141A;font-size:11px;font-weight:800;letter-spacing:3px;padding:7px 14px;text-align:center}
+
+  .wrap{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:0 26px 90px}
+
+  header{position:sticky;top:0;z-index:4;display:flex;align-items:center;gap:16px;padding:16px 0;background:rgba(11,15,20,.72);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .mark{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:2.4px;font-size:12px}
+  .mark svg{width:20px;height:20px}
+  nav{margin-left:auto;display:flex;gap:6px;font-size:12.5px}
+  nav a{color:var(--dim);text-decoration:none;padding:7px 11px;border-radius:8px;transition:.18s}
+  nav a:hover{color:var(--text);background:rgba(53,214,245,.08)}
+  nav a.on{color:#06141A;background:var(--cy);font-weight:700}
+
+  .hero{padding:70px 0 12px;text-align:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:2.4px;color:var(--cy);border:1px solid rgba(53,214,245,.3);border-radius:999px;padding:6px 13px;background:rgba(53,214,245,.06)}
+  .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--cy);box-shadow:0 0 10px var(--cy);animation:blip 2.4s infinite}
+  @keyframes blip{0%,100%{opacity:1}50%{opacity:.25}}
+  h1{margin-top:22px;font-size:clamp(36px,5.6vw,64px);line-height:1.02;letter-spacing:-2.2px;font-weight:800}
+  h1 em{font-style:normal;color:var(--cy)}
+  .typed{display:block;margin-top:14px;font-size:15px;color:var(--dim);min-height:24px}
+  .typed b{color:var(--text);font-weight:600}
+  .caret{display:inline-block;width:2px;height:1em;background:var(--cy);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  .search{margin:32px auto 0;display:flex;align-items:center;gap:12px;max-width:520px;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:rgba(17,24,33,.85);box-shadow:0 24px 60px -34px rgba(53,214,245,.5);transition:border-color .2s,box-shadow .2s}
+  .search:focus-within{border-color:rgba(53,214,245,.55);box-shadow:0 0 0 4px rgba(53,214,245,.08)}
+  .search span{color:#5E7488;font-size:14px}
+  .search .k{margin-left:auto;font-size:10.5px;font-weight:700;color:#5E7488;border:1px solid #263442;border-radius:5px;padding:3px 6px}
+
+  .springboard{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .chip{font-size:12px;font-weight:600;color:var(--dim);border:1px solid var(--line);background:rgba(17,24,33,.7);padding:7px 13px;border-radius:999px;text-decoration:none;transition:.18s}
+  .chip:hover{color:var(--text);border-color:rgba(53,214,245,.45);transform:translateY(-1px)}
+
+  h2{margin:60px 0 18px;font-size:11px;font-weight:800;letter-spacing:2.8px;color:#5E7488;text-align:center}
+  .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(246px,1fr));gap:14px}
+  .cat{position:relative;display:block;padding:20px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(170deg,rgba(17,24,33,.92),rgba(13,18,25,.78));text-decoration:none;color:inherit;transition:transform .25s,border-color .25s}
+  .cat::after{content:"";position:absolute;inset:0;border-radius:16px;background:radial-gradient(240px 120px at 50% 0%,rgba(53,214,245,.16),transparent 70%);opacity:0;transition:opacity .25s}
+  .cat:hover{transform:translateY(-4px);border-color:rgba(53,214,245,.4)}
+  .cat:hover::after{opacity:1}
+  .cat .ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:14px;color:#06141A;background:linear-gradient(135deg,#35D6F5,#7FE7C4)}
+  .cat b{display:block;margin-top:14px;font-size:15.5px;font-weight:700}
+  .cat p{margin-top:6px;font-size:12.5px;color:var(--dim);line-height:1.55}
+  .cat .n{margin-top:12px;font-size:10.5px;font-weight:800;letter-spacing:1.3px;color:var(--amber)}
+
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));gap:14px}
+  .tool{display:flex;gap:13px;padding:18px;border:1px solid var(--line);border-radius:14px;background:rgba(17,24,33,.8);transition:border-color .2s,transform .2s}
+  .tool:hover{border-color:rgba(255,180,84,.45);transform:translateY(-2px)}
+  .tool .dot{flex:0 0 8px;height:8px;border-radius:50%;margin-top:7px;background:var(--cy);box-shadow:0 0 12px rgba(53,214,245,.8)}
+  .tool b{font-size:14px;font-weight:700}
+  .tool p{margin-top:5px;font-size:12.5px;color:var(--dim);line-height:1.5}
+  .tool .tag{margin-top:9px;display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:1.1px;color:var(--cy);border:1px solid rgba(53,214,245,.3);border-radius:999px;padding:3px 7px}
+
+  .note{margin-top:44px;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:rgba(17,24,33,.7);font-size:13px;color:var(--dim);line-height:1.7;text-align:center}
+  .note b{color:var(--text)}
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10.5px;letter-spacing:1.7px;color:#4C6072}
+  @media(prefers-reduced-motion:reduce){.caret,.eyebrow i{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="net" aria-hidden="true"></canvas>
+<div class="veil"></div>
+<div class="label">STYLE G — SIGNAL GRID · live node canvas, sticky nav, type-in hero</div>
+<div class="wrap">
+  <header>
+    <div class="mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#35D6F5" stroke-width="1.8"><circle cx="5" cy="5" r="2.2"/><circle cx="19" cy="7" r="2.2"/><circle cx="9" cy="19" r="2.2"/><path d="M7 6l10 1M6.6 7l2.2 10M17.6 8.6L10.4 18"/></svg>
+      TECH MANAGER LAB
+    </div>
+    <nav><a class="on" href="#">Tools</a><a href="#">Guides</a><a href="#">Blog</a><a href="#">About</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow"><i></i>18 TOOLS · ZERO UPLOADS</div>
+    <h1>Tools that run<br>where the <em>work</em> is.</h1>
+    <div class="typed"><span id="tw"></span><span class="caret"></span></div>
+    <div class="search"><span>⌕</span><span>Search tools — subnet, JSON, word count…</span><span class="k">/</span></div>
+    <div class="springboard">
+      <a class="chip" href="#">Word Counter</a><a class="chip" href="#">JSON Formatter</a>
+      <a class="chip" href="#">Subnet Calculator</a><a class="chip" href="#">Password Strength</a>
+      <a class="chip" href="#">Base64</a>
+    </div>
+  </section>
+
+  <h2>CATEGORIES</h2>
+  <div class="cats">
+    <a class="cat" href="#"><div class="ico">▤</div><b>PDF Tools</b><p>Word count, split, merge, metadata.</p><div class="n">4 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">◧</div><b>Image Tools</b><p>Compress, resize, convert.</p><div class="n">3 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">¶</div><b>Document Tools</b><p>Word count, case, diff, DOCX.</p><div class="n">5 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">⌗</div><b>Network Tools</b><p>Subnet, CIDR, DNS, headers.</p><div class="n">4 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">⛨</div><b>Security Tools</b><p>Password, hash, headers.</p><div class="n">3 TOOLS</div></a>
+    <a class="cat" href="#"><div class="ico">{ }</div><b>Developer Tools</b><p>JSON, Base64, URL, time.</p><div class="n">4 TOOLS</div></a>
+  </div>
+
+  <h2>MOST USED</h2>
+  <div class="row">
+    <div class="tool"><span class="dot"></span><div><b>Word Counter</b><p>Words, characters, reading time, live.</p><span class="tag">LOCAL</span></div></div>
+    <div class="tool"><span class="dot"></span><div><b>JSON Formatter</b><p>Format, minify, validate with line errors.</p><span class="tag">LOCAL</span></div></div>
+    <div class="tool"><span class="dot"></span><div><b>IP Subnet Calculator</b><p>Mask, range, broadcast, usable hosts.</p><span class="tag">LOCAL</span></div></div>
+  </div>
+
+  <div class="note"><b>Nothing leaves this tab.</b> Tools process input in your browser. No upload, no copy, no retention.</div>
+  <footer><span>TECH MANAGER LAB · TOOLS</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // type-in subtitle
+  var lines = ["Documents, networks, security and code — handled in the browser.","No uploads. No accounts. No server copy.","Built for 20–200 seat IT teams."];
+  var tw = document.getElementById('tw'), li = 0, ci = 0, dir = 1;
+  if(reduce){ tw.textContent = lines[0]; }
+  else {
+    (function tick(){
+      var s = lines[li];
+      tw.textContent = s.slice(0, ci);
+      if(dir === 1){
+        if(ci < s.length){ ci++; setTimeout(tick, 26); }
+        else { dir = -1; setTimeout(tick, 1700); }
+      } else {
+        if(ci > 0){ ci--; setTimeout(tick, 12); }
+        else { dir = 1; li = (li+1) % lines.length; setTimeout(tick, 240); }
+      }
+    })();
+  }
+  // node canvas
+  var cv = document.getElementById('net');
+  if(!cv) return;
+  var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var pts = [], mouse = {x:-999, y:-999};
+  function size(){
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W*dpr; cv.height = H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var count = Math.min(72, Math.round(W*H/22000));
+    pts = [];
+    for(var i=0;i<count;i++) pts.push({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.22, vy:(Math.random()-.5)*.22});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<pts.length;i++){
+      var p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath(); ctx.arc(p.x,p.y,1.4,0,6.283);
+      ctx.fillStyle = "rgba(53,214,245,.55)"; ctx.fill();
+    }
+    for(var a=0;a<pts.length;a++){
+      for(var b=a+1;b<pts.length;b++){
+        var dx = pts[a].x-pts[b].x, dy = pts[a].y-pts[b].y, d2 = dx*dx+dy*dy;
+        if(d2 < 18000){
+          var o = (1 - d2/18000) * .18;
+          ctx.strokeStyle = "rgba(53,214,245,"+o+")";
+          ctx.lineWidth = .7;
+          ctx.beginPath(); ctx.moveTo(pts[a].x,pts[a].y); ctx.lineTo(pts[b].x,pts[b].y); ctx.stroke();
+        }
+      }
+      var mdx = pts[a].x-mouse.x, mdy = pts[a].y-mouse.y, md2 = mdx*mdx+mdy*mdy;
+      if(md2 < 26000){
+        var mo = (1 - md2/26000) * .5;
+        ctx.strokeStyle = "rgba(255,180,84,"+mo+")";
+        ctx.lineWidth = .9;
+        ctx.beginPath(); ctx.moveTo(pts[a].x,pts[a].y); ctx.lineTo(mouse.x,mouse.y); ctx.stroke();
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', size, {passive:true});
+  window.addEventListener('pointermove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; }, {passive:true});
+  size();
+  if(reduce){ /* draw one static frame */ draw(); } else { draw(); }
+})();
+</script>
+</body>
+</html>

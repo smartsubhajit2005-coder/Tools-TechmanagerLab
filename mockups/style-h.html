@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style H — Cinema Backdrop</title>
+<style>
+  :root{--ink:#F4F8FF;--dim:#A9BBD4;--line:rgba(255,255,255,.14);--cy:#37E0FF}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:#04070C;color:var(--ink);-webkit-font-smoothing:antialiased}
+  .label{position:relative;z-index:6;background:var(--cy);color:#04121A;font-size:11px;font-weight:800;letter-spacing:3px;padding:7px 14px;text-align:center}
+
+  /* video stage */
+  .stage{position:fixed;inset:0;z-index:0;overflow:hidden;background:#04070C}
+  .stage video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;transform:translate(-50%,-50%);object-fit:cover}
+  .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+  .stage img.on{opacity:1}
+  .scrim{position:absolute;inset:0;background:
+    radial-gradient(1100px 620px at 50% -8%,rgba(55,224,255,.16),transparent 60%),
+    linear-gradient(180deg,rgba(4,7,12,.55) 0%,rgba(4,7,12,.74) 42%,rgba(4,7,12,.95) 78%,#04070C 100%)}
+  .grain{position:absolute;inset:0;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  .wrap{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:0 26px 96px}
+
+  header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:16px;padding:16px 0;background:linear-gradient(180deg,rgba(4,7,12,.78),rgba(4,7,12,0));backdrop-filter:blur(10px)}
+  .mark{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:2.6px;font-size:12px}
+  .mark .bar{width:3px;height:16px;background:var(--cy);box-shadow:0 0 14px var(--cy)}
+  nav{margin-left:auto;display:flex;gap:22px;font-size:12.5px;letter-spacing:.4px}
+  nav a{color:var(--dim);text-decoration:none;transition:color .2s}
+  nav a:hover,nav a.on{color:var(--ink)}
+
+  .hero{padding:88px 0 20px;text-align:center}
+  .eyebrow{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:2.8px;color:var(--cy);border:1px solid rgba(55,224,255,.34);border-radius:999px;padding:6px 14px;background:rgba(55,224,255,.07);opacity:0;animation:fade .8s .1s forwards}
+  h1{margin-top:24px;font-size:clamp(38px,6.2vw,70px);line-height:1;letter-spacing:-2.6px;font-weight:800;text-shadow:0 2px 40px rgba(0,0,0,.55)}
+  h1 span{display:block;opacity:0;transform:translateY(20px);animation:rise .9s cubic-bezier(.18,.8,.2,1) forwards}
+  h1 span:nth-child(1){animation-delay:.16s}
+  h1 span:nth-child(2){animation-delay:.3s;background:linear-gradient(92deg,#37E0FF,#8DFFC6);-webkit-background-clip:text;background-clip:text;color:transparent}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes fade{to{opacity:1}}
+  .sub{margin:18px auto 0;font-size:16px;color:var(--dim);line-height:1.65;max-width:520px;opacity:0;animation:fade .9s .52s forwards}
+
+  .search{margin:30px auto 0;display:flex;align-items:center;gap:12px;max-width:520px;padding:14px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(9,14,22,.6);backdrop-filter:blur(14px);opacity:0;animation:fade .9s .64s forwards}
+  .search span{color:#7E90AA;font-size:14px}
+  .search .k{margin-left:auto;font-size:10.5px;font-weight:700;color:#7E90AA;border:1px solid rgba(126,144,170,.45);border-radius:5px;padding:3px 6px}
+
+  .chips{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:18px;opacity:0;animation:fade .9s .76s forwards}
+  .chip{font-size:12px;color:var(--dim);text-decoration:none;padding:7px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(9,14,22,.45);transition:.2s}
+  .chip:hover{color:var(--ink);border-color:rgba(55,224,255,.5)}
+
+  h2{margin:66px 0 18px;font-size:11px;font-weight:800;letter-spacing:2.8px;color:#7E90AA;text-align:center}
+  .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:14px}
+  .cat{position:relative;display:block;padding:20px;border-radius:16px;border:1px solid var(--line);background:rgba(9,14,22,.55);backdrop-filter:blur(14px);text-decoration:none;color:inherit;transition:transform .28s,border-color .28s,background .28s;opacity:0;transform:translateY(24px)}
+  .cat.in{opacity:1;transform:none}
+  .cat:hover{transform:translateY(-4px);border-color:rgba(55,224,255,.5);background:rgba(11,18,28,.72)}
+  .cat .ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:14px;color:#04121A;background:linear-gradient(135deg,#37E0FF,#8DFFC6)}
+  .cat b{display:block;margin-top:14px;font-size:15.5px;font-weight:700}
+  .cat p{margin-top:6px;font-size:12.5px;color:var(--dim);line-height:1.55}
+  .cat .n{margin-top:12px;font-size:10.5px;font-weight:800;letter-spacing:1.3px;color:var(--cy)}
+
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(284px,1fr));gap:14px}
+  .tool{display:flex;gap:13px;padding:18px;border-radius:14px;border:1px solid var(--line);background:rgba(9,14,22,.55);backdrop-filter:blur(14px);opacity:0;transform:translateY(24px);transition:transform .3s,border-color .3s}
+  .tool.in{opacity:1;transform:none}
+  .tool:hover{border-color:rgba(141,255,198,.45)}
+  .tool b{font-size:14px;font-weight:700}
+  .tool p{margin-top:5px;font-size:12.5px;color:var(--dim);line-height:1.5}
+  .tool .tag{margin-top:9px;display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:1.1px;color:#8DFFC6;border:1px solid rgba(141,255,198,.35);border-radius:999px;padding:3px 7px}
+
+  .note{margin-top:44px;padding:18px 20px;border-radius:14px;border:1px solid var(--line);background:rgba(9,14,22,.6);backdrop-filter:blur(14px);font-size:13px;color:var(--dim);line-height:1.7;text-align:center}
+  .note b{color:var(--ink)}
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10.5px;letter-spacing:1.7px;color:#6E7F96}
+  @media(max-width:640px){
+    .wrap{padding:0 18px 72px}
+    header{gap:10px;padding:12px 0}
+    .mark{font-size:10.5px;letter-spacing:1.8px}
+    nav{gap:12px;font-size:11.5px}
+    .hero{padding:56px 0 14px}
+    h1{letter-spacing:-1.6px}
+    .sub{font-size:14.5px;max-width:100%}
+    .search{padding:12px 14px;gap:9px}
+    .search span{font-size:12.5px}
+    .chips{gap:7px;margin-top:14px}
+    .chip{font-size:11px;padding:6px 11px}
+    h2{margin:46px 0 14px}
+    .cat{padding:17px}
+    .note{padding:16px}
+  }
+  @media(max-width:400px){
+    nav a:nth-child(2){display:none}
+    h1{font-size:34px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="label">STYLE H — CINEMA BACKDROP · Mux HLS video behind glass panels</div>
+<div class="stage">
+  <img id="poster" class="on" alt="" src="https://image.mux.com/Jwr2RhmsNrd6GEspBNgm02vJsRZAGlaoQIh4AucGdASw/thumbnail.jpg?time=2&width=1600">
+  <video id="bgv" muted loop playsinline webkit-playsinline preload="none" poster="https://image.mux.com/Jwr2RhmsNrd6GEspBNgm02vJsRZAGlaoQIh4AucGdASw/thumbnail.jpg?time=2&width=1600" aria-hidden="true"></video>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+</div>
+
+<div class="wrap">
+  <header>
+    <div class="mark"><span class="bar"></span>TECH MANAGER LAB</div>
+    <nav><a class="on" href="#">Tools</a><a href="#">Guides</a><a href="#">Blog</a><a href="#">About</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">18 TOOLS · NOTHING UPLOADED</div>
+    <h1><span>Free IT tools.</span><span>Run in your browser.</span></h1>
+    <p class="sub">Documents, networks, security and code — handled in this tab. No upload, no account, no retention.</p>
+    <div class="search"><span>⌕</span><span>Search tools — subnet, JSON, word count…</span><span class="k">/</span></div>
+    <div class="chips">
+      <a class="chip" href="#">Word Counter</a><a class="chip" href="#">JSON Formatter</a>
+      <a class="chip" href="#">Subnet Calculator</a><a class="chip" href="#">Password Strength</a>
+      <a class="chip" href="#">Base64</a>
+    </div>
+  </section>
+
+  <h2>CATEGORIES</h2>
+  <div class="cats">
+    <a class="cat reveal" href="#"><div class="ico">▤</div><b>PDF Tools</b><p>Word count, split, merge, metadata.</p><div class="n">4 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">◧</div><b>Image Tools</b><p>Compress, resize, convert.</p><div class="n">3 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">¶</div><b>Document Tools</b><p>Word count, case, diff, DOCX.</p><div class="n">5 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">⌗</div><b>Network Tools</b><p>Subnet, CIDR, DNS, headers.</p><div class="n">4 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">⛨</div><b>Security Tools</b><p>Password, hash, headers.</p><div class="n">3 TOOLS</div></a>
+    <a class="cat reveal" href="#"><div class="ico">{ }</div><b>Developer Tools</b><p>JSON, Base64, URL, time.</p><div class="n">4 TOOLS</div></a>
+  </div>
+
+  <h2>MOST USED</h2>
+  <div class="row">
+    <div class="tool reveal"><div><b>Word Counter</b><p>Live word, character and reading-time counts.</p><span class="tag">LOCAL</span></div></div>
+    <div class="tool reveal"><div><b>JSON Formatter</b><p>Format, minify, validate with line errors.</p><span class="tag">LOCAL</span></div></div>
+    <div class="tool reveal"><div><b>IP Subnet Calculator</b><p>Mask, range, broadcast, usable hosts.</p><span class="tag">LOCAL</span></div></div>
+  </div>
+
+  <div class="note"><b>Nothing leaves this tab.</b> Every tool processes input in your browser. No server copy exists to leak.</div>
+  <footer><span>TECH MANAGER LAB · TOOLS</span><span>BUILD BETTER IT</span></footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js" defer></script>
+<script>
+(function(){
+  var SRC = "https://stream.mux.com/Jwr2RhmsNrd6GEspBNgm02vJsRZAGlaoQIh4AucGdASw.m3u8";
+  var v = document.getElementById('bgv'), poster = document.getElementById('poster');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = navigator.connection && navigator.connection.saveData;
+  var smallScreen = window.matchMedia('(max-width: 640px)').matches;
+
+  // Skip only on explicit user signals: reduced motion, or Data Saver.
+  // Phones do get the video — capped to 720p below to protect their data.
+  if(reduce || saveData) return;
+
+  function reveal(){ poster.classList.remove('on'); }
+  function fallback(){ poster.classList.add('on'); }
+
+  v.addEventListener('playing', reveal);
+  v.addEventListener('error', fallback);
+
+  function start(){
+    // Prefer hls.js everywhere MSE exists. Chrome reports "maybe" for
+    // application/vnd.apple.mpegurl but cannot demux HLS natively — the old
+    // canPlayType-first order made Chrome fail with MEDIA_ERR_SRC_NOT_SUPPORTED.
+    if(window.Hls && window.Hls.isSupported()){
+      var hls = new window.Hls({ maxBufferLength: 12, capLevelToPlayerSize: true });
+      hls.loadSource(SRC);
+      hls.attachMedia(v);
+      hls.on(window.Hls.Events.MANIFEST_PARSED, function(_, data){
+        // Cap phones at the best level ≤720p: same look, roughly half the bitrate.
+        if(smallScreen && data && data.levels){
+          for(var i = data.levels.length - 1; i >= 0; i--){
+            if(data.levels[i].height <= 720){ hls.autoLevelCapping = i; break; }
+          }
+        }
+        v.play().catch(fallback);
+      });
+      hls.on(window.Hls.Events.ERROR, function(_, d){ if(d.fatal) { fallback(); hls.destroy(); } });
+      return;
+    }
+    // Safari: native HLS
+    if(v.canPlayType('application/vnd.apple.mpegurl')){
+      v.src = SRC;
+      v.play().catch(fallback);
+      return;
+    }
+    fallback();
+  }
+
+  // Only start when the page is actually visible, and stop when hidden.
+  // hls.js is loaded with defer, so wait for it before deciding which path to take.
+  var started = false;
+  function boot(){
+    if(started) return;
+    if(!window.Hls && document.readyState !== 'complete') return; // load event will retry
+    started = true;
+    if(document.visibilityState === 'visible') start();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+  window.addEventListener('load', boot);
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ v.pause() } else if(v.src || v.currentSrc){ v.play().catch(function(){}) }
+  });
+})();
+</script>
+</body>
+</html>
