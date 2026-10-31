@@ -107,15 +107,17 @@
 - Consumes: `site-clean/shared/validators.js`, `site-clean/shared/errors.js`, `site-clean/shared/privacy.js`
 - Produces: Validated input handling, clear error messages, privacy disclosure
 
-**Steps:**
-- [ ] **Step 1: Pick first P1 tool** — start with Word Counter (`word-counter.html`)
-- [ ] **Step 2: Add privacy banner** — insert `<div class="privacy-banner">Processing occurs locally. Data is cleared when tab closes.</div>` after header.
-- [ ] **Step 3: Add input validation** — use validators.js to check textarea input is not empty before processing.
-- [ ] **Step 4: Add error handling** — use errors.js to show clear message if input is invalid.
-- [ ] **Step 5: Verify local processing** — ensure no network requests are made (use DevTools Network tab).
-- [ ] **Step 6: Repeat for 11 tools** — JSON Formatter, IP Subnet Calculator, PDF Word Counter, DOCX Word Counter, PDF Merge, Image Compressor, DNS Lookup, Website Status Checker, Password Strength Checker, JWT Inspector, Income-Tax Calculator.
-- [ ] **Step 7: Commit** — `git add site-clean/` && `git commit -m "chore: harden P1 tools with shared modules and privacy"`
+**Status (2026-10-31):** 8 of 12 P1 tools hardened and smoke-tested in Chromium (7/7 pass). Remaining: PDF Word Counter, DOCX Word Count, PDF Merge, Image Compressor.
 
+**Steps:**
+- [x] **Step 1: Pick first P1 tool** — start with Word Counter (`word-counter.html`)
+- [x] **Step 2: Add privacy banner** — insert `<div id="priv"></div>` after header, rendered via `renderPrivacyBanner()` from `shared/privacy.js`.
+- [x] **Step 3: Add input validation** — use validators.js (`isValidText`, `isValidJSON`, `isValidCIDR`, `isValidURL`) to check input before processing.
+- [x] **Step 4: Add error handling** — use errors.js (`showError`/`clearMessage`) to show clear messages on invalid input.
+- [x] **Step 5: Verify local processing** — confirmed no `fetch()` in local tools; network tools keep their fetch and show the amber network banner.
+- [x] **Step 6: Repeat for 7 tools** — JSON Formatter, IP Subnet Calculator, Password Strength, JWT Decoder, Income Tax Calculator, DNS Lookup, Website Status Checker.
+- [ ] **Step 7: Repeat for 4 remaining P1 tools** — PDF Word Counter, DOCX Word Count, PDF Merge, Image Compressor (all file-based; need `validateFile` + `file-handling.js`).
+- [ ] **Step 8: Commit** — `git add site-clean/` && `git commit -m "feat: harden P1 tools with shared modules and privacy"`
 ### Task 5: SEO and category page count verification
 
 **Files:**

@@ -191,7 +191,7 @@
     "externalEndpoints": [],
     "hasFileInput": false,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -204,7 +204,7 @@
     "externalEndpoints": [],
     "hasFileInput": false,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -340,7 +340,7 @@
     "externalEndpoints": [],
     "hasFileInput": false,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -518,7 +518,7 @@
     "externalEndpoints": [],
     "hasFileInput": false,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -546,7 +546,7 @@
     ],
     "hasFileInput": false,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -572,7 +572,7 @@
     "externalEndpoints": [],
     "hasFileInput": false,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -755,7 +755,7 @@
     "externalEndpoints": [],
     "hasFileInput": false,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -799,7 +799,7 @@
     ],
     "hasFileInput": false,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   }
 ]
