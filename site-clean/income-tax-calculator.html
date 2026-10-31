@@ -1,16 +1,24 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Income Tax Calculator tool. Runs entirely in your browser — no uploads, no sign-up."><title>Income Tax Calculator — TML Tools</title>
-<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:640px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}label{display:block;font-size:12px;color:#A9BBD4;margin:10px 0 4px}input,select{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin-top:14px}.box{margin-top:18px;padding:16px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06)}b{color:#37E0FF}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Free online Income Tax Calculator (India FY 2025-26, new regime). Estimate tax in your browser — no uploads, no sign-up.">
+  <link rel="canonical" href="https://techmanagerlab.com/tools/income-tax-calculator.html">
+<title>Income Tax Calculator — TML Tools</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:640px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}label{display:block;font-size:12px;color:#A9BBD4;margin:10px 0 4px}input,select{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin-top:14px}.box{margin-top:18px;padding:16px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06)}b{color:#37E0FF}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}.tml-privacy{margin-top:18px;padding:12px 14px;border:1px solid rgba(255,255,255,.14);border-radius:10px;font-size:12px;color:#A9BBD4;line-height:1.5}.tml-disclaimer{margin-top:14px;padding:12px 14px;border:1px solid rgba(245,166,35,.4);border-radius:10px;font-size:12px;color:#F5A623;line-height:1.55}</style></head>
 <body><div class="wrap">
 <p><a href="index.html">← Home</a></p>
 <h1>Income Tax Calculator (India FY 2025-26)</h1>
 <p>New regime (default). Enter annual gross income in INR.</p>
+<div id="priv"></div>
 <label>Gross Annual Income (₹)</label><input id="inc" type="number" value="1200000">
 <label>Standard Deduction (₹)</label><input id="sd" type="number" value="75000">
 <button onclick="calc()">Calculate</button>
 <div class="box" id="out"></div>
+<div class="tml-disclaimer"><b>Estimate only.</b> This is not tax or financial advice. It applies the FY 2025-26 new-regime slab rates and a flat 4% health &amp; education cess. Actual liability depends on your employer's TDS, eligible deductions, surcharge, and the final Budget rules. Verify with a qualified advisor or the official income-tax portal.</div>
 <footer><span>TECH MANAGER LAB · TAX</span><span>BUILD BETTER IT</span></footer>
 </div>
-<script>
+<script type="module">
+import { renderPrivacyBanner } from './shared/privacy.js';
+renderPrivacyBanner(document.getElementById('priv'),'income-tax-calculator','local');
 function calc(){
   const inc=+document.getElementById('inc').value;const sd=+document.getElementById('sd').value;
   const ti=Math.max(0,inc-sd);
@@ -20,5 +28,4 @@ function calc(){
   document.getElementById('out').innerHTML='<b>Taxable income:</b> ₹'+ti.toLocaleString('en-IN')+'<br><b>Income tax:</b> ₹'+Math.round(tax).toLocaleString('en-IN')+'<br><b>Health &amp; edu cess (4%):</b> ₹'+Math.round(cess).toLocaleString('en-IN')+'<br><b>Total tax:</b> ₹'+Math.round(total).toLocaleString('en-IN')+'<br><b>Effective rate:</b> '+(total/inc*100).toFixed(2)+'%<br><b>Monthly take-home (approx):</b> ₹'+Math.round((inc-total)/12).toLocaleString('en-IN');
 }
 calc();
-</script>
-</body></html>
+</script></body></html>

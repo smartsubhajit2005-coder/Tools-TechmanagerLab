@@ -1,9 +1,26 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online JSON Formatter tool. Runs entirely in your browser — no uploads, no sign-up."><title>JSON Formatter — TML Tools</title>
-<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:900px;margin:0 auto}textarea{width:100%;min-height:220px;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-family:monospace;font-size:13px}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin-right:6px}pre{background:#0b121c;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;overflow:auto;min-height:120px}a{color:#37E0FF}.err{color:#ff6b6b}</style></head>
-<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>JSON Formatter</h1><textarea id="in" placeholder='{"a":1,"b":[2,3]}'></textarea><div style="margin:10px 0"><button onclick="fmt(2)">Format 2</button><button onclick="fmt(4)">Format 4</button><button onclick="min()">Minify</button></div><pre id="out"></pre><p id="msg"></p></div>
-<script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Free online JSON Formatter tool. Format, minify, and validate JSON with line errors. Runs entirely in your browser — no uploads, no sign-up.">
+  <link rel="canonical" href="https://techmanagerlab.com/tools/json-formatter.html">
+<title>JSON Formatter — TML Tools</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:900px;margin:0 auto}textarea{width:100%;min-height:220px;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-family:monospace;font-size:13px}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin-right:6px}pre{background:#0b121c;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;overflow:auto;min-height:120px}a{color:#37E0FF}.err{color:#ff6b6b}.tml-privacy{margin-top:18px;padding:12px 14px;border:1px solid rgba(255,255,255,.14);border-radius:10px;font-size:12px;color:#A9BBD4;line-height:1.5}.tml-error{color:#ff8a8a;font-size:13px;margin-top:10px}</style></head>
+<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>JSON Formatter</h1><div id="priv"></div><textarea id="in" placeholder='{"a":1,"b":[2,3]}'></textarea><div style="margin:10px 0"><button onclick="fmt(2)">Format 2</button><button onclick="fmt(4)">Format 4</button><button onclick="min()">Minify</button></div><pre id="out"></pre><div id="msg"></div></div>
+<script type="module">
+import { isValidText, isValidJSON } from './shared/validators.js';
+import { showError, clearMessage } from './shared/errors.js';
+import { renderPrivacyBanner } from './shared/privacy.js';
+
 const i=document.getElementById('in'),o=document.getElementById('out'),m=document.getElementById('msg');
-function parse(){try{return JSON.parse(i.value);}catch(e){m.innerHTML='<span class="err">'+e.message+'</span>';return null;}}
-function fmt(n){const d=parse();if(d===null)return;m.textContent=JSON.stringify(d,null,n);m.textContent='OK';}
-function min(){const d=parse();if(d===null)return;o.textContent=JSON.stringify(d);m.textContent='OK';}
+renderPrivacyBanner(document.getElementById('priv'),'json-formatter','local');
+
+function parse(){
+  const check=isValidText(i.value);
+  if(!check.valid){showError(m,check.error);return null;}
+  const j=isValidJSON(i.value);
+  if(!j.valid){showError(m,j.error);return null;}
+  clearMessage(m);
+  return JSON.parse(i.value);
+}
+function fmt(n){const d=parse();if(d===null)return;o.textContent=JSON.stringify(d,null,n);clearMessage(m);}
+function min(){const d=parse();if(d===null)return;o.textContent=JSON.stringify(d);clearMessage(m);}
 </script></body></html>

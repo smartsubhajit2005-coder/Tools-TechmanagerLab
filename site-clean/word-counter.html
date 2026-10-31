@@ -1,8 +1,35 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Word Counter tool. Runs entirely in your browser — no uploads, no sign-up."><title>Word Counter — TML Tools</title>
-<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:800px;margin:0 auto}textarea{width:100%;min-height:200px;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-size:14px} .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:14px}.stat{background:rgba(9,14,22,.6);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px;text-align:center}.stat b{display:block;font-size:22px;color:#37E0FF}.stat span{font-size:11px;color:#A9BBD4;letter-spacing:1.5px}a{color:#37E0FF}</style></head>
-<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>Word Counter</h1><textarea id="t" placeholder="Paste or type text..."></textarea><div class="stats"><div class="stat"><b id="w">0</b><span>WORDS</span></div><div class="stat"><b id="c">0</b><span>CHARS</span></div><div class="stat"><b id="s">0</b><span>SENTENCES</span></div><div class="stat"><b id="p">0</b><span>PARAGRAPHS</span></div><div class="stat"><b id="r">0</b><span>READING MIN</span></div></div></div>
-<script>
-const t=document.getElementById('t');
-function up(){const v=t.value;const words=v.trim()?v.trim().split(/\s+/).length:0;const chars=v.length;const sentences=(v.match(/[.!?]+/g)||[]).length;const paras=v.trim()?v.trim().split(/\n\s*\n/).length:0;const read=Math.ceil(words/200);document.getElementById('w').textContent=words;document.getElementById('c').textContent=chars;document.getElementById('s').textContent=sentences;document.getElementById('p').textContent=paras;document.getElementById('r').textContent=read;}
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Free online Word Counter tool. Runs entirely in your browser — no uploads, no sign-up.">
+  <link rel="canonical" href="https://techmanagerlab.com/tools/word-counter.html">
+<title>Word Counter — TML Tools</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:800px;margin:0 auto}textarea{width:100%;min-height:200px;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-size:14px} .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:14px}.stat{background:rgba(9,14,22,.6);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px;text-align:center}.stat b{display:block;font-size:22px;color:#37E0FF}.stat span{font-size:11px;color:#A9BBD4;letter-spacing:1.5px}a{color:#37E0FF}.tml-privacy{margin-top:18px;padding:12px 14px;border:1px solid rgba(255,255,255,.14);border-radius:10px;font-size:12px;color:#A9BBD4;line-height:1.5}.tml-privacy-net{border-color:rgba(255,170,64,.5)}.tml-error{color:#ff8a8a;font-size:13px;margin-top:10px}</style></head>
+<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>Word Counter</h1><div id="priv"></div><textarea id="t" placeholder="Paste or type text..."></textarea><div id="msg"></div><div class="stats"><div class="stat"><b id="w">0</b><span>WORDS</span></div><div class="stat"><b id="c">0</b><span>CHARS</span></div><div class="stat"><b id="s">0</b><span>SENTENCES</span></div><div class="stat"><b id="p">0</b><span>PARAGRAPHS</span></div><div class="stat"><b id="r">0</b><span>READING MIN</span></div></div></div>
+<script type="module">
+import { isValidText } from './shared/validators.js';
+import { formatError, showError, clearMessage } from './shared/errors.js';
+import { renderPrivacyBanner } from './shared/privacy.js';
+
+const t=document.getElementById('t'),msg=document.getElementById('msg');
+renderPrivacyBanner(document.getElementById('priv'),'word-counter','local');
+
+function up(){
+  const v=t.value;
+  if(!v.trim()){clearMessage(msg);reset();return;}
+  const check=isValidText(v);
+  if(!check.valid){showError(msg,check.error);reset();return;}
+  clearMessage(msg);
+  const words=v.trim()?v.trim().split(/\s+/).length:0;
+  const chars=v.length;
+  const sentences=(v.match(/[.!?]+/g)||[]).length;
+  const paras=v.trim()?v.trim().split(/\n\s*\n/).length:0;
+  const read=Math.ceil(words/200);
+  document.getElementById('w').textContent=words;
+  document.getElementById('c').textContent=chars;
+  document.getElementById('s').textContent=sentences;
+  document.getElementById('p').textContent=paras;
+  document.getElementById('r').textContent=read;
+}
+function reset(){document.getElementById('w').textContent=0;document.getElementById('c').textContent=0;document.getElementById('s').textContent=0;document.getElementById('p').textContent=0;document.getElementById('r').textContent=0;}
 t.addEventListener('input',up);up();
 </script></body></html>
