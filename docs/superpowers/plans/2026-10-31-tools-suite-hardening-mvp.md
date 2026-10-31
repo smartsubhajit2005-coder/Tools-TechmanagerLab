@@ -116,8 +116,8 @@
 - [x] **Step 4: Add error handling** — use errors.js (`showError`/`clearMessage`) to show clear messages on invalid input.
 - [x] **Step 5: Verify local processing** — confirmed no `fetch()` in local tools; network tools keep their fetch and show the amber network banner.
 - [x] **Step 6: Repeat for 7 tools** — JSON Formatter, IP Subnet Calculator, Password Strength, JWT Decoder, Income Tax Calculator, DNS Lookup, Website Status Checker.
-- [ ] **Step 7: Repeat for 4 remaining P1 tools** — PDF Word Counter, DOCX Word Count, PDF Merge, Image Compressor (all file-based; need `validateFile` + `file-handling.js`).
-- [ ] **Step 8: Commit** — `git add site-clean/` && `git commit -m "feat: harden P1 tools with shared modules and privacy"`
+- [x] **Step 7: Repeat for 4 remaining P1 tools** — PDF Word Counter, DOCX Word Count, PDF Merge, Image Compressor (all file-based; need `validateFile` + `file-handling.js`).
+- [x] **Step 8: Commit** — `git add site-clean/` && `git commit -m "feat: harden P1 tools with shared modules and privacy"`
 ### Task 5: SEO and category page count verification
 
 **Files:**

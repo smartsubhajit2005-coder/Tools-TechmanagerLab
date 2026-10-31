@@ -1,14 +1,37 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Image Compressor tool. Runs entirely in your browser — no uploads, no sign-up."><title>Image Compressor — TML Tools</title>
-<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:700px;margin:0 auto}input[type=file]{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 0}img{max-width:100%;margin-top:12px;border-radius:8px}a{color:#37E0FF}p{color:#A9BBD4}label{margin-right:10px}</style></head>
-<body onload="info()"><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>Image Compressor</h1><p>Pick an image. Quality slider, download compressed.</p><input type="file" id="f" accept="image/*" onchange="load()"><div style="margin:10px 0"><label>Quality <input type="range" id="q" min="0.1" max="1" step="0.05" value="0.7" oninput="info()"></label><span id="qv">0.7</span></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Free online Image Compressor tool. Shrink image file size — entirely in your browser, no uploads.">
+  <link rel="canonical" href="https://techmanagerlab.com/tools/image-compressor.html">
+<title>Image Compressor — TML Tools</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:700px;margin:0 auto}input[type=file]{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 0}img{max-width:100%;margin-top:12px;border-radius:8px}a{color:#37E0FF}p{color:#A9BBD4}label{margin-right:10px}.tml-privacy{margin-top:18px;padding:12px 14px;border:1px solid rgba(255,255,255,.14);border-radius:10px;font-size:12px;color:#A9BBD4;line-height:1.5}.tml-error{color:#ff8a8a;font-size:13px;margin-top:10px}</style></head>
+<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>Image Compressor</h1><p>Pick an image. Quality slider, download compressed.</p>
+<div id="priv"></div>
+<input type="file" id="f" accept="image/*"><div id="msg"></div>
+<div style="margin:10px 0"><label>Quality <input type="range" id="q" min="0.1" max="1" step="0.05" value="0.7" oninput="info()"></label><span id="qv">0.7</span></div>
 <div style="margin:10px 0"><label>Size unit <select id="u" onchange="unitChange()"><option value="px">PX (max dim)</option><option value="kb">KB (target)</option><option value="mb">MB (target)</option></select></label></div>
-<div style="margin:10px 0"><label>Size <input type="range" id="s" min="100" max="4000" step="50" value="1920" oninput="info()"></label><span id="sv">1920</span></div><button onclick="run()">Compress</button><button onclick="dl()" id="dlb" style="display:none">Download</button><p id="info"></p><img id="preview"></div>
-<script>
-let img=null,origSize=0,resultUrl=null;function load(){const f=document.getElementById('f').files[0];if(!f)return;origSize=f.size;const r=new FileReader();r.onload=e=>{img=new Image();img.onload=()=>{document.getElementById('preview').src=img.src;info();};img.src=e.target.result;};r.readAsDataURL(f);}
+<div style="margin:10px 0"><label>Size <input type="range" id="s" min="100" max="4000" step="50" value="1920" oninput="info()"></label><span id="sv">1920</span></div>
+<button onclick="run()">Compress</button><button onclick="dl()" id="dlb" style="display:none">Download</button><p id="info"></p><img id="preview"></div>
+<script type="module">
+import { validateFile } from './shared/file-handling.js';
+import { showError, clearMessage } from './shared/errors.js';
+import { renderPrivacyBanner } from './shared/privacy.js';
+renderPrivacyBanner(document.getElementById('priv'),'image-compressor','local-file');
+let img=null,origSize=0,resultBlob=null;
+function load(){
+  const file=document.getElementById('f').files[0];const msg=document.getElementById('msg');
+  if(!file)return;
+  const check=validateFile(file,{maxSize:25*1024*1024,allowedTypes:['image/*']});
+  if(!check.valid){showError(msg,check.error);return;}
+  clearMessage(msg);
+  origSize=file.size;
+  const r=new FileReader();
+  r.onload=e=>{img=new Image();img.onload=()=>{document.getElementById('preview').src=img.src;info();};img.src=e.target.result;};
+  r.readAsDataURL(file);
+}
 function unitChange(){const u=document.getElementById('u').value;const s=document.getElementById('s');if(u==='px'){s.min=100;s.max=4000;s.step=50;s.value=1920;}else if(u==='kb'){s.min=50;s.max=2000;s.step=50;s.value=500;}else{s.min=1;s.max=50;s.step=1;s.value=2;}info();}
 function info(){document.getElementById('qv').textContent=document.getElementById('q').value;const u=document.getElementById('u').value;const v=document.getElementById('s').value;document.getElementById('sv').textContent=v+(u==='px'?' px':u==='kb'?' KB':' MB');if(origSize>0)document.getElementById('info').innerHTML='<b>Original:</b> '+(origSize/1024).toFixed(2)+' KB<br><b>Dimensions:</b> '+img.width+' × '+img.height+' px';}
-let resultBlob=null;
 function dataURLtoBlob(d){const bin=atob(d.split(',')[1]);const arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:'image/jpeg'});}
-function run(){if(!img)return;const u=document.getElementById('u').value;const target=+document.getElementById('s').value;let w=img.width,h=img.height;if(u==='px'){if(w>target||h>target){const r=Math.min(target/w,target/h);w=Math.round(w*r);h=Math.round(h*r);}}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);let q=+document.getElementById('q').value;if(u!=='px'){const targetBytes=target*(u==='kb'?1024:1048576);let best=q;for(let t=0;t<8;t++){const url=c.toDataURL('image/jpeg',best);const b64=url.split(',')[1];const bytes=Math.round(b64.length*3/4);if(bytes<=targetBytes)break;best=Math.max(0.1,best-0.1);}q=best;}const url=c.toDataURL('image/jpeg',q);resultBlob=dataURLtoBlob(url);const newBytes=resultBlob.size;document.getElementById('dlb').style.display='';document.getElementById('info').innerHTML='<b>Done.</b> &nbsp; Original: '+(origSize/1024).toFixed(2)+' KB &nbsp; Compressed: '+(newBytes/1024).toFixed(2)+' KB &nbsp; Saved: '+Math.max(0,100-newBytes/origSize*100).toFixed(1)+'% (quality '+q.toFixed(2)+')';}
-function dl(){if(!resultBlob)return;const url=URL.createObjectURL(resultBlob);const a=document.createElement('a');a.href=url;a.download='compressed.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},100);}
+function run(){const msg=document.getElementById('msg');if(!img)return;const u=document.getElementById('u').value;const target=+document.getElementById('s').value;let w=img.width,h=img.height;if(u==='px'){if(w>target||h>target){const r=Math.min(target/w,target/h);w=Math.round(w*r);h=Math.round(h*r);}}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);let q=+document.getElementById('q').value;if(u!=='px'){const targetBytes=target*(u==='kb'?1024:1048576);let best=q;for(let t=0;t<8;t++){const url=c.toDataURL('image/jpeg',best);const b64=url.split(',')[1];const bytes=Math.round(b64.length*3/4);if(bytes<=targetBytes)break;best=Math.max(0.1,best-0.1);}q=best;}const url=c.toDataURL('image/jpeg',q);resultBlob=dataURLtoBlob(url);const newBytes=resultBlob.size;document.getElementById('dlb').style.display='';document.getElementById('info').innerHTML='<b>Done.</b> &nbsp; Original: '+(origSize/1024).toFixed(2)+' KB &nbsp; Compressed: '+(newBytes/1024).toFixed(2)+' KB &nbsp; Saved: '+Math.max(0,100-newBytes/origSize*100).toFixed(1)+'% (quality '+q.toFixed(2)+')';}
+function dl(){if(!resultBlob)return;const url=URL.createObjectURL(resultBlob);const a=document.createElement('a');a.href=url;a.download='compressed.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+document.getElementById('f').addEventListener('change',load);
 </script></body></html>

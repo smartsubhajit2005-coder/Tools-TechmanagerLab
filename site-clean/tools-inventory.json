@@ -314,7 +314,7 @@
     "externalEndpoints": [],
     "hasFileInput": true,
     "metaDescription": "NO",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -412,7 +412,7 @@
     "externalEndpoints": [],
     "hasFileInput": true,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
@@ -603,7 +603,7 @@
     "externalEndpoints": [],
     "hasFileInput": true,
     "metaDescription": "yes",
-    "testStatus": "untested",
+    "testStatus": "smoke-tested",
     "lastVerified": "2026-10-31"
   },
   {
