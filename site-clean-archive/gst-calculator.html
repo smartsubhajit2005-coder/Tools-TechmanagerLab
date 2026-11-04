@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online GST 2.0 Calculator tool. Runs entirely in your browser — no uploads, no sign-up."><title>GST 2.0 Calculator — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:640px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}label{display:block;font-size:12px;color:#A9BBD4;margin:10px 0 4px}input,select{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin-top:14px}.box{margin-top:18px;padding:16px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06)}b{color:#37E0FF}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>GST 2.0 Calculator</h1>
+<p>Slabs: 0%, 5%, 18%, 40% (luxury/sin). Enter amount and slab.</p>
+<label>Amount (₹, exclusive of GST)</label><input id="amt" type="number" value="1000">
+<label>GST Slab</label><select id="slab"><option value="0">0%</option><option value="5">5%</option><option value="18" selected>18%</option><option value="40">40%</option></select>
+<label>Mode</label><select id="mode"><option value="ex">Amount is exclusive of GST</option><option value="in">Amount is inclusive of GST</option></select>
+<button onclick="calc()">Calculate</button>
+<div class="box" id="out"></div>
+<footer><span>TECH MANAGER LAB · GST</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+function calc(){
+  const amt=+document.getElementById('amt').value;const r=+document.getElementById('slab').value/100;const mode=document.getElementById('mode').value;
+  let base,gst,total;
+  if(mode==='ex'){base=amt;gst=base*r;total=base+gst;}
+  else{total=amt;base=total/(1+r);gst=total-base;}
+  document.getElementById('out').innerHTML='<b>Base amount:</b> ₹'+base.toFixed(2)+'<br><b>GST ('+(r*100)+'%):</b> ₹'+gst.toFixed(2)+'<br><b>Total (incl. GST):</b> ₹'+total.toFixed(2)+'<br><b>CGST:</b> ₹'+(gst/2).toFixed(2)+' &nbsp; <b>SGST:</b> ₹'+(gst/2).toFixed(2);
+}
+calc();
+</script>
+</body></html>

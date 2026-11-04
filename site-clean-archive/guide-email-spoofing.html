@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Check If Your Email Is Spoofable tool. Runs entirely in your browser — no uploads, no sign-up."><title>Check If Your Email Is Spoofable — TML Guides</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:760px;margin:0 auto}a{color:#37E0FF}h1{font-size:26px;margin:16px 0 6px}h2{font-size:17px;margin:26px 0 10px;color:#37E0FF}p,li{color:#C7D5E8;font-size:14px;line-height:1.7}ul{margin:0 0 16px;padding-left:22px}code{background:#0b121c;border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:2px 7px;font-size:13px}.box{margin:18px 0;padding:16px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06);font-size:13.5px;line-height:1.65;color:#C7D5E8}.box b{color:#37E0FF}.warn{border-color:rgba(255,107,107,.4);background:rgba(255,107,107,.05)}.warn b{color:#ff6b6b}</style></head>
+<body><div class="wrap">
+<p><a href="guides.html">← Guides</a></p>
+<h1>Check If Your Email Is Spoofable</h1>
+<p>Most businesses have email that can be used by strangers to impersonate you. Before you accept an inbox, run a quick SPF/DKIM/DMARC lookup.</p>
+
+<h2>What the records mean</h2>
+<ul>
+<li><b>SPF <code>v=spf1</code></b> — lists the IPs that are allowed to send mail for the domain.</li>
+<li><b>DKIM <code>default._domainkey</code></b> — shows a public key that signed mail originates.</li>
+<li><b>DMARC <code>_dmarc</code></b> — gives a policy about how to treat failed messages.</li>
+</ul>
+
+<h2>Using the lookup tool</h2>
+<p>Navigate to <a href="spf-dkim-dmarc.html">SPF /DKIM /DMARC Lookup</a> and enter the domain you want to check. Scores that missing points for:</p>
+<ul>
+<li>SPF <code>v=spf1 ~all</code> (soft fail) instead of <code>v=spf1 -all</code> (hard fail) when untrusted IPs can appear.</li>
+<li>No DKIM key at all – many small providers forget to publish it.</li>
+<li>DMARC set to <code>none</code> instead of <code>reject</code> or <code>quarantine</b>.</li>
+</ul>
+
+<div class="warn"><b>Common audit failure:</b> a domain that allows <code>*</code> in SPF. That lets anyone send you mail as you – phishing, spoofing, brand theft.</div>
+
+<p>After you’ve fixed the record, run the lookup again to confirm changing <i>from</i> public <b>anyone</b> to the <b>real</b> mail source.</p>
+<p><a href="index.html">← Back to Tools</a></p>
+</div></body></html>

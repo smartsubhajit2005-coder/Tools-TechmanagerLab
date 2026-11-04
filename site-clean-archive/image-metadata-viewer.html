@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online Image Metadata Viewer tool. Runs entirely in your browser — no uploads, no sign-up."><title>Image Metadata Viewer — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:820px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}h2{font-size:15px;color:#37E0FF;margin:20px 0 8px;letter-spacing:1px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}input[type=file]{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 8px 10px 0}img{max-width:100%;margin-top:12px;border-radius:8px}table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}th,td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;word-break:break-word}th{color:#7E90AA;font-size:10.5px;letter-spacing:1.5px;text-align:right;color:#37E0FF}td:first-child{color:#A9BBD4}pre{background:#0b121c;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px;font-size:12px;overflow:auto;max-height:360px}footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:10.5px;letter-spacing:1.7px;color:#6E7F96;display:flex;justify-content:space-between}</style></head>
+<body><div class="wrap">
+<p><a href="index.html">← Home</a></p>
+<h1>Image Metadata Viewer</h1>
+<p>Read EXIF, GPS and file metadata from images. See camera make, date taken, GPS coordinates and more. All processing happens locally — nothing is uploaded.</p>
+<input type="file" id="f" accept="image/*" onchange="load()">
+<button onclick="copyJson()" id="cpb" style="display:none">Copy JSON</button>
+<button onclick="dlJson()" id="dlb" style="display:none">Download JSON</button>
+<img id="preview" style="display:none">
+<div id="out"></div>
+<footer><span>TECH MANAGER LAB · METADATA</span><span>BUILD BETTER IT</span></footer>
+</div>
+<script>
+let metaObj=null;
+const TAGS={0x010F:'Make',0x0110:'Model',0x0111:'Orientation',0x0112:'Units',0x011A:'XRes',0x011B:'YRes',0x0131:'Software',0x0132:'DateTime',0x013B:'Artist',0x0213:'WhiteBalance',0x8298:'FNumber',0x829A:'ExposureTime',0x829D:'FocalLength',0x8827:'DateTimeDigitized',0x8828:'DateTimeOriginal',0x9003:'ExifVersion',0x9201:'ColorSpace',0x9206:'PixelXDim',0x9207:'PixelYDim',0xA002:'PixelXDim',0xA003:'PixelYDim',0xA005:'YCbCrPos',0xA20B:'FocalLengthX',0xA403:'WhiteBalance',0xA420:'FlashpixVersion',0xA432:'ImageNumber',0x0201:'Copyright'};
+const GPSNAMES={0:'GPSLatitudeRef',1:'GPSLatitude',2:'GPSLongitudeRef',3:'GPSLongitude',4:'GPSAltitudeRef',5:'GPSAltitude',6:'GPSTimeStamp',7:'GPSDateStamp',11:'GPSProcessingMethod',17:'GPSImgDirection',18:'GPSMapDatum'};
+function toRational(v){if(!v||!v.length)return null;if(v.length===1)return v[0];const d=v[1]||1;return d===0?null:Math.round(v[0]/d*10000)/10000;}
+function parse(buf){
+  const out={file:{size:buf.byteLength},exif:null,ics:[],gps:null,icc:null};
+  const u8=new Uint8Array(buf);
+  const view=new DataView(buf);
+  let offset=2;
+  if(view.getUint16(0)!==0xFFD8)throw 'Not a JPEG file (EXIF only readable in JPEG here).';
+  while(offset<u8.length-4){
+    const marker=view.getUint16(offset);offset+=2;
+    if(marker===0xFFDA)break;
+    const len=view.getUint16(offset);
+    if(marker===0xFFE1&&u8[offset+2]===0x45&&u8[offset+3]===0x78&&u8[offset+4]===0x69&&u8[offset+5]===0x66){
+      const exifOffset=offset+10;
+      const little=u8[exifOffset]===0x49;
+      if(!little&&u8[exifOffset]!==0x4D)throw 'Bad TIFF';
+      const tview=new DataView(buf,exifOffset+2,view.getUint16(exifOffset+2,little));
+      const ifd=tview.getUint32(0,little);
+      const n=tview.getUint16(ifd,little);
+      for(let i=0;i<n;i++){
+        const t=tview.getUint16(ifd+2+i*12,little);const typ=tview.getUint16(ifd+2+i*12+2,little);const cnt=tview.getUint32(ifd+2+i*12+4,little);
+        const valOff=ifd+2+i*12+8;let val;
+        if(t===3&&typ===3){val=toRational([tview.getUint16(valOff,little),tview.getUint16(valOff+2,little)]);}
+        else if(t===0x8830||t===0x0132||t===0x013B||t===0x0131){val=tview.getUint8(valOff).toString(16);}
+        else if(typ===2){let s='';for(let k=0;k<Math.min(cnt,16);k++)s+=String.fromCharCode(tview.getUint8(valOff+k));val=s.replace(/\0$/,'');}
+        else if(typ===3){val=tview.getUint16(valOff,little);}
+        else if(typ===4){val=tview.getUint32(valOff,little);}
+        else if(typ===5){val=toRational([tview.getUint32(valOff,little),tview.getUint32(valOff+4,little)]);}
+        else continue;
+        const name=TAGS[t]||('0x'+t.toString(16));
+        (out.exif=out.exif||{})[name]=val;
+        if(t===0x8769){const off=exifOffset+tview.getUint32(valOff,little);const n2=tview.getUint16(off,little);for(let j=0;j<n2;j++){const t2=tview.getUint16(off+2+j*12,little);const typ2=tview.getUint16(off+2+j*12+2,little);const cnt2=tview.getUint32(off+2+j*12+4,little);const v2=off+2+j*12+8;let v2v;if(t2===0x0201&&typ2===2){let s2='';for(let k=0;k<Math.min(cnt2,32);k++)s2+=String.fromCharCode(tview.getUint8(v2+k));v2v=s2.replace(/\0$/,'');}else if(typ2===3){v2v=tview.getUint16(v2,little);}else if(typ2===4){v2v=tview.getUint32(v2,little);}else if(typ2===5){v2v=toRational([tview.getUint32(v2,little),tview.getUint32(v2+4,little)]);}else continue;(out.exif=out.exif||{})[TAGS[t2]||('0x'+t2.toString(16))]=v2v;}break;}
+      }
+      let gpsOffset2=null;
+      const n2=tview.getUint16(ifd,little);
+      for(let i=0;i<n2;i++){const t=tview.getUint16(ifd+2+i*12,little);if(t===0x8825){gpsOffset2=exifOffset+tview.getUint32(ifd+2+i*12+8,little);break;}}
+      if(gpsOffset2!==null){const gn=tview.getUint16(gpsOffset2,little);out.gps={};for(let j=0;j<gn;j++){const gt=tview.getUint16(gpsOffset2+2+j*12,little);const gtyp=tview.getUint16(gpsOffset2+2+j*12+2,little);const gcnt=tview.getUint32(gpsOffset2+2+j*12+4,little);const gv=gpsOffset2+2+j*12+8;if(GPSNAMES[gt]===undefined)continue;if(gt===1||gt===3){out.gps[GPSNAMES[gt]]=tview.getUint16(gv,little);}else if(gt===2){let s='';for(let k=0;k<gcnt;k++)s+=String.fromCharCode(tview.getUint8(gv+k));out.gps[GPSNAMES[gt]]=s.replace(/\0$/,'');}else if(gtyp===5){let rat=[];if(gcnt===1){rat=[tview.getUint32(gv,little),tview.getUint32(gv+4,little)];}else{const goff=exifOffset+tview.getUint32(gv,little);for(let k=0;k<gcnt;k++)rat.push(tview.getUint32(goff+k*4,little));}out.gps[GPSNAMES[gt]]=rat;}}
+      }
+      out.file.format='JPEG';
+    }
+    if(marker===0xFFE2){
+      let s='';const start=offset+4;for(let k=0;k<Math.min(len-4,200);k++)s+=String.fromCharCode(u8[start+k]);
+      out.exif=(out.exif||{})['UserComment']=s.replace(/\0$/g,'');
+    }
+    offset+=2+len;
+  }
+  metaObj=out;
+}
+async function load(){
+  const f=document.getElementById('f').files[0];if(!f)return;
+  const buf=await f.arrayBuffer();
+  const b64=btoa(new Uint8Array(buf).reduce((s,b)=>s+String.fromCharCode(b),''));
+  const im=new Image();
+  im.onload=()=>{document.getElementById('preview').src=im.src;document.getElementById('preview').style.display='';metaObj=metaObj||{};metaObj.dimensions=im.width+' × '+im.height+' px';render();};
+  im.src='data:'+f.type+';base64,'+b64;
+  try{
+    parse(buf);
+  }catch(e){metaObj={file:{size:f.byteLength,format:f.type.split('/')[1].toUpperCase()},error:String(e)};}
+  render();
+}
+function render(){
+  if(!metaObj)return;
+  const o=metaObj;let h='';
+  if(o.error)h+='<h2>Warning</h2><p>'+o.error+'</p>';
+  if(o.exif){h+='<h2>EXIF / IPTC</h2><table>';for(const k in o.exif)h+='<tr><td>'+k+'</td><td>'+o.exif[k]+'</td></tr>';h+='</table>';}
+  else h+='<p>No EXIF/IPTC metadata found in this file. (PNG/WebP store metadata in different chunks; JPEG EXIF is fully parsed.)</p>';
+  if(o.gps){h+='<h2>GPS</h2><table>';for(const k in o.gps)h+='<tr><td>'+k+'</td><td>'+JSON.stringify(o.gps[k])+'</td></tr>';
+    const lat=o.gps.GPSLatitude,lng=o.gps.GPSLongitude;
+    if(lat&&lat.length===3&&lng&&lng.length===3){
+      const la=lat[0]+lat[1]/60+lat[2]/3600;const lo=lng[0]+lng[1]/60+lng[2]/3600;
+      const latV=(o.gps.GPSLatitudeRef==='S')?-la:la;const lonV=(o.gps.GPSLongitudeRef==='W')?-lo:lo;
+      h+='</table><p>Coordinates: <b style="color:#37E0FF">'+latV.toFixed(6)+', '+lonV.toFixed(6)+'</b> — <a href="https://www.google.com/maps?q='+latV.toFixed(6)+','+lonV.toFixed(6)+'" target="_blank">open in Google Maps</a></p>';
+    } else h+='</table>';
+  }
+  h+='<h2>JSON</h2><pre id="json">'+JSON.stringify(o,null,2)+'</pre>';
+  document.getElementById('out').innerHTML=h;
+  document.getElementById('cpb').style.display='';document.getElementById('dlb').style.display='';
+}
+function copyJson(){navigator.clipboard.writeText(JSON.stringify(metaObj,null,2)).then(()=>alert('Copied'));}
+function dlJson(){const b=new Blob([JSON.stringify(metaObj,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='metadata.json';document.body.appendChild(a);a.click();a.remove();}
+</script>
+</body></html>

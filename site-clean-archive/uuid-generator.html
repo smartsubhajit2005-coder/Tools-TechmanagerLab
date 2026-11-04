@@ -1,0 +1,7 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free online UUID Generator tool. Runs entirely in your browser — no uploads, no sign-up."><title>UUID Generator — TML Tools</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:700px;margin:0 auto}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin-right:6px}textarea{width:100%;min-height:140px;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-family:monospace;font-size:13px;margin-top:12px}a{color:#37E0FF}</style></head>
+<body><div class="wrap"><p><a href="index.html">← Tools</a></p><h1>UUID Generator</h1><div style="margin:10px 0"><button onclick="gen(1)">1</button><button onclick="gen(5)">5</button><button onclick="gen(10)">10</button></div><textarea id="out" readonly></textarea></div>
+<script>
+function gen(n){const a=[];for(let i=0;i<n;i++)a.push(crypto.randomUUID());document.getElementById('out').value=a.join('\n');}
+gen(5);
+</script></body></html>
