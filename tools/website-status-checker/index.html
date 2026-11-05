@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Free online Website Status Checker. Check if a website is up or down in your browser.">
+  <link rel="canonical" href="https://techmanagerlab.com/tools/website-status-checker.html">
+<title>Website Status Checker - TML Tools</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:760px;margin:0 auto}a{color:#37E0FF;text-decoration:none}h1{font-size:26px;margin:16px 0 6px}p{color:#A9BBD4;font-size:13px;margin:0 0 14px}label{display:block;font-size:12px;color:#A9BBD4;margin:8px 0 4px}input{background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;width:100%;box-sizing:border-box}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;margin:8px 0}#out{margin-top:14px;padding:14px;border-radius:12px;border:1px solid rgba(55,224,255,.34);background:rgba(55,224,255,.06);font-size:13.5px;line-height:1.6}.tml-privacy{margin-top:18px;padding:12px 14px;border:1px solid rgba(255,170,64,.5);border-radius:10px;font-size:12px;color:#F5A623;line-height:1.5}</style></head>
+<body><div class="wrap"><p><a href="../../tools/">← Tools</a></p><h1>Website Status Checker</h1><p>Check if a website is reachable from your browser. No data is sent to our servers.</p>
+<label>URL</label><input id="url" type="url" placeholder="https://example.com" value="https://techmanagerlab.com">
+<button onclick="checkSite()">Check</button>
+<div id="out"></div>
+<div class="tml-privacy">This tool runs entirely in your browser. The check may be blocked by CORS for some sites.</div>
+</div>
+<script>
+function $(id){return document.getElementById(id)}
+async function checkSite(){
+  const raw=$('url').value.trim();
+  if(!/^https?:\/\//i.test(raw)){ $('out').innerHTML='<span style="color:#ff6b6b">Enter a valid URL starting with http:// or https://</span>'; return; }
+  $('out').innerHTML='<span style="color:#A9BBD4">Checking…</span>';
+  const t0=performance.now();
+  let ok=false, status='—', method='unknown', note='';
+  try {
+    const r=await fetch(raw,{mode:'no-cors'});
+    ok=true; status='REACHABLE (no-cors)'; method='no-cors'; note='Browser could reach the host. Exact status code is hidden by CORS.';
+  } catch(e) {
+    ok=false; status='UNREACHABLE'; method='error'; note=e.message;
+  }
+  const ms=Math.round(performance.now()-t0);
+  const color=ok?'#8DFFC6':'#ff6b6b';
+  $('out').innerHTML=`<div style="font-size:18px;font-weight:800"><span style="color:${color}">${ok?'UP':'DOWN'}</span> &nbsp; ${raw}</div><div style="margin-top:6px;color:#A9BBD4"><b style="color:#F4F8FF">Status:</b> ${status} &nbsp; <b style="color:#F4F8FF">Response:</b> ${ms} ms &nbsp; <b style="color:#F4F8FF">Method:</b> ${method}</div><div style="color:#A9BBD4;margin-top:6px">${note}</div>`;
+}
+</script></body></html>

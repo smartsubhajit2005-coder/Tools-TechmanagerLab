@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="TechManagerLab - Text Diff â€”  Tools. Free IT tools for developers, sysadmins, and IT managers.">
+  <link rel="canonical" href="https://techmanagerlab.com/tools/text-diff.html">
+<title>Text Diff â€” TML Tools</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+<style>body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#04070C;color:#F4F8FF;margin:0;padding:24px}.wrap{max-width:900px;margin:0 auto}textarea{width:100%;min-height:160px;background:#0b121c;color:#F4F8FF;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-family:monospace;font-size:13px}button{background:#37E0FF;color:#04121A;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;margin:10px 0}.out{margin-top:12px;background:#0b121c;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;font-family:monospace;font-size:13px;line-height:1.7;white-space:pre-wrap}.add{color:#1dd1a1}.del{color:#ff6b6b}a{color:#37E0FF}</style></head>
+<body><div class="wrap"><p><a href="../../tools/">â† Tools</a></p><h1>Text Diff</h1><textarea id="a" placeholder="Original text..."></textarea><textarea id="b" placeholder="Modified text..."></textarea><button onclick="diff()">Compare</button><div class="out" id="out"></div></div>
+<script>
+function diff(){const A=document.getElementById('a').value.split('\n');const B=document.getElementById('b').value.split('\n');const n=A.length,m=B.length;const dp=Array.from({length:n+1},()=>Array(m+1).fill(0));for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)dp[i][j]=A[i]===B[j]?1+dp[i+1][j+1]:Math.max(dp[i+1][j],dp[i][j+1]);let i=0,j=0,html='';while(i<n&&j<m){if(A[i]===B[j]){html+=escapeHtml(A[i])+'\n';i++;j++;}else if(dp[i+1][j]>=dp[i][j+1]){html+='<span class="del">- '+escapeHtml(A[i])+'</span>\n';i++;}else{html+='<span class="add">+ '+escapeHtml(B[j])+'</span>\n';j++;}}while(i<n){html+='<span class="del">- '+escapeHtml(A[i])+'</span>\n';i++;}while(j<m){html+='<span class="add">+ '+escapeHtml(B[j])+'</span>\n';j++;}document.getElementById('out').innerHTML=html;}
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+</script></body></html>

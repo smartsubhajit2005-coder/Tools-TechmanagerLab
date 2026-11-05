@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Upscaling Tool - Tech Manager Lab</title>
+<meta name="description" content="Upscale an image in your browser.">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<header class="top"><div class="w"><a class="logo" href="../../"><img src="../../assets/img/logo-96.png" width="40" height="40" alt=""><span>Tech<b>Manager</b>Lab</span></a><nav aria-label="Main"><a href="../../tools/">Tools</a><a href="../../">Home</a></nav></div></header>
+<main id="main" class="w" style="padding:32px 0">
+<h1>Image Upscaling Tool</h1>
+<p class="lead">Upscale an image using browser canvas. Your file never leaves your device.</p>
+<input type="file" id="f" accept="image/*">
+<label style="margin-left:12px">Scale:
+<select id="scale"><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option></select>
+</label>
+<button class="btn" id="go" style="margin:12px 0">Upscale</button>
+<div id="info" class="meta"></div>
+<canvas id="c" style="max-width:100%;margin-top:16px;border:1px solid var(--line)"></canvas>
+<a id="dl" class="btn" style="display:none;margin-top:12px" download="upscaled.png">Download PNG</a>
+</main>
+<footer><div class="w"><p>&copy; 2026 Tech Manager Lab</p></div></footer>
+<script>
+const f=document.getElementById('f'), scale=document.getElementById('scale'), c=document.getElementById('c'), ctx=c.getContext('2d'), info=document.getElementById('info'), dl=document.getElementById('dl');
+let img=null;
+f.onchange=e=>{const r=new FileReader(); r.onload=ev=>{img=new Image(); img.onload=()=>{info.textContent=`Original: ${img.width}x${img.height}`; c.width=img.width; c.height=img.height; ctx.drawImage(img,0,0);}; img.src=ev.target.result;}; r.readAsDataURL(e.target.files[0]);};
+document.getElementById('go').onclick=()=>{
+  if(!img) return;
+  const s=+scale.value;
+  c.width=img.width*s; c.height=img.height*s;
+  ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
+  ctx.drawImage(img,0,0,c.width,c.height);
+  info.textContent=`Upscaled: ${c.width}x${c.height}`;
+  dl.href=c.toDataURL('image/png'); dl.style.display='inline-block';
+};
+</script>
+</body>
+</html>

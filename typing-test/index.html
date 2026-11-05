@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Typing Test – 1, 3 and 5 Minute WPM Speed Test</title><meta name="description" content="Free typing test with 1, 3 and 5 minute modes. See your WPM, accuracy and errors. Nothing is saved or uploaded."><link rel="canonical" href="https://techmanagerlab.com/typing-test/"><meta name="theme-color" content="#0B1C2C"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" href="../assets/img/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png"><link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest"><meta property="og:type" content="website"><meta property="og:site_name" content="Tech Manager Lab"><meta property="og:title" content="Typing Test – 1, 3 and 5 Minute WPM Speed Test"><meta property="og:description" content="Free typing test with 1, 3 and 5 minute modes. See your WPM, accuracy and errors. Nothing is saved or uploaded."><meta property="og:url" content="https://techmanagerlab.com/typing-test/"><meta property="og:image" content="https://techmanagerlab.com/assets/img/og-image.png"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="../assets/css/style.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://techmanagerlab.com/"}, {"@type": "ListItem", "position": 2, "name": "Typing Test", "item": "https://techmanagerlab.com/typing-test/"}]}</script></head><body data-page="typing-test"><a class="skip" href="#main">Skip to content</a><header class="top"><div class="w"><a class="logo" href="../"><img src="../assets/img/logo-96.png" width="40" height="40" alt=""><span>Tech<b>Manager</b>Lab</span></a><nav aria-label="Main"><a class="strong" href="../tools/">Tools</a><a class="strong amber" href="../typing-test/" aria-current="page">Typing Test</a><a href="../guides/">IT Guides</a><a href="../tools/#seo">SEO Tools</a><a href="../videos/">Videos</a><a href="../about/">About</a></nav></div></header><main id="main"><div id="typing-test">
+<div class="w tt">
+<p class="crumb"><a href="../">Home</a> / Tools / Typing Test</p>
+<h1 style="font-size:clamp(1.8rem,5vw,2.6rem)">Typing Test</h1>
+<p>Type the words shown. The timer starts on your first keystroke.</p>
+<div class="modes" role="group" aria-label="Test duration">
+<button class="chip" data-d="60" aria-pressed="true">1 minute</button>
+<button class="chip" data-d="180" aria-pressed="false">3 minutes</button>
+<button class="chip" data-d="300" aria-pressed="false">5 minutes</button>
+</div>
+<div class="stats" aria-live="off">
+<div class="stat time"><b id="sTime">1:00</b><span>Time left</span></div>
+<div class="stat"><b id="sWpm">0</b><span>WPM</span></div>
+<div class="stat"><b id="sAcc">100%</b><span>Accuracy</span></div>
+<div class="stat"><b id="sErr">0</b><span>Errors</span></div>
+</div>
+<div class="box" id="box" tabindex="-1"><div class="words" id="words" aria-hidden="true"></div>
+<textarea id="ghost" aria-label="Typing area. Type the words shown above." autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea></div>
+<p class="hint" id="hint">Click the text and start typing.</p>
+<div class="actions">
+<button class="btn ghost" id="pause" disabled>Pause</button>
+<button class="btn" id="restart">Restart</button>
+</div>
+<div class="res" id="res" hidden role="status">
+<h2>Results</h2>
+<p class="big"><span id="rWpm">0</span> <small style="font-size:1rem">WPM</small></p>
+<p id="rLine"></p>
+<p id="rNote" class="hint"></p>
+<div class="actions"><button class="btn" id="again">Try again</button><a class="btn ghost" href="../guides/improve-typing-speed/">Typing practice guides</a></div>
+</div>
+<div class="two" style="margin-top:32px">
+<div>
+<h2>How it works</h2>
+<p>WPM is correct characters typed divided by five, per minute. Accuracy is the share of keystrokes that matched the text. Errors count every wrong keystroke, even if you fix it afterward.</p>
+<h3>Example</h3>
+<p>300 correct characters in 1 minute is 60 WPM. If 15 of 330 keystrokes were wrong, accuracy is about 95%.</p>
+<h3>Limitations</h3>
+<p>Random common words do not include punctuation or capitals, so scores can differ from tests that do. Official exams may use other rules for counting errors. Check the rules of the test you are preparing for.</p>
+<h3>Privacy</h3>
+<p>Everything runs in your browser. Your typing is not sent anywhere or stored.</p>
+</div>
+<div>
+<h2>FAQ</h2>
+<details><summary>What is a good typing speed?</summary><p>Many office roles expect roughly 40 to 60 WPM at high accuracy. Check the requirement for your specific role or exam.</p></details>
+<details><summary>Can I pause the test?</summary><p>Yes. Use Pause, then resume. Paused time is not counted.</p></details>
+<details><summary>Which keys can I use?</summary><p><kbd>Esc</kbd> restarts. <kbd>Backspace</kbd> corrects mistakes.</p></details>
+<h3 style="margin-top:20px">Related</h3>
+<p><a href="../guides/improve-typing-speed/">Typing practice guides</a><br><a href="../tools/">More tools</a></p>
+</div></div>
+</div></div>
+</main><footer><div class="w cols"><div><img src="../assets/img/logo-96.png" width="56" height="56" alt="Tech Manager Lab logo"><h2>Tech Manager Lab</h2><p>A practical tools hub for IT professionals and everyday users. Videos support the tools, not the other way around.</p></div><div><h2>Explore</h2><ul><li><a href="../tools/">All tools</a></li><li><a href="../typing-test/">Typing Test</a></li><li><a href="../guides/">IT guides</a></li><li><a href="../videos/">Videos</a></li></ul></div><div><h2>About</h2><ul><li><a href="../about/">About</a></li><li><a href="../privacy/">Privacy</a></li></ul></div></div></footer><script src="../assets/js/app.js"></script></body></html>
